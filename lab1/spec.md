@@ -143,20 +143,24 @@ Regular expressions can be used from many different programs: Vim, Emacs, grep, 
 etc. From the command line, use grep to search, and sed to search and replace.
 
 Unfortunately, deciding what characters needs to be escaped can be somewhat confusing. For
-example, to find all instances of `dcdc_unit_cell_x` where `x` is a single digit number, using grep:
+example, to find all instances of `dcdc_unit_cell_x`, where `x` is a single digit number, using grep:
 
 `grep "unit_cell_[0-9]\{1\}\." force_regs.ucli`
 
 And you can do the same search in Vim:
 
-`vim force_regs.ucli`
-`/unit_cell_[0-9]\{1\}\.`
+```vim
+vim force_regs.ucli
+/unit_cell_[0-9]\{1\}\.
+```
 
 Notice how you need to be careful what characters get escaped (the `[` is not escaped but `{` is). Now
 imagine we want to add a leading 0 to all of the single digit numbers. The match string in sed
 could be:
 
-`sed -e 's/\(unit_cell_\)\([0-9]\{1\}\.\)/\10\2/' force_regs.ucli`
+```sed
+sed -e 's/\(unit_cell_\)\([0-9]\{1\}\.\)/\10\2/' force_regs.ucli
+```
 
 Both sed, vim, and grep use ”Basic Regular Expressions” by default. For regular expressions heavy
 with special characters, sometimes it makes more sense to assume most characters except `a-zA-Z0-9`
@@ -211,15 +215,15 @@ For each task below, please provide the commands that result in the correct perm
 1. Change the script to be executable by you only
 2. Add permissions for everyone in your group to be able to execute the same script
 3. Make the script writable by you ane everyone in your group, but unreadable by others
-4. Change the owner of the file to be eecs151 (Note: you will not be able to execute this command, so just provide the command itself)
+4. Change the owner of the file to be `eecs151` (Note: you will not be able to execute this command, so just provide the command itself)
 
 
 ## Using Makfiles
 
 Makefiles are a simple way to string together a bunch of different shell tasks in an intelligent
-manner. This allows someone to automate tasks and easily save time when doing repetitive tasks
+manner. This allows someone to automate tasks and save time when doing repetitive tasks
 since make targets allow for only files that have changed to need to be updated. Please read
-through the following tutorial here: http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/ (Optional). Further documentation on make can be found here: http://www.gnu.org/software/make/manual/make.html
+through the following tutorial here: http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/ (optional). Further documentation on make can be found here: http://www.gnu.org/software/make/manual/make.html.
 
 Let’s look at a simple makefile to explain a few things about how they work - this is not meant to
 be anything more than a very brief overview of what a makefile is and how it works. If you look at
@@ -238,15 +242,15 @@ clean:
 While this may look like a lot of random characters, let us walk through each part of it to see that
 it really is not that complicated.
 
-Makefiles are generally composed of rules, which tells make how to execute a set of commands to
-build a set of targets from a set of dependencies. A rule generally looks like this:
+Makefiles are generally composed of rules, which tell Make how to execute a set of commands to
+build a set of targets from a set of dependencies. A rule typicall has this structure:
 
 ```shell
 targets: dependencies
     commands
 ```
 
-It is very important that indentation in Makefiles are tabs, not spaces.
+**It is very important that indentation in Makefiles are tabs, not spaces.**
 The two rules in the above Makefile have targets which are clean and output name. Here,
 output name is the name of a variable within the Makefile, which means that it can be overwritten
 from the command line. This can be done with the following command:
@@ -255,15 +259,14 @@ from the command line. This can be done with the following command:
 make output_name=foo.txt
 ```
 
-which will result in the output being written to `foo.txt` intstead of `force_regs.random.ucli`.
+This will result in the output being written to `foo.txt` intstead of `force_regs.random.ucli`.
 Generally, a rule will run everytime that its dependencies have been updated more recently than
-its own targets, so by editing/updating the `force_regs.ucli` file (including via the touch command), you can regenerate the output name target. This is different than a bash script, as you can
-see in `runalways.sh`, which will always generate `force_regs.random.ucli` regardless of whether
+its own targets, so by editing/updating the `force_regs.ucli` file (including via the touch command), you can regenerate the output name target. This is different than a bash script, as you can see in `runalways.sh`, which will always generate `force_regs.random.ucli` regardless of whether
 `force_regs.ucli` is updated or not.
 
-Inside the output name target, the awk command has a bunch of $ characters. This is because
-in normal awk the variable names are `$1`, `$2`, and then in the makefile you have to escape those
-variable names to get them to work properly. In make, the character to do that is $.
+Inside the output name target, the `awk` command has a bunch of $ characters. This is because
+in normal `awk` the variable names are `$1`, `$2`, and then in the makefile you have to escape those
+variable names to get them to work properly. In Make, the character to do that is $.
 
 The other characters after the awk script are also special characters to make. The `$<` is the first
 dependency of that target, the `>` simply redirects the output of awk, and the `$@` is the name of the
@@ -273,13 +276,13 @@ a dependency and outputting the result into the name of your own target.
 #### Question 5: Makefile Targets
 
 1. Add a new make rule that will create a file called `foo.txt`.  Make it also run the `output_name` rule.
-2. Name at least two ways that you could have the makefile regenerate the `output_name` target after its rule has been run
+2. Name at least two ways that you could have the makefile regenerate the `output_name` target after its rule has been run.
+
 
 ## Comparing Files
 
-One indispensable debugging technique is comparing text files. The tools generally behave as black
-boxes, so during debugging you will be comparing output files to prior output files, and relating
-that to changes in your input files.
+Comparing text files is another useful skill. The tools generally behave as black
+boxes, so comparing output files to prior output files is an important debugging technique.
 
 From the command lines, you can use `diff` to compare files:
 
@@ -314,8 +317,7 @@ Submit the command required to perform the following tasks:
 ## Customization
 
 Many of the commands and tools you will use on a daily basis can be customized. This can
-dramatically improve your productivity if used correctly and frequently. Some tools (e.g. vim
-and bash) are customized using “dotfiles,” which are hidden files in your home directory (e.g. .bashrc and .vimrc) that contain a series of commands which set variables, create aliases, or change settings. Try adding the following lines to your `.bashrc` and restart your session or source
+dramatically improve your productivity. Some tools (e.g. vim and bash) are customized using “dotfiles,” which are hidden files in your home directory (e.g. `.bashrc` and `.vimrc`) that contain a series of commands which set variables, create aliases, or change settings. Try adding the following lines to your `.bashrc` and restart your session or source
 `~/.bashrc`. Now when you change directories, you no longer need to type `ls` to show the directory contents.
 
 ```shell
@@ -326,7 +328,7 @@ function cd {
 
 The following links are useful for learning how to make some common customizations. You should
 read these but are not required to turn in anything for this section.
-* https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliasesand-functions
+* https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
 * http://statico.github.io/vim.html
 
 
@@ -338,12 +340,12 @@ First, select a machine. The range of accessible machines are `c125m-X`, where X
 4 to 19, and `eda-X`, where X is a number from 1 to 8. The fully qualified DNS name (FQDN) of
 your machine is then `c125m-X.eecs.berkeley.edu` or `eda-X.eecs.berkeley.edu`. For example,
 if you select machine `c125m-8`, the FQDN would be `c125m-8.eecs.berkeley.edu`.
-Note that you can use any lab machine but that our lab machines aren’t very powerful; if everyone
+You can use any lab machine, but our lab machines aren’t very powerful; if everyone
 uses the same one, everyone will find that their jobs perform poorly. ASIC design tools are resource
 intensive and will not run well when there are too many simultaneous users on these machines. We
-recommend that every time you want to log into a machine, examine its load on hivemind.eecs.berkeley.edu 
-for the `eda-X` machines, or using `top` while logged in. If it is heavily loaded, consider
-using a different machine. If you also notice other eecs151 users with jobs consuming excessive
+recommend that every time you want to log into a machine, examine its load on `hivemind.eecs.berkeley.edu` 
+for the `eda-X` machines, or using `top` when you log in. If it is heavily loaded, consider
+using a different machine. If you also notice other `eecs151` users with jobs consuming excessive
 resources, do feel free to reach out to the GSIs about it.
 Next, note your instructional class acccount name - the one that looks like `eecs151-YYY`, for example
 `eecs151-abc`. This is the account you created at the start of this lab.
@@ -354,7 +356,7 @@ Next, note your instructional class acccount name - the one that looks like `eec
 SSH is the de facto remote terminal tool for Linux and BSD systems (which includes macOS). It
 lets you login to a text console from anywhere (as long as you have network connectivity). SSH
 also comes as a standard utility in almost all Linux and BSD systems.
-If you’re in Linux or BSD, you should be able to access your workstation through SSH by running:
+If you’re using Linux or BSD, you should be able to access your workstation through SSH by running:
 
 ```shell
 ssh eecs151-YYY@c125m-X.eecs.berkeley.edu
@@ -367,7 +369,7 @@ ssh eecs151-abc@c125m-8.eecs.berkeley.edu
 ```
 
 The SSH protocol also enables file transfer between your local and lab machines via the `sftp` and
-`scp` utilities. WARNING: please only transfer files needed for your reports and nothing else!!!
+`scp` utilities. **WARNING: please only transfer files needed for your reports and nothing else, particularly files relating to CAD tool commnads or process technologies!!!**
 
 
 ### SSH: Windows
@@ -379,8 +381,7 @@ Advanced users may wish to install Windows Subsystem for Linux (https://docs.mic
 
 ### SSHL Session Management
 
-Because all your work will be done remotely, we recommend that you utilize SSH session management tools and that all terminal-based work be done over SSH. This would allow your remote
-terminal sessions to remain active even if your SSH session disconnects, intentionally or not.
+Because all your work will be done remotely, we recommend that you utilize SSH session management tools and that all terminal-based work be done over SSH. This would allow your remote terminal sessions to remain active even if your SSH session disconnects, intentionally or not.
 The two most common session managers are tmux and screen. These run persistently on the
 remote workstation, are highly customizable, and can greatly improve your productivity.
 Here are some good tmux and screen tutorials:
@@ -393,13 +394,15 @@ Here are some good tmux and screen tutorials:
 For situations in which you need a graphical interface (waveform debugging, layout viewing, etc.),
 you should use X2Go. This is a faster and more reliable alternative to more traditional XForwarding over SSH. X2Go is also recommended because it connects to a persistent graphical
 desktop environment, which continues running even if your internet connection drops.
-Download the X2Go client for your platform from the website: https://wiki.x2go.org/doku.php/download:start
+Download the X2Go client for your platform from the website: https://wiki.x2go.org/doku.php/download:start.
 
 To use X2Go, you need to create a new session (look under the Session menu). Give the session any
 name, it doesn’t matter, but set the Host field to the FQDN of your lab machine and the User field
-to your instructional account username. For “Session type” , select “GNOME”. Here’s an example from macOS:
+to your instructional account username. For “Session type”, select “GNOME”. Here’s an example from macOS:
 
-<img src="figs/x2gomacos.png" alt="x2go" width="700"/>
+<p align="center">
+<img src="./figs/x2gomacos.png" width="500" />
+</p>
 
 
 ## Acknowledgement
