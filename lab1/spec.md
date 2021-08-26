@@ -31,9 +31,9 @@ Once you login using your CalNet ID, you can click on 'Get a new account' in the
 
 ### Logging into the Classroom Servers
 
-The servers used for this class are c125m-1.eecs.berkeley.edu through c125m-19.eecs.berkeley.edu,
+The servers used for this class are `c125m-1.eecs.berkeley.edu` through `c125m-19.eecs.berkeley.edu`,
 and are physically located in Cory 125. You can access all of these machines remotely through SSH.
-Others such as eda-1.eecs.berkeley.edu through eda-8.eecs.berkeley.edu are also available
+Others such as `eda-1.eecs.berkeley.edu` through `eda-8.eecs.berkeley.edu` are also available
 for remote login. Refer to the Remote Access section for instructions and recommendations.
 You have a limited amount of space in your home directory, so we recommend completing work in the `/scratch/` directory, and then copying any important results to your home directory.
 
@@ -201,8 +201,7 @@ force -deposit rocketTestHarness.dut.Raven003Top_withoutPads.TileWrap.
 
 ## File Permissions
 
-A tutorial about file permissions can be found here: http://www.tutorialspoint.com/unix/
-unix-file-permission.htm
+A tutorial about file permissions can be found here: http://www.tutorialspoint.com/unix/unix-file-permission.htm
 
 #### Question 4: Understanding File Permissions
 
