@@ -25,7 +25,7 @@ This lab, like all labs will be turned in electronically using Gradescope. Pleas
 
 ### Getting an Instructional Account
 
-You are required to get an EECS instructional account to login to the workstations in the lab. This can be done by using WebAcct here: 
+You are required to get an EECS instructional account to login to the workstations in the lab. This can be done by using WebAcct here: http://inst.eecs.berkeley.edu/webacct
 
 Once you login using your CalNet ID, you can click on 'Get a new account' in the eecs151 row. Once the account has been created, you can email your class account form to yourself to have a record of your account information.
 
@@ -38,8 +38,10 @@ for remote login. Refer to the Remote Access section for instructions and recomm
 
 To begin this lab, get the project files by typing the following commands:
 
-`git clone /home/ff/eecs151/labs/lab1`
-`cd lab1`
+```
+git clone /home/ff/eecs151/labs/lab1
+cd lab1
+```
 
 ## Using Text Editors
 
@@ -49,9 +51,7 @@ is no integrated development environment (IDE) for writing these scripts. Howeve
 advantages of IDE’s can be obtained by using the proper editor. In this class, we will be using
 either Vim or Emacs. Editors such as gedit or nano are not allowed.
 
-If you have never used Vim, please follow the tutorial here: http://www.openvim.com/tutorial.
-html (If you would prefer to learn Emacs, you can read http://www.gnu.org/software/emacs/
-tour/ and run the Emacs built-in tutorial with Ctrl-h followed by t). Feel free to search for other
+If you have never used Vim, please follow the tutorial here: http://www.openvim.com/tutorial.html (If you would prefer to learn Emacs, you can read http://www.gnu.org/software/emacs/tour/ and run the Emacs built-in tutorial with Ctrl-h followed by t). Feel free to search for other
 resources online to learn more.
 
 #### Question 1: Common editor tasks
@@ -72,27 +72,34 @@ For each task below, describe the keys you need to press to accomplish the actio
 You will need to learn how to use Linux so that you can understand what programs are running
 on the server, manipulate files, launch programs, and debug problems. Please read through the
 tutorial here: http://linuxcommand.org/lc3_learning_the_shell.php
+
 To use the CAD tools in this class, you will need to load the class environment. All of the tools
 are already installed on the network filesystem, but by default users do not have the tools in their
 path. Try locating a program that is already installed (vim) and another which is not (innovus)
 by default:
 
-`which vim`
-`which innovus`
+```
+which vim
+which innovus
+```
 
 The vim program has been installed in: `/usr/bin/vim`. If you show the contents of `/usr/bin`,
 you will notice that you can launch any of programs by typing their filename. This is because
 /usr/bin is in the environment variable $PATH, which contains different directories to search in a
 colon-separated list.
 
-`echo $PATH`
+```
+echo $PATH
+```
 
 To be able to access the CAD tools, you will need to append to their location to the `$PATH` variable:
 
-`source /home/ff/eecs151/tutorials/eecs151.bashrc`
+```
+source /home/ff/eecs151/tutorials/eecs151.bashrc
 
-`echo $PATH`
-`which innovus`
+echo $PATH
+which innovus
+```
 
 
 #### Question 2: Common terminal tasks
@@ -124,10 +131,12 @@ Bash Guide (guide.bash.academy) is a great resource for users at all levels of B
 
 Regular expressions allow you to perform complex ’Search’ or ’Search and Replace’ operations.
 Please work through the tutorial here: http://regexone.com
+
 Regular expressions can be used from many different programs: Vim, Emacs, grep, sed, Python,
 etc. From the command line, use grep to search, and sed to search and replace.
+
 Unfortunately, deciding what characters needs to be escaped can be somewhat confusing. For
-example, to find all instances of dcdc unit cell x. where x is a single digit number, using grep:
+example, to find all instances of `dcdc_unit_cell_x` where `x` is a single digit number, using grep:
 
 `grep "unit_cell_[0-9]\{1\}\." force_regs.ucli`
 
@@ -136,7 +145,7 @@ And you can do the same search in Vim:
 `vim force_regs.ucli`
 `/unit_cell_[0-9]\{1\}\.`
 
-Notice how you need to be careful what characters get escaped (the [ is not escaped but { is). Now
+Notice how you need to be careful what characters get escaped (the `[` is not escaped but `{` is). Now
 imagine we want to add a leading 0 to all of the single digit numbers. The match string in sed
 could be:
 
@@ -146,8 +155,7 @@ Both sed, vim, and grep use ”Basic Regular Expressions” by default. For regu
 with special characters, sometimes it makes more sense to assume most characters except a-zA-Z0-9
 have special meanings (and they get escaped with only to match them literally). This is called
 ”Extended Regular Expressions”, and ?+{}() no longer need to be escaped. A great resource
-for learning more is http://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_
-extended. In Vim, you can do this with \v:
+for learning more is http://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended. In Vim, you can do this with `\v`:
 
 `:%s/\v(unit_cell_)([0-9]{1}\.)/\10\2/`
 
@@ -204,9 +212,7 @@ For each task below, please provide the commands that result in the correct perm
 Makefiles are a simple way to string together a bunch of different shell tasks in an intelligent
 manner. This allows someone to automate tasks and easily save time when doing repetitive tasks
 since make targets allow for only files that have changed to need to be updated. Please read
-through the following tutorial here: http://www.cs.colby.edu/maxwell/courses/tutorials/
-maketutor/ (Optional) Further documentation on make can be found here: http://www.gnu.
-org/software/make/manual/make.html
+through the following tutorial here: http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/ (Optional). Further documentation on make can be found here: http://www.gnu.org/software/make/manual/make.html
 
 Let’s look at a simple makefile to explain a few things about how they work - this is not meant to
 be anything more than a very brief overview of what a makefile is and how it works. If you look at
@@ -313,8 +319,8 @@ function cd {
 
 The following links are useful for learning how to make some common customizations. You should
 read these but are not required to turn in anything for this section.
-https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliasesand-functions
-http://statico.github.io/vim.html
+* https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliasesand-functions
+* http://statico.github.io/vim.html
 
 
 ## Remote Access
@@ -359,12 +365,9 @@ scp utilities. WARNING: please only transfer files needed for your reports and n
 
 ### SSH: Windows
 
-The classic and most lightweight way to use SSH on Windows is PuTTY (https://www.putty.
-org/). Download it and login with the FQDN above as the Host and your instructional account
+The classic and most lightweight way to use SSH on Windows is PuTTY (https://www.putty.org/). Download it and login with the FQDN above as the Host and your instructional account
 username. You can also use WinSCP (winscp.net) for file transfer over SSH.
-Advanced users may wish to install Windows Subsystem for Linux (https://docs.microsoft.
-com/en-us/windows/wsl/install-win10, Windows 10 build 16215 or later) or Cygwin (cygwin.
-com) and use SSH, SFTP, and SCP through there.
+Advanced users may wish to install Windows Subsystem for Linux (https://docs.microsoft.com/en-us/windows/wsl/install-win10, Windows 10 build 16215 or later) or Cygwin (cygwin.com) and use SSH, SFTP, and SCP through there.
 
 
 ### SSHL Session Management
@@ -374,8 +377,8 @@ terminal sessions to remain active even if your SSH session disconnects, intenti
 The two most common session managers are tmux and screen. These run persistently on the
 remote workstation, are highly customizable, and can greatly improve your productivity.
 Here are some good tmux and screen tutorials:
-https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
-https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/
+* https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
+* https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/
 
 
 ### X2Go
