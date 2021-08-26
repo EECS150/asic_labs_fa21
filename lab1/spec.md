@@ -39,7 +39,7 @@ You have a limited amount of space in your home directory, so we recommend compl
 
 To begin this lab, get the project files by typing the following commands:
 
-```
+```shell
 git clone /home/ff/eecs151/labs/lab1
 cd lab1
 ```
@@ -57,7 +57,7 @@ are already installed on the network filesystem, but by default users do not hav
 path. Try locating a program that is already installed (vim) and another which is not (innovus)
 by default:
 
-```
+```shell
 which vim
 which innovus
 ```
@@ -67,13 +67,13 @@ you will notice that you can launch any of programs by typing their filename. Th
 /usr/bin is in the environment variable `$PATH`, which contains different directories to search in a
 colon-separated list.
 
-```
+```shell
 echo $PATH
 ```
 
 To be able to access the CAD tools, you will need to append to their location to the `$PATH` variable:
 
-```
+```shell
 source /home/ff/eecs151/tutorials/eecs151.bashrc
 echo $PATH
 which innovus
@@ -103,7 +103,9 @@ df -H
 Finally, your instructional accounts have disk usage quotas. Find out how much you are allocated
 and how much you are using:
 
-`quota -s`
+```shell
+quota -s
+```
 
 By default, you should be using the Bash shell (these labs are designed for Bash, not Csh). The
 Bash Guide (guide.bash.academy) is a great resource for users at all levels of Bash profiency.
@@ -145,7 +147,9 @@ etc. From the command line, use grep to search, and sed to search and replace.
 Unfortunately, deciding what characters needs to be escaped can be somewhat confusing. For
 example, to find all instances of `dcdc_unit_cell_x`, where `x` is a single digit number, using grep:
 
-`grep "unit_cell_[0-9]\{1\}\." force_regs.ucli`
+```shell
+grep "unit_cell_[0-9]\{1\}\." force_regs.ucli
+```
 
 And you can do the same search in Vim:
 
@@ -158,7 +162,7 @@ Notice how you need to be careful what characters get escaped (the `[` is not es
 imagine we want to add a leading 0 to all of the single digit numbers. The match string in sed
 could be:
 
-```sed
+```shell
 sed -e 's/\(unit_cell_\)\([0-9]\{1\}\.\)/\10\2/' force_regs.ucli
 ```
 
@@ -168,24 +172,34 @@ have special meanings (and they get escaped with only to match them literally). 
 ”Extended Regular Expressions”, and `?+{}()` no longer need to be escaped. A great resource
 for learning more is http://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended. In Vim, you can do this with `\v`:
 
-`:%s/\v(unit_cell_)([0-9]{1}\.)/\10\2/`
+```shell
+:%s/\v(unit_cell_)([0-9]{1}\.)/\10\2/
+```
 
 And in sed, you can use the -r flag:
 
-`sed -r -e 's/(unit_cell_)([0-9]{1}\.)/\10\2/' force_regs.ucli`
+```shell
+sed -r -e 's/(unit_cell_)([0-9]{1}\.)/\10\2/' force_regs.ucli
+```
 
 And in grep, you can use the -E flag:
 
-`grep -E "unit_cell_[0-9]{1}\." force_regs.ucli`
+```shell
+grep -E "unit_cell_[0-9]{1}\." force_regs.ucli
+```
 
 sed and grep can be used for many purposes beyond text search and replace. For example, to find
 all files in the current directory with filenames that contain a specific text string:
 
-`find . | grep ".ucli"`
+```shell
+find . | grep ".ucli"
+```
 
 Or to delete all lines in a file that contain a string:
 
-`sed -e '/reset/d' force_regs.ucli`
+```shell
+sed -e '/reset/d' force_regs.ucli
+```
 
 #### Question 3: Fun with Regular Expressions
 
@@ -265,7 +279,7 @@ its own targets, so by editing/updating the `force_regs.ucli` file (including vi
 
 Inside the output name target, the `awk` command has a bunch of $ characters. This is because
 in normal `awk` the variable names are `$1`, `$2`, and then in the makefile you have to escape those
-variable names to get them to work properly. In Make, the character to do that is $.
+variable names to get them to work properly. In Make, the character to do that is `$`.
 
 The other characters after the awk script are also special characters to make. The `$<` is the first
 dependency of that target, the `>` simply redirects the output of awk, and the `$@` is the name of the
