@@ -85,7 +85,7 @@ which innovus
 
 The vim program has been installed in: `/usr/bin/vim`. If you show the contents of `/usr/bin`,
 you will notice that you can launch any of programs by typing their filename. This is because
-/usr/bin is in the environment variable $PATH, which contains different directories to search in a
+/usr/bin is in the environment variable `$PATH`, which contains different directories to search in a
 colon-separated list.
 
 ```
@@ -152,9 +152,9 @@ could be:
 `sed -e 's/\(unit_cell_\)\([0-9]\{1\}\.\)/\10\2/' force_regs.ucli`
 
 Both sed, vim, and grep use ”Basic Regular Expressions” by default. For regular expressions heavy
-with special characters, sometimes it makes more sense to assume most characters except a-zA-Z0-9
+with special characters, sometimes it makes more sense to assume most characters except `a-zA-Z0-9`
 have special meanings (and they get escaped with only to match them literally). This is called
-”Extended Regular Expressions”, and ?+{}() no longer need to be escaped. A great resource
+”Extended Regular Expressions”, and `?+{}()` no longer need to be escaped. A great resource
 for learning more is http://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended. In Vim, you can do this with `\v`:
 
 `:%s/\v(unit_cell_)([0-9]{1}\.)/\10\2/`
@@ -309,7 +309,7 @@ Submit the command required to perform the following tasks:
 Many of the commands and tools you will use on a daily basis can be customized. This can
 dramatically improve your productivity if used correctly and frequently. Some tools (e.g. vim
 and bash) are customized using “dotfiles,” which are hidden files in your home directory (e.g. .bashrc and .vimrc) that contain a series of commands which set variables, create aliases, or change settings. Try adding the following lines to your `.bashrc` and restart your session or source
-`~/.bashrc`. Now when you change directories, you no longer need to type ls to show the directory contents.
+`~/.bashrc`. Now when you change directories, you no longer need to type `ls` to show the directory contents.
 
 ```shell
 function cd {
@@ -359,8 +359,8 @@ In our examples, this would be:
 ssh eecs151-abc@c125m-8.eecs.berkeley.edu
 ```
 
-The SSH protocol also enables file transfer between your local and lab machines via the sftp and
-scp utilities. WARNING: please only transfer files needed for your reports and nothing else!!!
+The SSH protocol also enables file transfer between your local and lab machines via the `sftp` and
+`scp` utilities. WARNING: please only transfer files needed for your reports and nothing else!!!
 
 
 ### SSH: Windows
@@ -392,8 +392,7 @@ To use X2Go, you need to create a new session (look under the Session menu). Giv
 name, it doesn’t matter, but set the Host field to the FQDN of your lab machine and the User field
 to your instructional account username. For “Session type” , select “GNOME”. Here’s an example from macOS:
 
-![x2go](figs/x2gomacos.png)
-
+<img src="figs/x2gomacos.png" alt="x2go" width="700"/>
 
 
 ## Acknowledgement
