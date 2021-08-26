@@ -15,19 +15,19 @@ College of Engineering, University of California, Berkeley
 
 ## Overview
 
-The process of VLSI design is different than eveloping software, designing analog circuits, and even FPGA-based design. Instead of using a single graphical user interface (GUI) or environment (eg. Eclipse, Cadence Virtuoso, or Xilinx Vivado), VLSI design is done using dezens of command lin interface tools on a Linux machine.  These tools primarily use text files as their inputs and outputs, and include GUIs mainly for visualization rather than design.  Therefore, familiarity with Linux, text manipulation, and scripting is required to successfully complete the labs this semester.
+The process of VLSI design is different than developing software, designing analog circuits, and even FPGA-based design. Instead of using a single graphical user interface (GUI) or environment (eg. Eclipse, Cadence Virtuoso, or Xilinx Vivado), VLSI design is done using dozens of command line interface tools on a Linux machine.  These tools primarily use text files as their inputs and outputs, and include GUIs mainly for only visualization, rather than design.  Therefore, familiarity with Linux, text manipulation, and scripting is required to successfully complete the labs this semester.
 
-The goal of this lab is to introduce some basic techniques needed to use the computer aided design (CAD) tools that are taught in this class. Mastering the topics in this lab will help you save hours of time in later labs and make you a much more efficient chip designer. While you go through this lab, focus on how these techniques will allow you to automate tasks and improve your efficiency. Chip design requires plenty of iteration, so the being able to perform trials and identify errors quickly is key to success.
+The goal of this lab is to introduce some basic techniques needed to use the computer aided design (CAD) tools that are taught in this class. Mastering the topics in this lab will help you save hours of time in later labs and make you a much more efficient chip designer. While you go through this lab, focus on how these techniques will allow you to automate tasks and improve your efficiency. Chip design requires plenty of iteration, so being able to perform trials and identify errors quickly is key to success.
 
 ## Administrative Info
 
-This lab, like all labs will be turned in electronically using Gradescope. Please upload a pdf document with the answers to the question throughout the lab.
+This lab, like all labs will be turned in electronically using Gradescope. Please upload a pdf document with the answers to the six questions in the lab.
 
 ### Getting an Instructional Account
 
-You are required to get an EECS instructional account to login to the workstations in the lab. This can be done by using WebAcct here: http://inst.eecs.berkeley.edu/webacct
+You are required to get an EECS instructional account to login to the workstations in the lab, since you will be doing all your work on these machines (whether you're working remotely or in-person). This can be done by using WebAcct here: http://inst.eecs.berkeley.edu/webacct.
 
-Once you login using your CalNet ID, you can click on 'Get a new account' in the eecs151 row. Once the account has been created, you can email your class account form to yourself to have a record of your account information.
+Once you login using your CalNet ID, you can click on 'Get a new account' in the eecs151 row. Once the account has been created, you can email your class account form to yourself to have a record of your account information.  You can follow the instructions on the emailed form to change your Linux password with `ssh update.eecs.berkeley.edu` and following the prompts.
 
 ### Logging into the Classroom Servers
 
@@ -35,6 +35,7 @@ The servers used for this class are c125m-1.eecs.berkeley.edu through c125m-19.e
 and are physically located in Cory 125. You can access all of these machines remotely through SSH.
 Others such as eda-1.eecs.berkeley.edu through eda-8.eecs.berkeley.edu are also available
 for remote login. Refer to the Remote Access section for instructions and recommendations.
+You have a limited amount of space in your home directory, so we recommend completing work in the `/scratch/` directory, and then copying any important results to your home directory.
 
 To begin this lab, get the project files by typing the following commands:
 
@@ -43,28 +44,6 @@ git clone /home/ff/eecs151/labs/lab1
 cd lab1
 ```
 
-## Using Text Editors
-
-Most of the time you will spend designing chips will be spent writing scripts in a text editor.
-Therefore becoming proficient at editing text is a vital skill. Unlike Java or C programming, there
-is no integrated development environment (IDE) for writing these scripts. However, many of the
-advantages of IDE’s can be obtained by using the proper editor. In this class, we will be using
-either Vim or Emacs. Editors such as gedit or nano are not allowed.
-
-If you have never used Vim, please follow the tutorial here: http://www.openvim.com/tutorial.html (If you would prefer to learn Emacs, you can read http://www.gnu.org/software/emacs/tour/ and run the Emacs built-in tutorial with Ctrl-h followed by t). Feel free to search for other
-resources online to learn more.
-
-#### Question 1: Common editor tasks
-
-For each task below, describe the keys you need to press to accomplish the action in the file `force_regs.ucli`.
-
-1. Delete 5 lines
-2. Search for the text `clock`
-3. Replace the text `dut` with `device_under_test`
-4. Jump to the end of the file
-5. Go to line 42
-6. Reload the file (in case it was modified in another window)
-7. Save and exit
 
 
 ## Linux Basics
@@ -96,13 +75,12 @@ To be able to access the CAD tools, you will need to append to their location to
 
 ```
 source /home/ff/eecs151/tutorials/eecs151.bashrc
-
 echo $PATH
 which innovus
 ```
 
 
-#### Question 2: Common terminal tasks
+#### Question 1: Common terminal tasks
 
 For each task below, submit the command needed to generate the desired result.  For 1-4, try generating only the desired result (no extraneous info).
 
@@ -116,8 +94,12 @@ For each task below, submit the command needed to generate the desired result.  
 
 
 There are a few miscellaneous commands to analyze disk usage on the servers.
-`du -ch --max-depth=1 .`
-`df -H`
+
+```shell
+du -ch --max-depth=1 .
+df -H
+```
+
 Finally, your instructional accounts have disk usage quotas. Find out how much you are allocated
 and how much you are using:
 
@@ -125,6 +107,31 @@ and how much you are using:
 
 By default, you should be using the Bash shell (these labs are designed for Bash, not Csh). The
 Bash Guide (guide.bash.academy) is a great resource for users at all levels of Bash profiency.
+
+
+## Using Text Editors
+
+Much of the time you will spend designing chips will be writing scripts in a text editor.
+Therefore becoming proficient at editing text is a vital skill. Unlike Java or C programming, there
+is no integrated development environment (IDE) for writing these scripts. However, many of the
+advantages of IDE’s can be obtained by using the proper editor. In this class, we will be using
+either Vim or Emacs. Editors such as gedit or nano are not allowed.
+
+If you have never used Vim, please follow the tutorial here: http://www.openvim.com/tutorial.html (If you would prefer to learn Emacs, you can read http://www.gnu.org/software/emacs/tour/ and run the Emacs built-in tutorial with Ctrl-h followed by t). Feel free to search for other
+resources online to learn more.
+
+#### Question 2: Common editor tasks
+
+For each task below, describe the keys you need to press to accomplish the action in the file `force_regs.ucli`.
+
+1. Delete 5 lines
+2. Search for the text `clock`
+3. Replace the text `dut` with `device_under_test`
+4. Jump to the end of the file
+5. Go to line 42
+6. Reload the file (in case it was modified in another window)
+7. Save and exit
+
 
 
 ## Regular Expressions
