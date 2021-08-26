@@ -342,7 +342,7 @@ if you select machine `c125m-8`, the FQDN would be `c125m-8.eecs.berkeley.edu`.
 You can use any lab machine, but our lab machines aren’t very powerful; if everyone
 uses the same one, everyone will find that their jobs perform poorly. ASIC design tools are resource
 intensive and will not run well when there are too many simultaneous users on these machines. We
-recommend that every time you want to log into a machine, examine its load on `hivemind.eecs.berkeley.edu` 
+recommend that every time you want to log into a machine, examine its load on https://hivemind.eecs.berkeley.edu/ 
 for the `eda-X` machines, or using `top` when you log in. If it is heavily loaded, consider
 using a different machine. If you also notice other `eecs151` users with jobs consuming excessive
 resources, do feel free to reach out to the GSIs about it.
