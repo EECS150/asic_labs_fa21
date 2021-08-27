@@ -350,7 +350,7 @@ Next, note your instructional class acccount name - the one that looks like `eec
 `eecs151-abc`. This is the account you created at the start of this lab.
 
 
-### SSH: Linux, BDS, MacOS
+### SSH: Linux, BSD, MacOS
 
 SSH is the de facto remote terminal tool for Linux and BSD systems (which includes macOS). It
 lets you login to a text console from anywhere (as long as you have network connectivity). SSH
