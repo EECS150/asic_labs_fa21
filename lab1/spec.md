@@ -29,15 +29,89 @@ You are required to get an EECS instructional account to login to the workstatio
 
 Once you login using your CalNet ID, you can click on 'Get a new account' in the eecs151 row. Once the account has been created, you can email your class account form to yourself to have a record of your account information.  You can follow the instructions on the emailed form to change your Linux password with `ssh update.eecs.berkeley.edu` and following the prompts.
 
-### Logging into the Classroom Servers
+## Logging into the Classroom Servers
 
-The servers used for this class are `c125m-1.eecs.berkeley.edu` through `c125m-19.eecs.berkeley.edu`,
-and are physically located in Cory 125. You can access all of these machines remotely through SSH.
-Others such as `eda-1.eecs.berkeley.edu` through `eda-8.eecs.berkeley.edu` are also available
-for remote login. Refer to the Remote Access section for instructions and recommendations.
-You have a limited amount of space in your home directory, so we recommend completing work in the `/scratch/` directory, and then copying any important results to your home directory.
+The servers used for this class are primarily `eda-[1-8].eecs.berkeley.edu`.  You may also use the `c111-[1-17].eecs.berkeley.edu` machines
+(which are physically located in Cory 111/117), although those will be shared with the FPGA lab. You can access all of these machines remotely through SSH.
 
-To begin this lab, get the project files by typing the following commands:
+### Remote Access
+
+It is important that you can remotely access the instructional servers. There are two convenient ways to remotely access our
+lab machines: SSH (Secure SHell) and X2Go.
+First, select a machine. The range of accessible machines are `eda-X`, where X is a number from 1 to 8,
+and `c111-X`, where X is a number from 1 to 17. The fully qualified DNS name (FQDN) of
+your machine is then `eda-X.eecs.berkeley.edu` or `c111-X.eecs.berkeley.edu`. For example,
+if you select machine `eda-8`, the FQDN would be `eda-8.eecs.berkeley.edu`.
+You can use any lab machine, but our lab machines aren’t very powerful; if everyone
+uses the same one, everyone will find that their jobs perform poorly. ASIC design tools are resource
+intensive and will not run well when there are too many simultaneous users on these machines. We
+recommend that every time you want to log into a machine, examine its load on https://hivemind.eecs.berkeley.edu/ 
+for the `eda-X` machines, or using `top` when you log in. If it is heavily loaded, consider
+using a different machine. If you also notice other `eecs151` users with jobs consuming excessive
+resources, do feel free to reach out to the GSIs about it.
+Next, note your instructional class acccount name - the one that looks like `eecs151-YYY`, for example
+`eecs151-abc`. This is the account you created at the start of this lab.
+
+
+#### SSH: Linux, BSD, MacOS
+
+SSH is the de facto remote terminal tool for Linux and BSD systems (which includes macOS). It
+lets you login to a text console from anywhere (as long as you have network connectivity). SSH
+also comes as a standard utility in almost all Linux and BSD systems.
+If you’re using Linux or BSD, you should be able to access your workstation through SSH by running:
+
+```shell
+ssh eecs151-YYY@eda-X.eecs.berkeley.edu
+```
+
+In our examples, this would be:
+
+```shell
+ssh eecs151-abc@eda-8.eecs.berkeley.edu
+```
+
+The SSH protocol also enables file transfer between your local and lab machines via the `sftp` and
+`scp` utilities. **WARNING: please only transfer files needed for your reports and nothing else, particularly files relating to CAD tool commnads or process technologies!!!**
+
+
+#### SSH: Windows
+
+The classic and most lightweight way to use SSH on Windows is PuTTY (https://www.putty.org/). Download it and login with the FQDN above as the Host and your instructional account
+username. You can also use WinSCP (winscp.net) for file transfer over SSH.
+Advanced users may wish to install Windows Subsystem for Linux (https://docs.microsoft.com/en-us/windows/wsl/install-win10, Windows 10 build 16215 or later) or Cygwin (cygwin.com) and use SSH, SFTP, and SCP through there.
+
+
+#### SSHL Session Management
+
+Because all your work will be done remotely, we recommend that you utilize SSH session management tools and that all terminal-based work be done over SSH. This would allow your remote terminal sessions to remain active even if your SSH session disconnects, intentionally or not.
+The two most common session managers are tmux and screen. These run persistently on the
+remote workstation, are highly customizable, and can greatly improve your productivity.
+Here are some good tmux and screen tutorials:
+* https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
+* https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/
+
+
+#### X2Go
+
+For situations in which you need a graphical interface (waveform debugging, layout viewing, etc.),
+you should use X2Go. This is a faster and more reliable alternative to more traditional XForwarding over SSH. X2Go is also recommended because it connects to a persistent graphical
+desktop environment, which continues running even if your internet connection drops.
+Download the X2Go client for your platform from the website: https://wiki.x2go.org/doku.php/download:start.
+
+To use X2Go, you need to create a new session (look under the Session menu). Give the session any
+name, it doesn’t matter, but set the Host field to the FQDN of your lab machine and the User field
+to your instructional account username. For “Session type”, select “GNOME”. Here’s an example from macOS:
+
+<p align="center">
+<img src="./figs/x2gomacos.png" width="500" />
+</p>
+
+
+### Getting Started
+
+After you login to one of these servers, you are now ready to start the lab.  You have a limited amount of space in your home directory, so we recommend completing work in the `/scratch/` directory, and then copying any important results to your home directory.
+
+To begin, get the lab files by typing the following commands:
 
 ```shell
 git clone /home/ff/eecs151/labs/lab1
@@ -345,78 +419,11 @@ read these but are not required to turn in anything for this section.
 * http://statico.github.io/vim.html
 
 
-## Remote Access
+## Lab Deliverables
 
-It is important that you can remotely access the instructional servers. There are two convenient ways to remotely access our
-lab machines: SSH (Secure SHell) and X2Go.
-First, select a machine. The range of accessible machines are `c125m-X`, where X is a number from
-4 to 19, and `eda-X`, where X is a number from 1 to 8. The fully qualified DNS name (FQDN) of
-your machine is then `c125m-X.eecs.berkeley.edu` or `eda-X.eecs.berkeley.edu`. For example,
-if you select machine `c125m-8`, the FQDN would be `c125m-8.eecs.berkeley.edu`.
-You can use any lab machine, but our lab machines aren’t very powerful; if everyone
-uses the same one, everyone will find that their jobs perform poorly. ASIC design tools are resource
-intensive and will not run well when there are too many simultaneous users on these machines. We
-recommend that every time you want to log into a machine, examine its load on https://hivemind.eecs.berkeley.edu/ 
-for the `eda-X` machines, or using `top` when you log in. If it is heavily loaded, consider
-using a different machine. If you also notice other `eecs151` users with jobs consuming excessive
-resources, do feel free to reach out to the GSIs about it.
-Next, note your instructional class acccount name - the one that looks like `eecs151-YYY`, for example
-`eecs151-abc`. This is the account you created at the start of this lab.
+### Lab Due: 11 AM, Friday September 10th, 2021
 
-
-### SSH: Linux, BSD, MacOS
-
-SSH is the de facto remote terminal tool for Linux and BSD systems (which includes macOS). It
-lets you login to a text console from anywhere (as long as you have network connectivity). SSH
-also comes as a standard utility in almost all Linux and BSD systems.
-If you’re using Linux or BSD, you should be able to access your workstation through SSH by running:
-
-```shell
-ssh eecs151-YYY@c125m-X.eecs.berkeley.edu
-```
-
-In our examples, this would be:
-
-```shell
-ssh eecs151-abc@c125m-8.eecs.berkeley.edu
-```
-
-The SSH protocol also enables file transfer between your local and lab machines via the `sftp` and
-`scp` utilities. **WARNING: please only transfer files needed for your reports and nothing else, particularly files relating to CAD tool commnads or process technologies!!!**
-
-
-### SSH: Windows
-
-The classic and most lightweight way to use SSH on Windows is PuTTY (https://www.putty.org/). Download it and login with the FQDN above as the Host and your instructional account
-username. You can also use WinSCP (winscp.net) for file transfer over SSH.
-Advanced users may wish to install Windows Subsystem for Linux (https://docs.microsoft.com/en-us/windows/wsl/install-win10, Windows 10 build 16215 or later) or Cygwin (cygwin.com) and use SSH, SFTP, and SCP through there.
-
-
-### SSHL Session Management
-
-Because all your work will be done remotely, we recommend that you utilize SSH session management tools and that all terminal-based work be done over SSH. This would allow your remote terminal sessions to remain active even if your SSH session disconnects, intentionally or not.
-The two most common session managers are tmux and screen. These run persistently on the
-remote workstation, are highly customizable, and can greatly improve your productivity.
-Here are some good tmux and screen tutorials:
-* https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
-* https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/
-
-
-### X2Go
-
-For situations in which you need a graphical interface (waveform debugging, layout viewing, etc.),
-you should use X2Go. This is a faster and more reliable alternative to more traditional XForwarding over SSH. X2Go is also recommended because it connects to a persistent graphical
-desktop environment, which continues running even if your internet connection drops.
-Download the X2Go client for your platform from the website: https://wiki.x2go.org/doku.php/download:start.
-
-To use X2Go, you need to create a new session (look under the Session menu). Give the session any
-name, it doesn’t matter, but set the Host field to the FQDN of your lab machine and the User field
-to your instructional account username. For “Session type”, select “GNOME”. Here’s an example from macOS:
-
-<p align="center">
-<img src="./figs/x2gomacos.png" width="500" />
-</p>
-
+- Submit a written report with all 6 questions answered to Gradescope
 
 ## Acknowledgement
 
