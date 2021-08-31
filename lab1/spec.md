@@ -98,6 +98,8 @@ you should use X2Go. This is a faster and more reliable alternative to more trad
 desktop environment, which continues running even if your internet connection drops.
 Download the X2Go client for your platform from the website: https://wiki.x2go.org/doku.php/download:start.
 
+Note: MacOS sometimes blocks the X2Go download/install, if it does follow the directions [here](https://support.apple.com/en-us/HT202491).
+
 To use X2Go, you need to create a new session (look under the Session menu). Give the session any
 name, it doesn’t matter, but set the Host field to the FQDN of your lab machine and the User field
 to your instructional account username. For “Session type”, select “GNOME”. Here’s an example from macOS:
