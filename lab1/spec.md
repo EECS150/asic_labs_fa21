@@ -301,9 +301,9 @@ A tutorial about file permissions can be found here: http://www.tutorialspoint.c
 
 #### Question 4: Understanding File Permissions
 
-For each task below, please provide the commands that result in the correct permissions being set. Operate on the `run_always.sh` script.
+For each task below, please provide the commands that result in the correct permissions being set. Make no assumptions about the file's existing permissions. Operate on the `run_always.sh` script.
 
-1. Change the script to be executable by you only
+1. Change the script to be executable by you and no one else.
 2. Add permissions for everyone in your group to be able to execute the same script
 3. Make the script writable by you ane everyone in your group, but unreadable by others
 4. Change the owner of the file to be `eecs151` (Note: you will not be able to execute this command, so just provide the command itself)
