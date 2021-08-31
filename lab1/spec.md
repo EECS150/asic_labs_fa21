@@ -98,7 +98,7 @@ you should use X2Go. This is a faster and more reliable alternative to more trad
 desktop environment, which continues running even if your internet connection drops.
 Download the X2Go client for your platform from the website: https://wiki.x2go.org/doku.php/download:start.
 
-Note: MacOS sometimes blocks the X2Go download/install, if it does follow the directions [here](https://support.apple.com/en-us/HT202491).
+Note: MacOS sometimes blocks the X2Go download/install, if it does follow the directions here: https://support.apple.com/en-us/HT202491.
 
 To use X2Go, you need to create a new session (look under the Session menu). Give the session any
 name, it doesn’t matter, but set the Host field to the FQDN of your lab machine and the User field
@@ -116,6 +116,8 @@ After you login to one of these servers, you are now ready to start the lab.  Yo
 To begin, get the lab files by typing the following commands:
 
 ```shell
+mkdir /scratch/<your-eecs-username>
+cd /scratch/<your-eecs-username>
 git clone /home/ff/eecs151/labs/lab1
 cd lab1
 ```
@@ -158,15 +160,15 @@ which innovus
 
 #### Question 1: Common terminal tasks
 
-For each task below, submit the command needed to generate the desired result.  For 1-4, try generating only the desired result (no extraneous info).
+For 1-6 below, submit the command/keystrokes needed to generate the desired result.  For 1-4, try generating only the desired result (no extraneous info). 
 
 1. List the 5 most recently modified items in `/usr/bin`
 2. What directory is `git` installed in?
 3. Show the hidden files in your lab directory (the one you cloned from `/home/ff/eecs151/labs/lab1`
 4. What version of Vim is installed? Describe how you figured this out.
-5. Run `ping www.google.com`, suspend it, then kill the process. Then run it in the background, report its PID, then kill the process.
-6. Run `top` and report the average CPU load, the highest CPU job, and the amount of memory used
-7. Copy the files in this lab to `/scratch` and then delete it
+5. Copy the files in this lab to `/scratch` and then delete it.
+6. Run `ping www.google.com`, suspend it, then kill the process. Then run it in the background, report its PID, then kill the process.
+7. Run `top` and report the average CPU load, the highest CPU job, and the amount of memory used.
 
 
 There are a few miscellaneous commands to analyze disk usage on the servers.
