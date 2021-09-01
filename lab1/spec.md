@@ -168,7 +168,7 @@ For 1-6 below, submit the command/keystrokes needed to generate the desired resu
 4. What version of Vim is installed? Describe how you figured this out.
 5. Copy the files in this lab to `/scratch` and then delete it.
 6. Run `ping www.google.com`, suspend it, then kill the process. Then run it in the background, report its PID, then kill the process.
-7. Run `top` and report the average CPU load, the highest CPU job, and the amount of memory used.
+7. Run `top` and report the average CPU load, the highest CPU job, and the amount of memory used (just report the results for this question; you don't need to supply the command/how you got it).
 
 
 There are a few miscellaneous commands to analyze disk usage on the servers.
