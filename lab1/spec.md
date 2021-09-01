@@ -309,7 +309,7 @@ For each task below, please provide the commands that result in the correct perm
 4. Change the owner of the file to be `eecs151` (Note: you will not be able to execute this command, so just provide the command itself)
 
 
-## Using Makfiles
+## Using Makefiles
 
 Makefiles are a simple way to string together a bunch of different shell tasks in an intelligent
 manner. This allows someone to automate tasks and save time when doing repetitive tasks
