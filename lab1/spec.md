@@ -334,7 +334,7 @@ While this may look like a lot of random characters, let us walk through each pa
 it really is not that complicated.
 
 Makefiles are generally composed of rules, which tell Make how to execute a set of commands to
-build a set of targets from a set of dependencies. A rule typicall has this structure:
+build a set of targets from a set of dependencies. A rule typically has this structure:
 
 ```shell
 targets: dependencies
