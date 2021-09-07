@@ -394,19 +394,6 @@ module dut (
   input A, B, clk,
   output reg X, Z
 );
-
-  assign logic = (Z & X) | A;
-
-  REGISTER reg0 (.clk(clk), .d(B), q(X));
-  REGISTER reg1 (.clk(clk), .d(logic), q(Z));
-endmodule
-```
-
-```verilog
-module dut (
-  input A, B, clk,
-  output reg X, Z
-);
   always @(posedge clk) begin
     X <= B;
     Z <= (Z & X) | A;
