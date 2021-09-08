@@ -154,6 +154,7 @@ First, examine the `sim-rtl.yml` file:
 sim.inputs:
   input_files:
     - "src/fir.v"
+    - "src/EECS151.v"
     - "src/addertree.v"
     - "src/fir_tb.v"
   timescale: "1ns/10ps"
@@ -164,10 +165,11 @@ sim.inputs:
     - "+v2k"
     - "-debug"
     - "-sverilog"
-  top_module: "fir_tb"
+  top_module: "fir"
   tb_name: "fir_tb"
   defines:
     - "CLOCK_PERIOD=1.00"
+~
 ```
 
 This is a snippet of Hammer IR in the `sim` namespace. These keys are consumed by Hammer to configure the simulation.
