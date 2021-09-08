@@ -142,7 +142,7 @@ outside of instructional machines under any circumstances, or else we risk losin
 in the future!!!**
 
 To get started, examine the `Makefile` in the lab files. Skimming through, you can see that there are
-rules for the basic VSLI flow steps explored in these labs: simulation, power analysis, synthesis,
+rules for the basic VLSI flow steps explored in these labs: simulation, power analysis, synthesis,
 place-and-route (PAR), design rule checking (DRC), layout vs. schematic (LVS), and translational
 steps between them. The top section of the Makefile defines variables that point to the YAML and
 JSON files needed by Hammer.
@@ -589,7 +589,7 @@ Power is arguably the most important metric in modern chip design, as mobile app
 analysis of power consumption for a given testbench (or workload, benchmark) is something that
 designers must simulate. Power analysis results can influence all levels of design in the ASIC flow.
 
-Normally, the most accurate power analysis results come from simulating on a post-place-androuted design (Labs 4 and 5). For now, we have provided the place-and-routed (P&R) outputs and
+Normally, the most accurate power analysis results come from simulating on a post-place-and-routed design (Labs 4 and 5). For now, we have provided the place-and-routed (P&R) outputs and
 post-P&R simulation outputs in `src/post-par-sim`.
 
 To perform power analysis with Hammer, we must specify a few more things. Take a look at
@@ -620,7 +620,7 @@ Open `build/power-rundir/activePower.post-par-sim.ucli.saif/PVT_0P77V_0C.hold_vi
 and scroll to the bottom of the file. The total power is grouped into 3 types: internal, switching,
 and leakage power.
 
-- Internal power: power dissipated inside logic gates. Usually caused by momentary shortcircuiting as transistors are switching.
+- Internal power: power dissipated inside logic gates. Usually caused by momentary short-circuiting as transistors are switching.
 
 - Switching power: power dissipated charging and discharging load and parasitic capacitances/resistances.
 
