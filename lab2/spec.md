@@ -186,8 +186,8 @@ which you use Hammer on the instructional machines:
 
 ```shell
 source /home/ff/eecs151/tutorials/eecs151.bashrc
-export Hammer_HOME=/home/ff/eecs151/hammer
-source $Hammer_HOME/sourceme.sh
+export HAMMER_HOME=/home/ff/eecs151/hammer
+source $HAMMER_HOME/sourceme.sh
 ```
 
 You may find it useful to add these commands to your `.bashrc` so you don't need to run them manually every time.
@@ -289,7 +289,7 @@ filter’s impulse response.
 ## Testbenches
 
 Testbenches are how you simulate a design. Specifically they setup the inputs and check the
-outputs of the submodule that you are trying to test. If you look at the `firtb.v` file in the `src/`
+outputs of the submodule that you are trying to test. If you look at the `fir_tb.v` file in the `src/`
 folder, there are a few important parts that you will need to understand in order to write your own
 testbench. The first important piece is generating the clock waveform. This is accomplished by the
 following lines of Verilog code:
