@@ -19,12 +19,12 @@ College of Engineering, University of California, Berkeley
 In the course so far, you have learned the basics of using Verilog to describe hardware at the register-transfer-level
 (RTL). It might be helpful to take some time to review the [Verilog Primer Slides](https://inst.eecs.berkeley.edu/~eecs151/fa21/files/verilog/Verilog_Primer_Slides.pdf) before doing this lab. There are several other Verilog references in the [Resources section](https://inst.eecs.berkeley.edu/~eecs151/fa21/#resources) of the course website that may be helpful.
 
-In this lab, you will begin to start working with Verilog and Verilog simulation.
+In this lab, you will start working with Verilog and Verilog simulation.
 Simulation is very important because it is used at multiple stages of the flow to help verify the functionality of a design. It can help a designer catch functional bugs, as well as physical timing issues.
-We will focus on RTL, or Register Transfer Level, simulation in this lab. This means we will be simulating some behavioral Verilog designs. 
+We will focus on RTL, or Register Transfer Level, simulation in this lab, but we will also touch a bit on gate level simulation. 
 
 
-As with the previous lab, we will be using the Cory instructional machines (again, preferably `eda-[1-8].eecs.berkeley.edu`, but also `c111-[1-17].eecs.berkeley.edu`.
+As with the previous lab, we will be using the Cory instructional machines (again, preferably `eda-[1-8].eecs.berkeley.edu`, but also `c111-[1-17].eecs.berkeley.edu`).
 
 To begin this lab, get the project files (again, we recommend working in the `/scratch/<your login name>/`:
 
@@ -50,14 +50,14 @@ System specifications and architectural designs need to be verified by simulatin
 models against the expected system behavior. Functional and logical implementations of the system
 must also need to be simulated for functional correctness. Only after there is high confidence can
 we even begin to move onto the circuit (logic synthesis: Lab 3) and physical design (floorplanning,
-placement, and routing: Labs 4 and 5), within and after which we must continue to simulate
-the design to ensure that they will meet system specifications. After the layout of the circuit
+placement, and routing: Labs 4 and 5). We must continue to simulate the design in these stages
+to ensure that it will meet system specifications. After the layout of the circuit
 is complete, the circuit must also be verified to meet physical rules imposed by the underlying
 transistor technology (Lab 6). Only when these processes are all complete can a chip be fabricated,
 packaged, and tested post-silicon.
 
-Any issues found during any verification process has implications on the design. More severe issues
-require the design to be changed earlier in the design flow, causing delays in the design process.
+Problems found in verification have big implications on the design.
+More severe issues require the design to be changed earlier in the design flow, causing delays in the design process.
 Hence, there is essentially a feedback loop from the output of each block in Fig. 1 to any block
 before it–a number of loops far too great to show in Fig. 1. The fewer loops you take in the design
 flow, the less time you waste. Therefore, it is imperative that you are well-versed in the mechanics
@@ -74,13 +74,14 @@ This is possble because the tools typically can write out to common file formats
 For example, a design may use Synopsys `vcs` for simulation, Cadence `Genus` and `Innovus` for synthesis and place-and-route, respectively, and Mentor `calibre` for DRC and LVS.
 We will gain experience using some of these different tools in subsequent labs.
 
+Something to look out for is the rise of open source CAD tools and open technologies. You may look at initiatives like [OpenROAD](https://theopenroadproject.org/) and technologies like [Skywater130](https://github.com/google/skywater-pdk)
 
 ## RTL Simulation
 
 This lab focuses on RTL simulation. RTL simulation is one of the first steps towards checking the baseline functionality of your design.
 Fixing bugs at the RTL design phase makes subsequent debugging much easier. The resources required and runtime is much lower than gate level simulation.
 This means it should be used often as you are developing a design.
-RTL simulation can be used to run unit test to check a small block, but also can be used to simulate the behavior of a whole core running software or beyond.
+RTL simulation can be used to run unit tests to check a small block, as well as to simulate the behavior of a whole core running software, or beyond.
 
 For this lab, we will be using Verilog code that implements a very simple FIR (Finite Impulse Response) filter. A schematic of the filter is shown below.
 
@@ -88,14 +89,14 @@ For this lab, we will be using Verilog code that implements a very simple FIR (F
 <img src="./figs/fir.png" width="500" />
 </p>
 
-There is an input signal and a clock input, and 5 delayed versions on the input are kept, multiplied
-by different coefficients and then summed together. The expression for this particular filter is:
+There is an input signal and a clock input, and 5 delayed versions of the input are kept, multiplied
+by different coefficients, and then summed together. The expression for this particular filter is:
 
 `y[n] = 1 * x[n] + 4 * x[n − 1] + 16 * x[n − 2] + 4 * x[n − 3] + 1 * x[n − 4]`
 
 The input in our example is a 4 bit signed 2’s compliment number, and the output is a larger
 bitwidth signed number to ensure that there is no overflow. The focus of this lab is not 
-the filter design itself, but it serves as a useful example of a diggital circuit to implement and test with Verilog
+the filter design itself, but it serves as a useful example of a digital circuit to implement and test with Verilog
 code. As such, Verilog code for this FIR filter is provided in the src folder.
 
 
@@ -648,10 +649,10 @@ activity factor of the testbench we have been using?
 Proficiency in simulation and understanding what considerations go into verifying your design at
 every stage of the ASIC flow is indispensable. In this lab, we have only skimmed the surface of the
 methods by which designers validate, verify, and debug their designs. RTL simulation in VCS is
-simply a form of functional validation; basically, you assure yourself that you build the right thing.
-However, there is an entire field of verification, where advanced algorithmic techniques and higher
+simply a form of *functional validation*; basically, you assure yourself that you build the right thing.
+However, there is an entire field of *verification*, where advanced algorithmic techniques and higher
 levels of abstraction can fully exercise any design and ensure that vanishingly few bugs make it to
-silicon. In essence, you assure yourself that you built the thing right. Correspondingly, there are
+silicon. In essence, you assure yourself that you built the thing *right*. Correspondingly, there are
 many CAD tools that accelerate these tasks and are heavily used in industry. We encourage you
 to take EE219C if you are interested in this topic.
 
