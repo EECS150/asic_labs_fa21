@@ -207,7 +207,7 @@ finishes, from top to bottom:
 3. The first time you run `sim-rtl`, Hammer will extract the PDK, compile memories (unused
 in this lab), and make an auto-build file. You will not see this again unless you clean your
 working directory.
-4. When it is time to simulate, Hammer issues a subprocess call to the vcs executable. Notice that the arguments passed to VCS are the same as the list of sim options from our
+4. When it is time to simulate, Hammer issues a subprocess call to the VCS executable. Notice that the arguments passed to VCS are the same as the list of sim options from our
 `sim-rtl.yml` file. One important setting here is the `timescale` option, which sets the
 timescale for the Verilog testbench. We will discuss what this actually means later on in
 the lab.
@@ -244,7 +244,7 @@ Let us look at the waveforms in a graphical viewer DVE (Discovery Visualization 
 -X or -Y flag. If you are using PuTTy, make sure to enable X11 forwarding and have the proper
 X server software installed. An example of an X server for Windows is a program called VcXsrv,
 although there are a ton of other options). A faster, smoother, cross-platform alternative would be
-to use X2Go (see Lab 1 for instructions).
+to use X2Go (recommended option, see Lab 1 for instructions).
 
 ```shell
 cd build/sim-rundir
@@ -288,6 +288,12 @@ below.
 For those of you who know a bit about FIR filters, this beginning section of the waveform is the
 filter’s impulse response.
 
+When looking at a waveform viewer like DVE, signals are generally shown in green. Blue lines (annotated as `Z`) are high impedance (unconnected) nets.
+In our designs, this typically indicates that something is not wired up correctly. 
+
+Red lines (annotated as `X`) indicate that a net has an unknown value at that time. You may see this at the beginning of the simulation before the registers in the filter have known values. Once they get a known value, the lines turn green.
+
+
 ## Testbenches
 
 Testbenches are how you simulate a design. Specifically they setup the inputs and check the
@@ -327,7 +333,7 @@ end
 ```
 
 The `$vcdpluson` and `$vcdplusoff` are system tasks that setup the vpd file generation that we
-used to look at the waveforms in the previous section. The other lines setup the register In to
+used to look at the waveforms in the previous section. The other lines setup the register `In` to
 take on different values after the negative edge of the clock. In this block, the lines are executed
 after each other, so the next `@(negedge clk)` call waits until the next negative edge of the clock
 before executing the code that follows it. This allows us to set up a series of values for the inputs
@@ -377,7 +383,7 @@ allowing you to automate your testing procedures. While this is a small enough d
 could in theory debug using only the waveforms, the project later in this course will be much
 more complicated so learning how to build automated testbenches will be very important. You can
 run this automated testbench yourself by replacing `fir_tb` in `sim-rtl.yml` with `fir_tb_file`, and
-running `make sim-rtl` again.
+running `make sim-rtl` again. Don't forget to change the testbench name too.
 
 
 ### Question 1: Conceptually translating between waveforms, Verilog, and schematics
@@ -450,8 +456,7 @@ generate a Unified Command-Line Interface (UCLI) script that tells VCS to force 
 flip-flops into a valid initial state before starting the simulation. This is required because Verilog
 simulators cannot simulate with unknown of ’x’ valued inputs. Theoretically, a real design should
 work regardless of initial conditions, but we will not do in this lab due to time constraints. The
-SDF file is an output from the synthesis tool that annotates delays that are introduced by the way
-it performed the logic synthesis.
+SDF file is an output from the synthesis tool that annotates delays according to the synthesized gates.
 
 Under the hood, Hammer has already included the Verilog models of the standard cells from the
 ASAP7 PDK. You will learn more about these standard cells in the next lab, but just know that
@@ -502,7 +507,7 @@ and `-negdelay`. In regular RTL-level simulation, all the aforementioned flags a
 
 Now, examine the waveforms in DVE. Notice that the waveforms look similar to, but not exactly
 the same as the results from simulating the RTL-level simulation of the design. Let’s see why. By
-default, the logic gates behave ideally. Depending the operating conditions of the chip—voltage,
+default, the logic gates behave ideally. Depending on the operating conditions of the chip—voltage,
 process variation, temperature—the delay through a gate will be known. CAD tools do this calculation for you, and annotate the delay onto the gates using an SDF file like the one you just
 saw.
 
@@ -579,7 +584,7 @@ ii) Why did you change that register’s delay?
 iii) Simulation waveforms showing correct output and the text printout of the simulation showing
 that the results are correct.
 
-iv) Since you can’t actually hack SDFs to fix hold, give your best guess at what would be
+iv) Since when designing in reality you can’t actually hack SDFs to fix hold, give your best guess at what would be
 inserted/removed from a gate-level implementation of this design that would accomplish your
 hold fix.
 
