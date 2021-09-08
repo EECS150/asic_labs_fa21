@@ -110,8 +110,8 @@ The framework, mechanisms, and capabilities are quite similar between simulators
 
 Each CAD tool, including simulators, are highly configurable and can take in tens or hundreds (or more) configuration options. 
 Invoking CAD tools manually and listing options and flags is unsustainable.
-Thus, whether you're a student pushing through a design or an engineer at a big company, everyone has some kind of automated flow.
-This can come in many forms, from a series of TCL files (Tool Control Language, which is the language of choice for most ASIC CAD tools) that are pushed around by Makefiles, to more configurable and re-usable design frameworks. 
+Thus, whether you're a student pushing through a design or an engineer at a big company, everyone has some kind of automated design flow.
+This can come in many forms, from a series of TCL files (Tool Control Language, which is the language of choice for ASIC CAD tools) that are pushed around by Makefiles, to more configurable and re-usable design frameworks. 
 
 In this course we will use an ASIC design framework developed here at Berkeley called [Hammer](https://github.com/ucb-bar/hammer).
 Hammer abstracts away tool- (Cadence, Synopsys, Mentor, etc.) and technology- (TSMC, Intel,
@@ -146,27 +146,28 @@ rules for the basic VLSI flow steps explored in these labs: simulation, power an
 place-and-route (PAR), design rule checking (DRC), layout vs. schematic (LVS), and translational
 steps between them. The top section of the Makefile defines variables that point to the YAML and
 JSON files needed by Hammer.
-First, examine the sim-rtl.yml file:
+
+First, examine the `sim-rtl.yml` file:
 
 ```shell
 # RTL Simulation Variables
 sim.inputs:
-input_files:
-- "src/fir.v"
-- "src/addertree.v"
-- "src/fir_tb.v"
-timescale: "1ns/10ps"
-options:
-- "-notice"
-- "-line"
-- "+lint=all,noVCDE"
-- "+v2k"
-- "-debug"
-- "-sverilog"
-top_module: "fir_tb"
-tb_name: "fir_tb"
-defines:
-- "CLOCK_PERIOD=1.00"
+  input_files:
+    - "src/fir.v"
+    - "src/addertree.v"
+    - "src/fir_tb.v"
+  timescale: "1ns/10ps"
+  options:
+    - "-notice"
+    - "-line"
+    - "+lint=all,noVCDE"
+    - "+v2k"
+    - "-debug"
+    - "-sverilog"
+  top_module: "fir_tb"
+  tb_name: "fir_tb"
+  defines:
+    - "CLOCK_PERIOD=1.00"
 ```
 
 This is a snippet of Hammer IR in the `sim` namespace. These keys are consumed by Hammer to configure the simulation.
