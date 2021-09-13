@@ -457,7 +457,7 @@ and a Standard Delay Format (SDF) file. Hammer consumes the two JSON files in or
 generate a Unified Command-Line Interface (UCLI) script that tells VCS to force the synthesized
 flip-flops into a valid initial state before starting the simulation. This is required because Verilog
 simulators cannot simulate with unknown of ’x’ valued inputs. Theoretically, a real design should
-work regardless of initial conditions, but we will not do in this lab due to time constraints. The
+work regardless of initial conditions, but we will not do that in this lab due to time constraints. The
 SDF file is an output from the synthesis tool that annotates delays according to the synthesized gates.
 
 Under the hood, Hammer has already included the Verilog models of the standard cells from the
