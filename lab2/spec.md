@@ -154,6 +154,7 @@ First, examine the `sim-rtl.yml` file:
 sim.inputs:
   input_files:
     - "src/fir.v"
+    - "src/EECS151.v"
     - "src/addertree.v"
     - "src/fir_tb.v"
   timescale: "1ns/10ps"
@@ -164,10 +165,11 @@ sim.inputs:
     - "+v2k"
     - "-debug"
     - "-sverilog"
-  top_module: "fir_tb"
+  top_module: "fir"
   tb_name: "fir_tb"
   defines:
     - "CLOCK_PERIOD=1.00"
+~
 ```
 
 This is a snippet of Hammer IR in the `sim` namespace. These keys are consumed by Hammer to configure the simulation.
@@ -309,7 +311,7 @@ initial clk = 0;
 always #(`CLOCK_PERIOD/2) clk <= ~clk;
 ```
 
-This creates a register named `clk`, which is initially 0 and toggles every `CLOCK_PERIOD` divided
+This creates a signal named `clk`, which is initially 0 and toggles every `CLOCK_PERIOD` divided
 by 2 (in order to generate a rising edge every `CLOCK_PERIOD`). This clock period is defined in the
 `sim.inputs.defines` key in the `sim-rtl.yml` file you saw above. After we have a clock waveform,
 the next step is to setup the inputs. There is an initial begin block that is the body of the testbench
