@@ -75,7 +75,7 @@ gcd.clockPeriod: &CLK_PERIOD "1ns"
 ```
 
 This option sets the target clock speed for our design. A more stringent target (a lower clock
-period) will make the tool work harder and use more power consuming gates to meet the clock
+period) will make the tool work harder and use higher-power gates to meet the clock
 period. A lower target lets the tool focus on reducing area and/or power.
 In the sim-rtl.yml:
 
