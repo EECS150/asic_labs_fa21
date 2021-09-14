@@ -650,6 +650,7 @@ difference?
 **b.)** Compare the reports with SAIF annotation you just viewed against the analogous reports in
 `build/power-rundir/staticPowerReports`. What would you estimate is the effective switching
 activity factor of the testbench we have been using?
+Note: switching power is linearly proportional to switching activity.
 
 
 ## Closing Thoughts
