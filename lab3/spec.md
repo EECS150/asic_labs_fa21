@@ -232,12 +232,12 @@ To start the synthesis process of the GCD module you just analyzed, the first st
 HAMMER generate the necessary supplement Makefile (`build/hammer.d`). To do so, type the
 following command in the lab directory:
 
-  make buildfile
+    make buildfile
 
 This generates a file with make targets specific to the constraints we have provided inside the YAML
 files. If you have not run `make clean` after simulating, this file should already be generated. `make buildfile` also copies and extracts a tarball of the ASAP7 PDK to your local workspace. It will
 take a while to finish if you run this command first time. The extracted PDK is not deleted when
-you do `make clean` to avoid unnecessarily rebuild the PDK. To explicitly remove it, you need to
+you do `make clean` to avoid unnecessarily rebuilding the PDK. To explicitly remove it, you need to
 remove the build folder (and you should do it once you finish the lab to save your allocated disk
 space since the PDK is huge). To synthesize the GCD, use the following command:
 
@@ -247,8 +247,8 @@ This runs through all the steps necessary to generate the gate-level Verilog. Th
 you will see is a list of all the registers in the design. There should be all the bits of `A_reg_reg`,
 `B_reg_reg` and state registers.
 
-By default, HAMMER puts the generated objects under the directory build. Go to `build/
-syn-rundir/reports`. There are five text files here that contain very useful information about
+By default, HAMMER puts the generated objects under the directory build. Go to `build/syn-rundir/reports`. 
+There are five text files here that contain very useful information about
 the synthesized design that we just generated. Go through these files and familiarize yourself with
 these reports. One report of particular note is `final_time_PVT_0P63V_100C.setup.view.rpt`. The
 name of this file represents that it is a timing report, with the Process Voltage Temperature corner
@@ -303,8 +303,8 @@ GCDdpath0/A_reg_reg[15]/D - - F ASYNC_DFFHx1_ASAP7_75t_SL 1 - - 0 501 (-,-)
 ```
 
 This is one of the most common ways to assess the critical paths in your circuit. The setup timing
-report lists the timing checks with least “slack” (i.e. extra delay the signal can have before a setup
-violation occurs) to most. So the top block is generally the critical path in these kind of reports.
+report lists each timing path's “slack”, which is the extra delay the signal can have before a setup
+violation occurs, in ascending order. So the top block is generally the critical path in these kind of reports.
 Each row represents a timing path from a gate to the next, the whole block being the timing
 arc between two flip-flops (or in some cases between latches). The MET at the top of the block
 indicates that the timing requirements have been met and there is no violation. If there was, this
