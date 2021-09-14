@@ -94,7 +94,7 @@ by different coefficients, and then summed together. The expression for this par
 
 `y[n] = 1 * x[n] + 4 * x[n − 1] + 16 * x[n − 2] + 4 * x[n − 3] + 1 * x[n − 4]`
 
-The input in our example is a 4 bit signed 2’s compliment number, and the output is a larger
+The input in our example is a 4 bit signed 2’s complement number, and the output is a larger
 bitwidth signed number to ensure that there is no overflow. The focus of this lab is not 
 the filter design itself, but it serves as a useful example of a digital circuit to implement and test with Verilog
 code. As such, Verilog code for this FIR filter is provided in the src folder.
@@ -275,8 +275,8 @@ of adding these waveforms is shown below.
 
 After the window opens, you may need to adjust the zoom settings from “View — Zoom“ or the
 corresponding buttons on the toolbar. The picture below displays the output of the FIR filter as
-a step waveform. This can be achieved by setting the radix of the signal to be 2’s compliment
-(right-click — Set Radix — Twos compliment) and then changing the Set Draw Style Scheme to
+a step waveform. This can be achieved by setting the radix of the signal to be 2’s complement
+(right-click — Set Radix — Twos complement) and then changing the Set Draw Style Scheme to
 be Vector: Analog (right-click — Set Draw Style Scheme — Analog). You then need to change the
 properties of the signal since the beginning of the waveform does not utilize the full scale. If you
 right click and go to properties, you can set the Analog Waveform properties to be User, and set
