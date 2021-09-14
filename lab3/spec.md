@@ -302,13 +302,13 @@ GCDdpath0/A_reg_reg[15]/D - - F ASYNC_DFFHx1_ASAP7_75t_SL 1 - - 0 501 (-,-)
 #---------------------------------------------------------------------------------------------------------------------
 ```
 
-This is one of the most common ways to assess the critical paths in your circuit. The setup timing
-report lists each timing path's “slack”, which is the extra delay the signal can have before a setup
-violation occurs, in ascending order. So the top block is generally the critical path in these kind of reports.
-Each row represents a timing path from a gate to the next, the whole block being the timing
-arc between two flip-flops (or in some cases between latches). The MET at the top of the block
+This is one of the most common ways to assess the critical paths in your circuit. 
+The setup timing report lists each timing path's **slack**, which is the extra delay the signal can have before a setup
+violation occurs, in ascending order. So the first block indicates the critical path of the design.
+Each row represents a timing path from a gate to the next, and the whole block is the **timing
+arc** between two flip-flops (or in some cases between latches). The `MET` at the top of the block
 indicates that the timing requirements have been met and there is no violation. If there was, this
-indicator would have read VIOLATED. Since our critical path meets the timing requirements with
+indicator would have read `VIOLATED`. Since our critical path meets the timing requirements with
 a 474 ps of slack, this means we can run this synthesized design with a period equal to clock period
 (1000 ps) minus the critical path slack (474 ps), which is 526 ps.
 
@@ -378,7 +378,7 @@ The reports we have seen in the previous section are generated during this step.
 
 This step writes the outputs of the synthesis flow. This includes the gate-level `.v` file we looked at
 earlier in the lab. Other outputs include the design constraints (such as clock frequencies, output
-loads etc., in .sdc format) and delays between cells (in .sdf format).
+loads etc., in `.sdc` format) and delays between cells (in `.sdf` format).
 
 ## Post-Synthesis Simulation
 From the root folder, type the following commands:
