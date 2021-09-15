@@ -45,7 +45,7 @@ which genus
 
 to see if the shell prints out the path to the Cadence Genus Synthesis program (which we will be
 using for this lab). If it does not work, add the lines to your `.bash_profile` in your home folder
-as well. Try log in or open a new terminal to see if it works. The file `eecs151.bashrc` sets various
+as well. Try to open a new terminal to see if it works. The file `eecs151.bashrc` sets various
 environment variables in your system such as where to find the CAD programs or license servers.
 
 
@@ -58,7 +58,7 @@ In this lab repository, you will see two sets of input files for Hammer. The fir
 the source codes for our design that you will explore in the next section. The second set of files are
 some YAML files (`inst-env.yml`, `asap7.yml`, `design.yml`, `sim-rtl.yml`, `sim-gl-syn.yml`) that
 configure the Hammer flow. Of these YAML files, you should only need to modify `design.yml`,
-`sim-rtl.yml` and `sim-gl-syn.yml` in order to configurate to the synthesis and simulation for your
+`sim-rtl.yml` and `sim-gl-syn.yml` in order to configure the synthesis and simulation for your
 design.
 
 
@@ -74,9 +74,9 @@ Let us take a look at some parts of `design.yml` file:
 gcd.clockPeriod: &CLK_PERIOD "1ns"
 ```
 
-This option sets the target clock speed for our design. A more stringent target (a lower clock
-period) will make the tool work harder and use higher-power gates to meet the clock
-period. A lower target lets the tool focus on reducing area and/or power.
+This option sets the target clock speed for our design. A more stringent target (a shorter clock
+period) will make the tool work harder and use higher-power gates to meet the 
+constraints. A more relaxed timing target allows the tool to focus on reducing area and/or power.
 In the sim-rtl.yml:
 
 ```yaml
@@ -84,7 +84,7 @@ defines:
   - "CLOCK_PERIOD=1.00"
 ```
 
-The option sets the clock period used during simulation. It is generally useful to separate the two as
+This option sets the clock period used during simulation. It is generally useful to separate the two as
 you might want to see how the circuit performs under different clock frequencies without changing
 the design constraints. Continuing from `design.yml`:
 
@@ -115,16 +115,16 @@ vlsi.inputs.clocks: [
 ```
 
 This is where we specify to Hammer that we intend on using the `CLK_PERIOD` we defined earlier
-as the constraint for our design. We will see more detailed constraints in the later labs.
+as the constraint for our design. We will see more detailed constraints in later labs.
 
 ## Understanding the example design
 We have provided a circuit described in Verilog that computes the greatest common divisor (GCD)
-of two numbers. Unlike the FIR filter from the last lab where the testbench constantly provided
+of two numbers. Unlike the FIR filter from the last lab, in which the testbench constantly provided
 stimuli, the GCD algorithm takes a variable number of cycles, so the testbench needs to know when
 the circuit is done to check the output. This is accomplished through a “ready/valid” handshake
-protocol. This protocol is very ubiquitous and a flavor of it will appear both in the class project
-and later on in other blocks you will encounter throughout your career. The block diagram is shown
-in the figure below.
+protocol. This protocol shows up in many places in digital circuit design.
+Look [here](https://inst.eecs.berkeley.edu/~eecs151/fa21/files/verilog/ready_valid_interface.pdf) at information on the course website for more background.
+The GCD top level is shown in the figure below.
 
 <p align="center">
 <img src="./figs/block-diagram.png" width="600" />
@@ -157,8 +157,8 @@ The testbench needs to know that GCD is not done. This will be true as long as `
 prepared to receive the data (`result_rdy`). The testbench will check the data when GCD declares
 the results are valid by setting `result_val` to 1.
 
-The main contract is that if the interface declares it is ready, and the other side declares valid, the
-information must be transfered.
+The contract is that if the interface declares it is ready while the other side declares it is valid, the
+information must be transferred.
 
 Open `src/gcd.v`. This is the top-level of GCD and just instantiates `gcd_control` and `gcd_datapath`.
 Separating files into control and datapath is generally a good idea. Open `src/gcd_datapath.v`.
@@ -185,7 +185,7 @@ you understand the provided code:
 
 **b) In `src/gcd_testbench.v`, the inputs are changed on the negative edge of the clock to prevent hold time violations. Is the output checked on the positive edge of the clock or the negative edge of the clock? Why?**
 
-**c) In `src/gcd_testbench.v`, what will happen if you change `result_rdy = 1;` to `result_rdy = 0;`? What state will `gcd_control.v` state machine be in?**
+**c) In `src/gcd_testbench.v`, what will happen if you change `result_rdy = 1;` to `result_rdy = 0;`? What state will the `gcd_control.v` state machine be in?**
 
 
 ### Question 2: Testbenches
@@ -214,12 +214,12 @@ you understand the provided code:
 19: [ ...... ] Test ( 1 ), [ 7 == 3 ]  (decimal)
 ```
 ## Synthesis
-Synthesis is the process of converting RTL Verilog files into technology (or platform, in the case of
+Synthesis is the process of converting your Verilog RTL description into technology (or platform, in the case of
 FPGAs) specific gate-level Verilog. These gates are different from the “and”, “or”, “xor” etc. primitives in Verilog. While the logic primitives correspond to gate-level operations, they do not have
-a physical representation outside of their symbol. A synthesized gate-level Verilog only contains
+a physical representation outside of their symbol. A synthesized gate-level Verilog netlist only contains
 cells with corresponding physical aspects: they have a transistor-level schematic with transistor
 sizes provided, a physical layout containing information necessary for fabrication, timing libraries
-providing performance specifications etc. Some synthesis tools also output assign statements that
+providing performance specifications, etc. Some synthesis tools also output assign statements that
 refer to pass-through interfaces, but no logic operation is performed in these assignments (not even
 simple inversion!).
 
@@ -228,8 +228,7 @@ Open the Makefile to see the available targets that you can run. You don’t hav
 these for now. The Makefile provides shorthands to various Hammer commands for synthesis,
 placement-and-routing, or simulation. Read [Hammer-Flow](https://hammer-vlsi.readthedocs.io/en/latest/Hammer-Flow/index.html) if you want to get more detail.
 
-To start the synthesis process of the GCD module you just analyzed, the first step is to make
-Hammer generate the necessary supplement Makefile (`build/hammer.d`). To do so, type the
+The first step is to have Hammer generate the necessary supplement Makefile (`build/hammer.d`). To do so, type the
 following command in the lab directory:
 
     make buildfile
@@ -243,9 +242,9 @@ space since the PDK is huge). To synthesize the GCD, use the following command:
 
     make syn
 
-This runs through all the steps necessary to generate the gate-level Verilog. The final lines of output
+This runs through all the steps of synthesis. The final lines of output
 you will see is a list of all the registers in the design. There should be all the bits of `A_reg_reg`,
-`B_reg_reg` and state registers.
+`B_reg_reg`, and state registers.
 
 By default, Hammer puts the generated objects under the directory build. Go to `build/syn-rundir/reports`. 
 There are five text files here that contain very useful information about
@@ -255,9 +254,8 @@ name of this file represents that it is a timing report, with the Process Voltag
 of 0.63 V and 100 degrees C, and that it contains the setup timing checks. Another important file
 is `build/syn-rundir/gcd.mapped.v`. This is your synthesized gate-level Verilog. Go through it
 to see what the RTL design has become to represent it in terms of technology-specific gates. Try
-to follow an input through these gates to see the path it takes until the output. While these files
-are rarely ever read by humans, you may sometimes find yourself going through these during the
-process of debugging.
+to follow an input through these gates to see the path it takes until the output.
+These files are useful for debugging and evaluating your design.
 
 Now open the `final_time_PVT_0P63V_100C.setup.view.rpt` file and look at the first block of text
 you see. It should look similar to this:
@@ -304,7 +302,7 @@ GCDdpath0/A_reg_reg[15]/D - - F ASYNC_DFFHx1_ASAP7_75t_SL 1 - - 0 501 (-,-)
 
 This is one of the most common ways to assess the critical paths in your circuit. 
 The setup timing report lists each timing path's **slack**, which is the extra delay the signal can have before a setup
-violation occurs, in ascending order. So the first block indicates the critical path of the design.
+violation occurs, in ascending order. The first block indicates the critical path of the design.
 Each row represents a timing path from a gate to the next, and the whole block is the **timing
 arc** between two flip-flops (or in some cases between latches). The `MET` at the top of the block
 indicates that the timing requirements have been met and there is no violation. If there was, this
@@ -326,8 +324,8 @@ a 474 ps of slack, this means we can run this synthesized design with a period e
 
 ### Synthesis: Step-by-step
 
-While for the remainder of the semester we will be roughly following the above section’s flow, it is
-useful as a digital IC design engineer to know what is going on during the process. In this section,
+Typically, we will be roughly following the above section’s flow, but it is also
+useful to know what is going on underneath. In this section,
 we will look at the steps Hammer takes to get from RTL Verilog to all the outputs we saw in the
 last section.
 
@@ -337,16 +335,13 @@ only run the steps we want. Go through the following commands in the given order
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step init_environment"
 
-Hammer flow will exit with an error. This is expected, as Hammer looks for the final output
-files to gauge its success. We have not yet generated the gate-level Verilog, so we know beforehand
-that every step except the last one is going to end with an error. In this step, Hammer invokes
-Genus to read the technology libraries and the RTL Verilog files, as well as the constraints we
+In this step, Hammer invokes Genus to read the technology libraries and the RTL Verilog files, as well as the constraints we
 provided in the `design.yml` file.
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step syn_generic"
 
-This step is the **generic synthesis** step. In this step, Genus converts our RTL Verilog files read
-in the previous step to an intermediate format, using technology-independent generic gates. These
+This step is the **generic synthesis** step. In this step, Genus converts our RTL read
+in the previous step into an intermediate format, made up of technology-independent generic gates. These
 gates are purely for gate-level functional representation of the RTL we have coded, and are going
 to be used as an input to the next step. This step also performs logical optimizations on our design
 to eliminate any redundant/unused operations.
@@ -361,8 +356,7 @@ constructed using several, simpler gates.
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step add_tieoffs"
 
-In some designs, the pins in certain cells are hardwired to 0 or 1. Since modern technology does
-not directly connect cells to Vdd or ground, the tie-off cells are added in this step.
+In some designs, the pins in certain cells are hardwired to 0 or 1, which requires a tie-off cell.
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step write_regs"
 
@@ -391,13 +385,12 @@ This will run a post-synthesis simulation using annotated delays from the `gcd.m
 **a) Check the waveforms in DVE. Submit a screenshot and report the clk-q delay of `state[0]` in `GCDctrl0` at 17.5 ns. Which line in the sdf file specifies this delay?**
 
 ## Build Your Divider
-Now that you understand how to use the tools to synthesize and simulate the GCD implementation.
 In this section, you will build a parameterized divider of unsigned integers. Some initial code has
-been provided to you to get started. To keep the control logic simple, the divider module uses input
-signal `start` to begin the computation at the next clock cycle, and asserts output signal `done` to
+been provided to help you get started. To keep the control logic simple, the divider module uses an input
+signal `start` to begin the computation at the next clock cycle, and asserts an output signal `done` to
 HIGH when the division result is valid. The input `dividend` and `divisor` should be registered
 when `start` is HIGH. You are not required to handle corner cases such as dividing by 0. You are
-free to modify the skeleton code to adopt ready/valid instead, but it is not required.
+free to modify the skeleton code to implement a ready/valid interface instead, but it is not required.
 
 It is suggested that you implement the divide algorithm described [here](http://bwrcs.eecs.berkeley.edu/Classes/icdesign/ee141_s04/Project/Divider%20Background.pdf). Use the **Divide Algorithm Version 2** (slide 9).
 A simple testbench skeleton is also provided to you. You should change it to add more test vectors,
@@ -405,7 +398,7 @@ or test your divider with different bitwidths. You need to change the file `sim-
 divider instead of the GCD module when testing.
 
 ### Question 6: Hammer your divider
-**1. Push your 4-bit divider design through the tools, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to rerun synthesis multiple times to determine the maximum achievable frequency.**
+**1. Push your 4-bit divider design through the tools, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to re-run synthesis multiple times to determine the maximum achievable frequency.**
 
 **2. Change the bitwidth of your divider to 32-bit, what is the critical path, area, and maximum operating frequency now?**
 
