@@ -397,8 +397,8 @@ A simple testbench skeleton is also provided to you. You should change it to add
 or test your divider with different bitwidths. You need to change the file `sim-rtl.yml` to use your
 divider instead of the GCD module when testing.
 
-### Question 6: Hammer your divider
-**1. Push your 4-bit divider design through the tools, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to re-run synthesis multiple times to determine the maximum achievable frequency.**
+### Question 6: Synthesize your divider
+**1. Push your 4-bit divider design through the synthesis tool, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to re-run synthesis multiple times to determine the maximum achievable frequency.**
 
 **2. Change the bitwidth of your divider to 32-bit, what is the critical path, area, and maximum operating frequency now?**
 
