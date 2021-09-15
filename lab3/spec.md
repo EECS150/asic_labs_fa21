@@ -51,21 +51,21 @@ environment variables in your system such as where to find the CAD programs or l
 
 ## Synthesis Environment
 To perform synthesis, we will be using Cadence Genus. However, we will not be interfacing with
-Genus directly, we will rather use HAMMER. Just like in lab 2, we have set up the basic HAMMER
+Genus directly, we will rather use Hammer. Just like in lab 2, we have set up the basic Hammer
 flow for your lab exercises using Makefile.
 
-In this lab repository, you will see two sets of input files for HAMMER. The first set of files are
+In this lab repository, you will see two sets of input files for Hammer. The first set of files are
 the source codes for our design that you will explore in the next section. The second set of files are
 some YAML files (`inst-env.yml`, `asap7.yml`, `design.yml`, `sim-rtl.yml`, `sim-gl-syn.yml`) that
-configure the HAMMER flow. Of these YAML files, you should only need to modify `design.yml`,
+configure the Hammer flow. Of these YAML files, you should only need to modify `design.yml`,
 `sim-rtl.yml` and `sim-gl-syn.yml` in order to configurate to the synthesis and simulation for your
 design.
 
 
-HAMMER is already setup at `/home/ff/eecs151/hammer` with all the required plugins for Cadence
+Hammer is already setup at `/home/ff/eecs151/hammer` with all the required plugins for Cadence
 Synthesis (Genus) and Place-and-Route (Innovus), Synopsys Simulator (VCS), Mentor Graphics
 DRC and LVS (Calibre). You should not need to install it on your own home directory. **These
-HAMMER plugins are under NDA. They are provided to us for educational purpose.
+Hammer plugins are under NDA. They are provided to us for educational purpose.
 They should never be copied outside of instructional machines under any circumstances or else we are at risk of unable to get access to the tools in the future!!!**
 
 Let us take a look at some parts of `design.yml` file:
@@ -114,7 +114,7 @@ vlsi.inputs.clocks: [
 ]
 ```
 
-This is where we specify to HAMMER that we intend on using the `CLK_PERIOD` we defined earlier
+This is where we specify to Hammer that we intend on using the `CLK_PERIOD` we defined earlier
 as the constraint for our design. We will see more detailed constraints in the later labs.
 
 ## Understanding the example design
@@ -225,11 +225,11 @@ simple inversion!).
 
 
 Open the Makefile to see the available targets that you can run. You don’t have to know all of
-these for now. The Makefile provides shorthands to various HAMMER commands for synthesis,
+these for now. The Makefile provides shorthands to various Hammer commands for synthesis,
 placement-and-routing, or simulation. Read [Hammer-Flow](https://hammer-vlsi.readthedocs.io/en/latest/Hammer-Flow/index.html) if you want to get more detail.
 
 To start the synthesis process of the GCD module you just analyzed, the first step is to make
-HAMMER generate the necessary supplement Makefile (`build/hammer.d`). To do so, type the
+Hammer generate the necessary supplement Makefile (`build/hammer.d`). To do so, type the
 following command in the lab directory:
 
     make buildfile
@@ -247,7 +247,7 @@ This runs through all the steps necessary to generate the gate-level Verilog. Th
 you will see is a list of all the registers in the design. There should be all the bits of `A_reg_reg`,
 `B_reg_reg` and state registers.
 
-By default, HAMMER puts the generated objects under the directory build. Go to `build/syn-rundir/reports`. 
+By default, Hammer puts the generated objects under the directory build. Go to `build/syn-rundir/reports`. 
 There are five text files here that contain very useful information about
 the synthesized design that we just generated. Go through these files and familiarize yourself with
 these reports. One report of particular note is `final_time_PVT_0P63V_100C.setup.view.rpt`. The
@@ -328,7 +328,7 @@ a 474 ps of slack, this means we can run this synthesized design with a period e
 
 While for the remainder of the semester we will be roughly following the above section’s flow, it is
 useful as a digital IC design engineer to know what is going on during the process. In this section,
-we will look at the steps HAMMER takes to get from RTL Verilog to all the outputs we saw in the
+we will look at the steps Hammer takes to get from RTL Verilog to all the outputs we saw in the
 last section.
 
 First, type `make clean` to clean the environment of previous build’s files. Then, use `make buildfile`
@@ -337,9 +337,9 @@ only run the steps we want. Go through the following commands in the given order
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step init_environment"
 
-HAMMER flow will exit with an error. This is expected, as HAMMER looks for the final output
+Hammer flow will exit with an error. This is expected, as Hammer looks for the final output
 files to gauge its success. We have not yet generated the gate-level Verilog, so we know beforehand
-that every step except the last one is going to end with an error. In this step, HAMMER invokes
+that every step except the last one is going to end with an error. In this step, Hammer invokes
 Genus to read the technology libraries and the RTL Verilog files, as well as the constraints we
 provided in the `design.yml` file.
 
@@ -404,7 +404,7 @@ A simple testbench skeleton is also provided to you. You should change it to add
 or test your divider with different bitwidths. You need to change the file `sim-rtl.yml` to use your
 divider instead of the GCD module when testing.
 
-### Question 6: HAMMER your divider
+### Question 6: Hammer your divider
 **1. Push your 4-bit divider design through the tools, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to rerun synthesis multiple times to determine the maximum achievable frequency.**
 
 **2. Change the bitwidth of your divider to 32-bit, what is the critical path, area, and maximum operating frequency now?**
