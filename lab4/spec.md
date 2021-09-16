@@ -327,7 +327,7 @@ Given these definitions, complete `ALU.v` and write a testbench tb `ALU.v` that 
 
 ## Lab Deliverables
 
-### Lab Due: 11:59 PM, Friday September 24th, 2021
+### Lab Due: 11:59 PM, Friday October 1st, 2021
 
 - Submit a written report with all 4 questions answered to Gradescope
 - Checkoff with an ASIC lab TA
