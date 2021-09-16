@@ -387,6 +387,7 @@ more complicated so learning how to build automated testbenches will be very imp
 run this automated testbench yourself by replacing `fir_tb` in `sim-rtl.yml` with `fir_tb_file`, and
 running `make sim-rtl` again. Don't forget to change the testbench name too.
 
+---
 
 ### Question 1: Conceptually translating between waveforms, Verilog, and schematics
 
@@ -433,6 +434,7 @@ Verilog code. Hint: Use 1 flip-flop and 1 logic gate only. A is an input, X and 
 <img src="./figs/q1_c.png" width="300" />
 </p>
 
+---
 
 ### Question 2: Writing a testbench
 
@@ -441,6 +443,7 @@ including initial conditions, then simulate the block using VCS and compare to y
 answer. Submit your Verilog testbench and a screenshot of the simulation waveforms showing all
 of the input and output pins. Hint: you may need to modify the Verilog code from Question 1a.  
 
+---
 
 ## Gate-Level Simulation
 
@@ -528,6 +531,8 @@ If you get stuck on anything that you are trying to do, you can look up the Syno
 Guide, which has a significant amount of information about DVE, in the `eecs151` home directory:
 `/home/ff/eecs151/labs/manuals/dve_ug.pdf`.
 
+---
+
 ### Question 3: Calculating delays from the DVE window
 
 **a.)** Calculate the delay of the first flip-flop in the chain (delay chain0) relative to the input pin `clk` at
@@ -539,6 +544,7 @@ Now that we are simulating with delay, we can see that to preserve logic functio
 toggle the `clk` into the circuit too quickly. When this happens, there is a ’setup’ violation and the
 FIR filter will not function correctly.
 
+---
 
 ### Question 4: Creating and fixing setup time violations
 
@@ -565,6 +571,8 @@ and one of them will have a signal that is incorrectly getting captured on the w
 an exaggerated case of a hold time violation, which occurs when a specific delay path is too small
 relative to another.
 
+---
+
 ### Question 5: Fixing hold times
 
 Setup times can be fixed by increasing the clock period, but hold times cannot, because the capturing
@@ -590,6 +598,7 @@ iv) Since when designing in reality you can’t actually hack SDFs to fix hold, 
 inserted/removed from a gate-level implementation of this design that would accomplish your
 hold fix.
 
+---
 
 ## Power Anlaysis
 
@@ -639,6 +648,7 @@ Below that first table is a breakdown into types of cells. In our FIR, we have a
 cells (delay chain flip-flops) but many more combinational cells (adder tree), hence it is reasonable
 that our power is dominated by combinational logic.
 
+---
 
 ### Question 6: Analyzing Power Reports
 
@@ -652,6 +662,7 @@ difference?
 activity factor of the testbench we have been using?
 Note: switching power is linearly proportional to switching activity.
 
+---
 
 ## Closing Thoughts
 

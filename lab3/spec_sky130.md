@@ -175,6 +175,7 @@ Open the waveform in DVE (you may need to scroll down in DVE to find the testben
 to understand how the code works by comparing the waveforms with the Verilog code. It might
 help to sketch out a state machine diagram and draw the datapath.
 
+---
 
 ### Question 1: Understanding the algorithm
 
@@ -187,7 +188,7 @@ you understand the provided code:
 
 **c) In `src/gcd_testbench.v`, what will happen if you change `result_rdy = 1;` to `result_rdy = 0;`? What state will `gcd_control.v` state machine be in?**
 
-
+---
 ### Question 2: Testbenches
 **a) Modify `src/gcd_testbench.v` so that intermediate steps are displayed in the format below. Include a copy of the code you wrote in your writeup (this should be approximately 3-4 lines).**
 
@@ -213,6 +214,8 @@ you understand the provided code:
 18: [ passed ] Test ( 0 ), [ 3 == 3 ]  (decimal)
 19: [ ...... ] Test ( 1 ), [ 7 == 3 ]  (decimal)
 ```
+---
+
 ## Synthesis
 Synthesis is the process of converting RTL Verilog files into technology (or platform, in the case of
 FPGAs) specific gate-level Verilog. These gates are different from the “and”, “or”, “xor” etc. primitives in Verilog. While the logic primitives correspond to gate-level operations, they do not have
@@ -321,6 +324,7 @@ indicator would have read `VIOLATED`. Since our critical path meets the timing r
 a 212 ps of slack, this means we can run this synthesized design with a period equal to clock period
 (5000 ps) minus the critical path slack (212 ps), which is 4788 ps.
 
+---
 ### Question 3: Reporting Questions
 **a) Which report would you look at to find the total number of each different standard cell that the design contains?**
 
@@ -328,10 +332,14 @@ a 212 ps of slack, this means we can run this synthesized design with a period e
 
 **c) What is the cell used for `A_reg_reg[7]`? How much leakage power does this contribute? How did you find this?**
 
+---
+
 ### Question 4: Synthesis Questions
 **a) Looking at the total number of sequential cells synthesized and the number of `reg` definitions in the Verilog files, are they consistent? If not, why?**
 
 **b) Modify the clock period in the `design.yml` file to make the design go faster. What is the highest clock frequency this design can operate at in this technology?**
+
+---
 
 ### Synthesis: Step-by-step
 
@@ -396,8 +404,11 @@ From the root folder, type the following commands:
     
 This will run a post-synthesis simulation using annotated delays from the `gcd.mapped.sdf` file.
 
+---
 ### Question 5: Delay Questions
 **a) Check the waveforms in DVE. Submit a screenshot and report the clk-q delay of `state[0]` in `GCDctrl0` at 17.5 ns. Which line in the sdf file specifies this delay?**
+
+---
 
 ## Build Your Divider
 Now that you understand how to use the tools to synthesize and simulate the GCD implementation.
@@ -413,6 +424,7 @@ A simple testbench skeleton is also provided to you. You should change it to add
 or test your divider with different bitwidths. You need to change the file `sim-rtl.yml` to use your
 divider instead of the GCD module when testing.
 
+---
 ### Question 6: HAMMER your divider
 **1. Push your 4-bit divider design through the tools, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to rerun synthesis multiple times to determine the maximum achievable frequency.**
 
@@ -420,6 +432,7 @@ divider instead of the GCD module when testing.
 
 **3. Submit your divider code and testbench to the report. Add comments to explain your testbench and why it provides sufficient coverage for your divider module.**
 
+---
 ## Lab Deliverables
 
 ### Lab Due: 11:59 PM, Friday September 24th, 2021

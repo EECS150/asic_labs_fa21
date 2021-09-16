@@ -67,10 +67,10 @@ Then, finish the coprocessor implementation in `gcd_coprocessor.v`, so that the 
 <img src="./figs/gcd_coprocessor.png" width="600" />
 </p>
 
-A testbench has been provided for you (`gcd_coprocessor_testbench.v`). You can run the testbench to test your code by typing `make sim-trl` in the root directory as before.
+A testbench has been provided for you (`gcd_coprocessor_testbench.v`). You can run the testbench to test your code by typing `make sim-rtl` in the root directory as before.
 
 ---
-## Question 1: Design
+### Question 1: Design
 
 a) Submit your code (`gcd_coprocessor.v` and `fifo.v`) and show that your code works (VCS output is fine)
 
@@ -127,18 +127,18 @@ vlsi.inputs.pin.assignments: [
 ]
 ```
 
-The `vlsi.inputs.placement_constraints` block specifies 2 floorplan constraints. The first one de- notes the origin (`x, y`), size (`width, height`) and border margins of the top-level block `gcd_coprocessor`. The second one denotes a soft placement constraint on the GCD datapath to be roughly in the center of the floorplan. For complicated designs, floorplans of major modules are often defined separately, and then assembled together hierarchically.
+The `vlsi.inputs.placement_constraints` block specifies 2 floorplan constraints. The first one denotes the origin `(x, y)`, size `(width, height)` and border margins of the top-level block `gcd_coprocessor`. The second one denotes a soft placement constraint on the GCD datapath to be roughly in the center of the floorplan. For complicated designs, floorplans of major modules are often defined separately, and then assembled together hierarchically.
 
 Pin constraints are also shown here. All that we need to see is that all pins are located at the bottom boundary of the design, on Metal 5 and Metal 7 layers. Pin placement becomes very important in a hierarchical design, if modules need to abut each other.
 
 Placement is the process of placing the synthesized design (structural connection of standard cells) onto the specified floorplan. While there is placement of minor cells (such as bulk connection cells, antenna-effect prevention cells, I/O buffers...) that take place separately and in between various stages of design, “placement” usually refers to the initial placement of the standard cells.
-
+f
 After the cells are placed, they are not “locked”–they can be moved around by the tool during subsequent optimization steps. However, initial placement tries its best to place the cells optimally, obeying the floorplan constraints and using complex heuristics to minimize the parasitic delay caused by the connecting wires between cells and timing skew between synchronous elements (e.g. flip-flops, memories). Poor placement (as well as poor aspect ratio of the floorplan) can result in congestion of wires later on in the design, which may prevent successful routing.
 
 ### Power
 
 
-In the middle of the `asap7.yml` file, you will see this block, which contains parameters to HAM- MER’s power strap auto-calculation API:
+In the middle of the `asap7.yml` file, you will see this block, which contains parameters to HAMMER’s power strap auto-calculation API:
 
 ```verilog
 # Power Straps
@@ -171,23 +171,24 @@ Power must be delivered to the cells from the topmost metal layers all the way d
 
 You should not need to touch this block of yaml, because the parameters are tuned for meeting design rules in this technology. However, the important parameter is `power_utilization`, which specifies that approximately 25% of the available routing space on each metal layer should be reserved for power, with the exception of Metals 8 and 9, which should have 100% coverage.
 
-### Clock Tree Synthesis: Overview
+### Clock Tree Synthesis (CTS): Overview
 
 Clock Tree Synthesis (CTS) is arguably the next most important step in P&R behind floorplanning. Recall that up until this point, we have not talked about the clock that triggers all the sequential logic in our design. This is because the clock signal is assumed to arrive at every sequential element in our design at the same time. The synthesis tool makes this assumption and so does the initial cell placement algorithm. In reality, the sequential elements have to be placed wherever makes the most sense (e.g. to minimize delays between them). As a result, there is a different amount of delay to every element from the top-level clock pin that must be “balanced” to maintain the timing results from synthesis. We shall now explore the steps the P&R tool takes to solve this problem and why it is called Clock Tree Synthesis.
 
 ### Pre-CTS Optimization
 
-Pre-CTS optimization is the first round of Static Timing Analysis (STA) and optimization per- formed on the design. It has a large freedom to move the cells around to optimize your design to meet setup checks, and is performed after the initial cell placement. Hold errors are not checked during pre-CTS optimization. Because we do not have a clock tree in place yet, we do not know when the clocks will arrive to each sequential element, hence we don’t know if there are hold vio- lations. The tool therefore assumes that every sequential element receives the clock ideally at the same time, and tries to balance out the delays in data paths to ensure no setup violations occur. In the end, it generates a timing report, very similar to the ones we saw in the last lab.
+Pre-CTS optimization is the first round of Static Timing Analysis (STA) and optimization performed on the design. It has a large freedom to move the cells around to optimize your design to meet setup checks, and is performed after the initial cell placement. Hold errors are not checked during pre-CTS optimization. Because we do not have a clock tree in place yet, we do not know when the clocks will arrive to each sequential element, hence we don’t know if there are hold violations. The tool therefore assumes that every sequential element receives the clock ideally at the same time, and tries to balance out the delays in data paths to ensure no setup violations occur. In the end, it generates a timing report, very similar to the ones we saw in the last lab.
 
 ### Clock Tree Clustering and Balancing
-The meat of CTS is accomplished after initial optimization. The CTS algorithm first clusters groups of sequential elements together, mostly based on where they are in the design relative to the top-level clock pin and common clock gating logic. The numbers of elements in each cluster is selected so that it does not present too large of a load to a driving cell. These clusters of sequential elements are the “leaves” of the clock tree attached to branches.
+Most of CTS is accomplished after initial optimization. The CTS algorithm first clusters groups of sequential elements together, mostly based on their position in the design relative to the top-level clock pin and common clock gating logic. The numbers of elements in each cluster is selected so that it does not present too large of a load to a driving cell. These clusters of sequential elements are the “leaves” of the clock tree attached to branches.
 
 Next, the CTS algorithm tries to ensure that the delay from the top-level clock pin to the leaves are all the same. It accomplishes this by adding and sizing clock buffers between the top-level pin and the leaves. There may be multiple stages of clock buffering, depending on how physically large the design is. Each clock buffer that drives multiple loads is a branching point in the clock tree, and strings of clock buffers in a row are essentially the “trunks”. Finally, the top-level clock pin is considered the “root” of the clock tree.
 
-The CTS algorithm may go through many iterations of clustering and balancing. It will try to minimize the depth of the tree (called insertion delay, i.e. the delay from the root to the leaves) while simultaneously minimizing the skew (difference in insertion delay) between each leaf in the tree. The deeper the tree, the harder it is to meet both setup and hold timing (*thought experiment #1*: why is this?).
+The CTS algorithm may go through many iterations of clustering and balancing. It will try to minimize the depth of the tree (called *insertion delay*, i.e. the delay from the root to the leaves) while simultaneously minimizing the *skew* (difference in insertion delay) between each leaf in the tree. The deeper the tree, the harder it is to meet both setup and hold timing (*thought experiment #1*: why is this?).
 
 ### Post-CTS Optimization
-Post-CTS optimization is then performed, where clock is now a real signal that is being distributed unequally to different parts of the design. In this step, the tool fixes setup and hold time violations simultaneously. Often times, fixing one error may introduce one or multiple errors (*thought experiment #2*: why is this?), so this process is iterative until it reaches convergence (which may or may not meet your timing constraints!). Fixing these violations involve resizing, adding/deleting, and even moving the logic and clock cells.
+Post-CTS optimization is then performed, where the clock is now a real signal that is being distributed unequally to different parts of the design. In this step, the tool fixes setup and hold time violations simultaneously. Often times, fixing one error may introduce one or multiple errors (*thought experiment #2*: why is this?), so this process is iterative until it reaches convergence (which may or may not meet your timing constraints!). Fixing these violations involve resizing, adding/deleting, and even moving the logic and clock cells.
+
 After this stage of optimization, the clock tree and clock routing are fixed. In the next lab, you will finish the P&R flow, which finalizes the rest of the routing, but it is usually the case that if your design is unable to meet timing after CTS, there’s no point continuing!
 
 ## Compiling the Design with HAMMER
@@ -200,13 +201,13 @@ make redo-par HAMMER_EXTRA_ARGS="--stop_after_step clock_tree"
 ```
 
 
-The first command here translates the outputs of the synthesis tool to conform to the inputs expected by the P&R tool. The second command is similar to the partial synthesis commands we used in the last lab. It tells HAMMER to do the PAR flow until it finishes CTS, then stop. Under the hood, for this lab, HAMMER uses Cadence Innovus as the back-end tool to perform P&R. Wait until Innovus is done with the P&R steps until post-CTS optimization and exits. You will see that HAMMER again gives you an error - similar to last lab when HAMMER expected a synthesized output, this time HAMMER expects the full flow to be completed and gives an error whenever it can’t find some collateral expected of P&R.
+The first command here translates the outputs of the synthesis tool to conform to the inputs expected by the P&R tool. The second command is similar to the partial synthesis commands we used in the last lab. It tells HAMMER to do the PAR flow until it finishes CTS, then stop. Under the hood, for this lab, HAMMER uses Cadence Innovus as the back-end tool to perform P&R. HAMMER waits until Innovus is done with the P&R steps through post-CTS optimization, then exits. You will see that HAMMER again gives you an error - similar to last lab when HAMMER expected a synthesized output, this time HAMMER expects the full flow to be completed and gives an error whenever it can’t find some collateral expected of P&R.
 
 Once done, look into the `build/par-rundir` folder. Similar to how all the synthesis files were placed under `build/syn-rundir` folder in the previous lab, this folder holds all the P&R files. Go ahead and open `par.tcl` file in a text editor. HAMMER generated this file for Innovus to consume in batch mode, and inside are Innovus Common UI commands as a TCL script.
 
-While we will be looking through some of these commands in a bit, first take a look at `timingReports`. Due to when HAMMER outputs timing reports, you should only see the pre-CTS timing reports. gcd coprocessor `preCTS all.tarpt.gz` contains the report in a g-zipped archive. Rest of the files also contain useful information regarding capacitances, length of wires etc. Unzip these using `gzip` or navigate with Caja, the file browser, and double click the archive you want to peek into.
+While we will be looking through some of these commands in a bit, first take a look at `timingReports`. You should only see the pre-CTS timing reports. `gcd_coprocessor_preCTS_all.tarpt.gz` contains the report in a g-zipped archive. The remaining files also contain useful information regarding capacitances, length of wires etc. You may view these directly using Vim, unzip them using `gzip`, or navigate through them with Caja, the file browser.
 
-Going back a level, in `par-rundir`, the folder hammer cts debug has the post-CTS timing reports. The two important archives are `hammer_cts_all.tarpt.gz` and `hammer_cts_all_hold.tarpt.gz`. These contain the setup and hold timing analyses results after post-CTS optimization. Look into the hold report. You may actually see some violations! However, any violation should be small (<1 ps) and because we have a lot of margins during design (namely the `design.yml` file has “clock uncertainty” set to 100 ps), these small violations are not of concern, but should still be investigated in a real design.
+Going back a level, in `par-rundir`, the folder `hammer_cts_debug` has the post-CTS timing reports. The two important archives are `hammer_cts_all.tarpt.gz` and `hammer_cts_all_hold.tarpt.gz`. These contain the setup and hold timing analyses results after post-CTS optimization. Look into the hold report (you may actually see some violations!). However, any violation should be small (<1 ps) and because we have a lot of margins during design (namely the `design.yml` file has “clock uncertainty” set to 100 ps), these small violations are not of concern, but should still be investigated in a real design.
 
 ## Visualizing the Results
 
@@ -215,10 +216,10 @@ From the `build/par-rundir` folder, execute the following in a terminal with gra
 ```shell
 ./generated-scripts/open_chip
 ```
-The Innovus GUI will pop up with your layout and your terminal is now the Innovus shell. After the window opens, click anywhere inside the black window at the center of the GUI and press “F” to zoom-to-fit. You should see your entire design, which should look roughly similar to this, once you disable the V8, M8, V9, and M9 layers using the right panel by unchecking their respective boxes under the “V” column:
+The Innovus GUI will pop up with your layout and your terminal is now the Innovus shell. After the window opens, click anywhere inside the black window at the center of the GUI and press “F” to zoom-to-fit. You should see your entire design, which should look roughly similar to the one below once you disable the V8, M8, V9, and M9 layers (because recall that the power straps in these metal layers were set to 100% coverage) using the right panel by unchecking their respective boxes under the “V” column:
 
 <p align="center">
-<img src="./figs/innovus_window.png" width="400" />
+<img src="./figs/innovus_window.png" width="500" />
 </p>
 
 
@@ -227,31 +228,31 @@ Take a moment to familiarize yourself with the Innovus GUI. You should also togg
 Now, let’s take a look at the clock tree a couple different ways. In the right panel, under the “Net” category, hide from view all the types of nets except “Clock”. Your design should now look approximately like this, which shows the clock tree routing:
 
 <p align="center">
-<img src="./figs/clock_tree_nets.png" width="400" />
+<img src="./figs/clock_tree_nets.png" width="500" />
 </p>
 
 
 We can also see the clock tree in its “tree” form by going to the menu Clock → CCOpt Clock Tree Debugger and pressing OK in the popup dialog. A window should pop up looking approximately like this:
 
 <p align="center">
-<img src="./figs/clock_tree_debugger.png" width="400" />
+<img src="./figs/clock_tree_debugger.png" width="500" />
 </p>
 
 
-The red dots are the “leaves”, the green triangles are the clock buffers, the blue dots are clock gates (they are used to save power), and the green pin on top is the clock pin or the clock “root”. The numbers on the left side denote the insertion delay in ps. So, in this view, the tree is upside down, but you get the point.
+The red dots are the “leaves”, the green triangles are the clock buffers, the blue dots are clock gates (they are used to save power), and the green pin on top is the clock pin or the clock “root”. The numbers on the left side denote the insertion delay in ps.
 
 Now, let’s visualize our critical path. Go to the menu Timing → Debug Timing and press OK in the popup dialog. A window will pop up that looks approximately like this:
 
 <p align="center">
-<img src="./figs/timing_debug.png" width="400" />
+<img src="./figs/timing_debug.png" width="500" />
 </p>
 
-Examine the histogram. This shows the number of paths for every amount of slack (on the x-axis), and you always want to see a green histogram! The shape of the histogram is a good indicator of how good your design is and how hard the tool is working to meet your timing constraints (thought experiment #3: how so, and what would be the the ideal histogram shape?).
+Examine the histogram. This shows the number of paths for every amount of slack (on the x-axis), and you always want to see a green histogram! The shape of the histogram is a good indicator of how good your design is and how hard the tool is working to meet your timing constraints (*thought experiment #3:* how so, and what would be the the ideal histogram shape?).
 
 Now right-click on Path 1 in this window (the critical path), select Show Timing Analyzer and Highlight Path, and select a color. A window will pop up, which is a graphical representation of the timing reports you saw in the hammer cts debug folder. Poke around the tabs to see all the different representations of this critical path. Back in the main Innovus window, the critical path will be highlighted, showing the chain of cells along the path and the approximate routing it takes to get there, which may look something like this:
 
 <p align="center">
-<img src="./figs/critical_path_highlight.png" width="400" />
+<img src="./figs/critical_path_highlight.png" width="500" />
 </p>
 
 ---
