@@ -324,7 +324,7 @@ a 474 ps of slack, this means we can run this synthesized design with a period e
 ---
 
 ### Question 4: Synthesis Questions
-**a) Looking at the total number of sequential cells synthesized and the number of `reg` definitions in the Verilog files, are they consistent? If not, why?**
+**a) Looking at the total number of instances of sequential cells synthesized and the number of `reg` definitions in the Verilog files, are they consistent? If not, why?**
 
 **b) Modify the clock period in the `design.yml` file to make the design go faster. What is the highest clock frequency this design can operate at in this technology?**
 
