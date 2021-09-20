@@ -343,8 +343,10 @@ only run the steps we want. Go through the following commands in the given order
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step init_environment"
 
-In this step, Hammer invokes Genus to read the technology libraries and the RTL Verilog files, as well as the constraints we
+In this step, HAMMER invokes Genus to read the technology libraries and the RTL Verilog files, as well as the constraints we
 provided in the `design.yml` file.
+The HAMMER flow will exit with an error, which is expected as HAMMER looks for the final synthesis output
+files to gauge its success. We have not yet generated the gate-level Verilog, so we know HAMMER will display an error after every step except the last one.
 
     make redo-syn HAMMER_EXTRA_ARGS="--stop_after_step syn_generic"
 
