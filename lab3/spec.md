@@ -319,7 +319,7 @@ a 474 ps of slack, this means we can run this synthesized design with a period e
 
 **b) Which report contains area breakdown by modules in the design?**
 
-**c) What is the cell used for `A_reg_reg[7]`? How much leakage power does this contribute? How did you find this?**
+**c) What is the cell used for `A_reg_reg[7]`? How much leakage power does `A_reg_reg[7]` contribute? How did you find this?**
 
 ---
 
