@@ -240,15 +240,15 @@ The red dots are the “leaves”, the green triangles are the clock buffers, th
 Now, let’s visualize our critical path. Go to the menu Timing → Debug Timing and press OK in the popup dialog. A window will pop up that looks approximately like this:
 
 <p align="center">
-<img src="./figs/timing_debug.png" width="500" />
+<img src="./figs/sky130/timing_debug.png" width="500" />
 </p>
 
 Examine the histogram. This shows the number of paths for every amount of slack (on the x-axis), and you always want to see a green histogram! The shape of the histogram is a good indicator of how good your design is and how hard the tool is working to meet your timing constraints (*thought experiment #3:* how so, and what would be the the ideal histogram shape?).
 
-Now right-click on Path 1 in this window (the critical path), select Show Timing Analyzer and Highlight Path, and select a color. A window will pop up, which is a graphical representation of the timing reports you saw in the hammer cts debug folder. Poke around the tabs to see all the different representations of this critical path. Back in the main Innovus window, the critical path will be highlighted, showing the chain of cells along the path and the approximate routing it takes to get there, which may look something like this:
+Now right-click on Path 1 in this window (the critical path), select Show Timing Analyzer and Highlight Path, and select a color. A window will pop up, which is a graphical representation of the timing reports you saw in the `hammer_cts_debug` folder. Poke around the tabs to see all the different representations of this critical path. Back in the main Innovus window, the critical path will be highlighted, showing the chain of cells along the path and the approximate routing it takes to get there, which may look something like this (with all Layers disabled):
 
 <p align="center">
-<img src="./figs/critical_path_highlight.png" width="500" />
+<img src="./figs/sky130/critical_path_highlight.png" width="500" />
 </p>
 
 ---
