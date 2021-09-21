@@ -46,9 +46,8 @@ You should also clean up the build directory generated from the previous labs to
 For this lab, there are many Make targets that will be run, some of which you have explored in
 previous labs. The following list is a reference of what each one does for future reference, but **do not run them right now!**
 
-```
-# This command gets all the relevant SRAM configurations
-# (file pointers) for the ASAP7 library
+```shell
+# This command gets all the relevant SRAM configurations (file pointers) for the ASAP7 library
 make srams
 # This command runs RTL simulation
 make sim-rtl
@@ -126,8 +125,9 @@ and stored in separate databases. These cells are then instantiated by Innovus a
 and are connected to the rest of the circuit as specified in your Verilog. In order to generate the
 database that Innovus will use, type the following command:
 
-    make srams
-
+```shell
+make srams
+```
 
 For simulation purposes, a Verilog behavioral model for the SRAMs from the HAMMER repository
 is used. This is automatically set up in build/sram generator-output.json and points to `/home/ff/eecs151/hammer/src/hammer-vlsi/technology/asap7/sram_compiler/memories/behavioral/sram_behav_models.v`.
@@ -143,7 +143,7 @@ layout geometry of the SRAM macros. The ASAP7 PDK does not come with SRAMs by de
 so a graduate student (Sean Huang) graciously created some dummy models for us to use. They
 are located at:
 
-```
+```shell
 # Liberty Timing File       -- delay information
 /home/ff/eecs151/hammer/src/hammer-vlsi/technology/asap7/sram_compiler/memories/lib/ 
 
@@ -200,13 +200,13 @@ writing and reading from SRAMs. The two SRAMs are first filled with vector data 
 of vector size, after that they are read for the dot product computation.
 To run RTL simulation, type the following command
 
-```
+```shell
 make sim-rtl
 ```
 
 To inspect the RTL simulation waveform, type the following commands
 
-```
+```shell
 cd build/sim-rundir
 dve -vpd vcdplus.vpd
 ```
@@ -219,14 +219,14 @@ SRAMs.
 
 Next, we will perform PAR on the circuit.
 
-```
+```shell
 make par
 ```
 
 This command will invoke Synthesis as well, if it has not been run already. After PAR finishes,
 you can open the floorplan of the design by doing
 
-```
+```shell
 cd build/par-rundir
 ./generated-scripts/open_chip
 ```
@@ -266,6 +266,7 @@ are on M4.
   height: 77.184
   orientation: r0
   top_layer: M4
+
 - path: "dot_product/sram_b"
   type: hardmacro
   x: 71.28
@@ -280,13 +281,13 @@ You can play around with those constraints to change the SRAM placement to a geo
 If you change the placement constraint only in `design.yml` and only want to redo PAR (skipping
 synthesis), you can do:
 
-```
+```shell
 make redo-par HAMMER_EXTRA_ARGS='-p build/sram_generator-output.json -p design.yml'
 ```
 
 Finally, we will perform post-PAR gate-level simulation and power estimation.
 
-```
+```shell
 make sim-gl-par
 make power-par
 ```
