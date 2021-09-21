@@ -181,7 +181,7 @@ help to sketch out a state machine diagram and draw the datapath.
 By reading the provided Verilog code and/or viewing the RTL level simulations, demonstrate that
 you understand the provided code:
 
-**a.) Draw a table with 5 columns (cycle number, value of `A_reg`, value of `B_reg`, next value of `A_reg`, next value of `B_reg`) and fill in all of the rows for the first test vector (GCD of 27 and 15)**
+**a.) Draw a table with 5 columns (cycle number, value of `A_reg`, value of `B_reg`, `A_next`, `B_next`) and fill in all of the rows for the first test vector (GCD of 27 and 15)**
 
 **b) In `src/gcd_testbench.v`, the inputs are changed on the negative edge of the clock to prevent hold time violations. Is the output checked on the positive edge of the clock or the negative edge of the clock? Why?**
 
@@ -189,7 +189,8 @@ you understand the provided code:
 
 ---
 ### Question 2: Testbenches
-**a) Modify `src/gcd_testbench.v` so that intermediate steps are displayed in the format below. Include a copy of the code you wrote in your writeup (this should be approximately 3-4 lines).**
+**a) Modify `src/gcd_testbench.v` so that intermediate steps are displayed in the format below.**
+**Include a copy of the code you wrote in your writeup (this should be approximately 3-4 lines).**
 
 ```shell
  0: [ ...... ] Test ( x ), [ x == x ]  (decimal)
@@ -244,10 +245,7 @@ space since the PDK is huge). To synthesize the GCD, use the following command:
 
     make syn
 
-This runs through all the steps of synthesis. The final lines of output
-you will see is a list of all the registers in the design. There should be all the bits of `A_reg_reg`,
-`B_reg_reg`, and state registers.
-
+This runs through all the steps of synthesis. 
 By default, Hammer puts the generated objects under the directory build. Go to `build/syn-rundir/reports`. 
 There are five text files here that contain very useful information about
 the synthesized design that we just generated. Go through these files and familiarize yourself with
