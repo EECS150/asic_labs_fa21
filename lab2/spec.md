@@ -439,9 +439,11 @@ Verilog code. Hint: Use 1 flip-flop and 1 logic gate only. A is an input, X and 
 ### Question 2: Writing a testbench
 
 **a.)** Using the Verilog code in Question 1a, write a testbench that emulates the input waveforms,
-including initial conditions, then simulate the block using VCS and compare to your previous
-answer. Submit your Verilog testbench and a screenshot of the simulation waveforms showing all
-of the input and output pins. Hint: you may need to modify the Verilog code from Question 1a.  
+*including initial conditions*, then simulate the block using VCS and compare to your previous
+answer. 
+**Submit your Verilog testbench and a screenshot of the simulation waveforms showing all
+of the input and output pins.**
+Hint: you may need to modify the Verilog code from Question 1a.  
 
 ---
 
