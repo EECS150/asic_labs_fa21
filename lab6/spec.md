@@ -49,20 +49,28 @@ previous labs. The following list is a reference of what each one does for futur
 ```shell
 # This command gets all the relevant SRAM configurations (file pointers) for the ASAP7 library
 make srams
+
 # This command runs RTL simulation
 make sim-rtl
+
 # This command runs Synthesis using Cadence Genus tool
 make syn
+
 # This command runs Post-Synthesis gate-level simulation
 make sim-gl-syn
+
 # This command runs Placement-and-Routing using Cadence Innovus tool
 make par
+
 # This command runs Post-PAR gate-level simulation
 make sim-gl-par
+
 # This command runs Post-PAR power estimation
 make power-par
+
 # This command runs DRC using Mentor Calibre tool
 make drc
+
 # This command runs LVS using Mentor Calibre tool
 make lvs
 ```
@@ -180,9 +188,14 @@ running DRC, LVS, and sending the design off to the fabrication house.
 ---
 
 ### Question 1: Understanding SRAMs
-**a) Open the file `sram_behav_models.v` (located in HAMMER repository). What are different SRAM-sizes avaialble? What is the difference between the `SRAM1RW*` and `SRAM2RW*` variants? *Hint: take some time to look at the Verilog implementation to understand what it does. You will need to use this SRAM model in the final project.***
+**a)** Open the file `sram_behav_models.v` (located in HAMMER repository). 
+**What are different SRAM-sizes avaialble?** 
+**What is the difference between the `SRAM1RW*` and `SRAM2RW*` variants?** 
+Hint: take some time to look at the Verilog implementation to understand what it does. You will need to use this SRAM model in the final project.
 
-**b) In the same file, select an SRAM instance that has a BYTEMASK pin. What is the SRAM model (in terms of number of Read/Write ports, address width, data/word width)? Briefly describe the purpose the BYTEMASK. In which situation do you think it is useful?**
+**b)** In the same file, select an SRAM instance that has a BYTEMASK pin. 
+**What is the SRAM model (in terms of number of Read/Write ports, address width, data/word width)?** 
+**Briefly describe the purpose the BYTEMASK. In which situation do you think it is useful?**
 
 c) (Ungraded thought experiment #1) SRAM libraries in real process technologies are much larger than the list you see in `sram_behav_models.v`. What features do you think are important for real SRAM libraries? Think in terms of number of ports, masking, improving yield, or anything else you can think of. What would these features do to the size of the SRAM macros?
 
@@ -212,7 +225,7 @@ dve -vpd vcdplus.vpd
 ```
 
 The simulation takes 35 cycles to complete, which makes sense since it spends the first 16 cycles
-to read data from vector a and b, and performs a dot product computation in 16 cycles, including
+to read data from vector `a` and `b`, and performs a dot product computation in 16 cycles, including
 extra few cycles for various state transitions. The goal is not building the most efficient dot product
 implementation, but rather providing you an introductory design to how you would interface with
 SRAMs.
@@ -236,7 +249,7 @@ see the floorplan as in the following image. Don’t forget to disable M8, V8, M
 pane to see the unobstructed floorplan.
 
 <p align="center">
-<img src="./figs/layout.png" width="500" />
+<img src="./figs/layout.png" width="400" />
 </p>
 
 This floorplan has two SRAM instances: `sram_a` and `sram_b`. The placement constraints of those
@@ -301,19 +314,27 @@ design.yml, they are set to be ”don’t use” by PAR.
 
 ---
 ### Question 2: Using a different SRAM
-**a)** Modify the dot product design to use only one instantiation of a *dual-port, 5-bit address width, and 16-bit data width SRAM*. In this SRAM, you want to store vector a to the first 16 entries of the SRAM, and store vector b to the remaining entries of the SRAM. You can use the dot product code given to you as a starting point, but please implement your design in `src/dot_product_1SRAM.v`.
+**a)** Modify the dot product design to use only one instantiation of a *dual-port, 5-bit address width, and 16-bit data width SRAM*. In this SRAM, you want to store vector `a` to the first 16 entries of the SRAM, and store vector `b` to the remaining entries of the SRAM. You can use the dot product code given to you as a starting point, but please implement your design in `src/dot_product_1SRAM.v`.
 
-**b)** Run PAR (remember to update your SRAM placement constraints) and find the post-PAR critical path in your design: with a step size of 0.1ns, reduce the PAR clock period until your design has setup violation. **Describe that path based on your Verilog source (roughly). Can you give a strategy to improve the timing based on the path that you find?** You don’t have to implement it. Just provide a brief description of how you should fix it.
+**b)** Run PAR (remember to update your SRAM placement constraints) and find the post-PAR critical path in your design: with a step size of 0.1ns, reduce the PAR clock period until your design has setup violation. 
+**Describe that path based on your Verilog source (roughly).**
+**Can you give a strategy to improve the timing based on the path that you find?** 
+You don’t have to implement it. Just provide a brief description of how you should fix it.
 
-**c) What is the final performance (latency – in terms of nanoseconds) of your single-SRAM vector dot product design (post PAR)?** Remember that Latency (ns) = Number of Post-PAR simulation cycles × Lowest Post-PAR clock period. Make sure to run Post-PAR simulation with that clock period when you finish the PAR process.
+**c) What is the final performance (latency – in terms of nanoseconds) of your single-SRAM vector dot product design (post PAR)?**
+Remember that Latency (ns) = Number of Post-PAR simulation cycles × Lowest Post-PAR clock period. Make sure to run Post-PAR simulation with that clock period when you finish the PAR process.
 
-**d) Screenshot the final floorplan of your single-SRAM dot product design to the report, as well as the power report, timing report, and area report.** The SRAMs will have 0 power due to incomplete LIBs–show where this shows up in the power reports.
+**d) Screenshot the final floorplan of your single-SRAM dot product design to the report, as well as the power report, timing report, and area report.** 
+The SRAMs will have 0 power due to incomplete LIBs–show where this shows up in the power reports.
 
 ---
 ### Question 3: Divide Your Vector Dot Products
 a) Imagine we would like to compute the division of two dot products of vectors of unsigned integers. Open the file `src/dp_div.v`, connect two single-SRAM vector dot product modules with the divider you implemented in Lab 4 (the divider should have Ready/Valid interfaces for input and output) via FIFOs. If you implement a correct Ready/Valid mechanism for each block, connecting those blocks is simply a matter of wiring relevant signals at the interfaces. One dot product produces dividend input, and the other provides divisor input to your Divider. Refer to the following figure for the high-level overview of the design.
 
-**What is the number of cycles it takes to run a design of 16-element vectors with 16-bit datapath (for both dot product modules and divider module)? Screenshot the floorplan, collect the power report, timing report, and area report at a clock period that your design can meet (i.e., you don’t have to find the maximum achievable frequency). Zip your code and power, timing, area reports and submit it to the separate code assignment on Gradescope instead of pasting them into your lab PDF.** Start early, since the tools take a long time!
+**What is the number of cycles it takes to run a design of 16-element vectors with 16-bit datapath (for both dot product modules and divider module)?**
+**Screenshot the floorplan, collect the power report, timing report, and area report at a clock period that your design can meet (i.e., you don’t have to find the maximum achievable frequency).**
+**Zip your code and power, timing, area reports and submit it to the separate code assignment on Gradescope instead of pasting them into your lab PDF.** 
+Start early, since the tools take a long time!
 
 ---
 
@@ -381,11 +402,13 @@ everything, you will see this at the end a long design process, which is always 
 ---
 ### Question 4: DRC and LVS
 a) Scroll to the bottom of the DRC result summary report in `build/drc-rundir/drc_results.rpt`.
-**For the cell `dot_product` (or whatever you named your single-SRAM vector dot product), how many total violation results do you have? How many rules did you violate?** Note: the result count
-is in the format `hierarchical_count` (`flat_count`), which would disagree if you have many
-instances of a submodule in the design. **Please report the hierarchical count.**
+**For the cell `dot_product` (or whatever you named your single-SRAM vector dot product), how many total violation results do you have? How many rules did you violate?** 
+Note: the result count is in the format `hierarchical_count` (`flat_count`), which would disagree if you have many
+instances of a submodule in the design. 
+**Please report the hierarchical count.**
 
-b) Skim through Chapter 1.2 of the DRM (`build/tech-asap7-cache/extracted/ASAP7_PDKandLIB.tar/ASAP7_PDKandLIB_v1p5/asap7PDK_r1p5.tar.bz2/asap7PDK_r1p5/docs/asap7_drm.pdf`). **For the violated rule with the highest numbers of occurrences less than 1000, provide a brief description of what the rule requires based on the naming convention and descriptions in Table 1.2.1 of the DRM.**
+b) Skim through Chapter 1.2 of the DRM (`build/tech-asap7-cache/extracted/ASAP7_PDKandLIB.tar/ASAP7_PDKandLIB_v1p5/asap7PDK_r1p5.tar.bz2/asap7PDK_r1p5/docs/asap7_drm.pdf`). 
+**For the violated rule with the highest numbers of occurrences less than 1000, provide a brief description of what the rule requires based on the naming convention and descriptions in Table 1.2.1 of the DRM.**
 
 c) (Ungraded thought experiment #3) If the DRC rule decks are perfect, the way you floorplan
 your design has a large impact on whether your design can be DRC clean. What things do you
