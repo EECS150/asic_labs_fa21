@@ -78,7 +78,7 @@ a) Submit your code (`gcd_coprocessor.v` and `fifo.v`) and show that your code w
 
 ## Introducing Place and Route
 
-In this lab, you will begin to implement your GCD coprocessor in physical layout–the next step towards making it a real integrated circuit. Place & Route (P&R or PAR) itself is a much longer process than synthesis, so for this lab we will look at the first few (and arguably most important) steps: floorplanning, placement, power straps, and clock tree synthesis (CTS). The rest will be introduced in the next lab.
+In this lab, you will begin to implement your GCD coprocessor in physical layout–the next step towards making it a real integrated circuit. Place & Route (P&R or PAR) itself is a much longer process than synthesis, so for this lab we will look at the first few steps: floorplanning, placement, power straps, and clock tree synthesis (CTS). The rest will be introduced in the next lab.
 
 ### Setting up for P&R
 
@@ -93,7 +93,7 @@ make sim-gl-syn
 Before proceeding, make sure your design is working correctly. It should meet timing at the default 1ns clock period in the setup corner with plenty of slack.
 
 ### Floorplanning & Placement
-Floorplanning is the process of allocating area to the design as well as putting constraints on how this area is utilized. Floorplanning is often the most important factor for determining a physical circuit’s performance, because intelligent floorplanning can assist the tool in minimizing the delays in the design, especially if the total area is highly constrained.
+Floorplanning is the process of allocating area to the design and constraining how the area is utilized. Floorplanning is often the most important factor for determining a physical circuit’s performance, because intelligent floorplanning can assist the tool in minimizing the delays in the design, especially if the total area is highly constrained.
 
 Floorplan constraints can be “hard” or “soft”. “Hard” constraints generally involve pre-placement of “macros”, which can be anything from memory elements (SRAM arrays, in an upcoming lab) to analog black boxes (like PLLs or LDOs). “Soft” constraints are generally guided placements of hierarchical modules in the design (e.g. the datapath, controller, and FIFOs in your coprocessor), towards certain regions of the floorplan. Generally, the P&R tool does a good job of placing hierarchical modules optimally, but sometimes, a little human assistance is necessary to eke out the last bit of performance.
 
