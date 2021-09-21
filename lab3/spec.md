@@ -414,11 +414,11 @@ divider instead of the GCD module when testing.
 ---
 
 ### Question 6: Synthesize your divider
-**1. Push your 4-bit divider design through the synthesis tool, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to re-run synthesis multiple times to determine the maximum achievable frequency.**
+**a) Push your 4-bit divider design through the synthesis tool, and determine its critical path, cell area, and maximum operating frequency from the reports. You might need to re-run synthesis multiple times to determine the maximum achievable frequency.**
 
-**2. Change the bitwidth of your divider to 32-bit, what is the critical path, area, and maximum operating frequency now?**
+**b) Change the bitwidth of your divider to 32-bit, what is the critical path, area, and maximum operating frequency now?**
 
-**3. Submit your divider code and testbench to the report. Add comments to explain your testbench and why it provides sufficient coverage for your divider module.**
+**c) Submit your divider code and testbench to the report. Add comments to explain your testbench and why it provides sufficient coverage for your divider module.**
 
 ---
 
