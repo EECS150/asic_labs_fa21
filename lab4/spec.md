@@ -82,15 +82,14 @@ In this lab, you will begin to implement your GCD coprocessor in physical layout
 
 ### Setting up for P&R
 
-We will first bring our design to the point we stopped in Lab 3. Synthesize and post-synthesis simulate your design:
+We will first bring our design to the point we stopped in Lab 3. Synthesize your design:
 
 
 ```shell
 make syn
-make sim-gl-syn
 ```
 
-Before proceeding, make sure your design is working correctly. It should meet timing at the default 1ns clock period in the setup corner with plenty of slack.
+Before proceeding, make sure your design meets timing at the default 1ns clock period.
 
 ### Floorplanning & Placement
 Floorplanning is the process of allocating area to the design and constraining how the area is utilized. Floorplanning is often the most important factor for determining a physical circuit’s performance, because intelligent floorplanning can assist the tool in minimizing the delays in the design, especially if the total area is highly constrained.
