@@ -82,15 +82,14 @@ In this lab, you will begin to implement your GCD coprocessor in physical layout
 
 ### Setting up for P&R
 
-We will first bring our design to the point we stopped in Lab 3. Synthesize and post-synthesis simulate your design:
+We will first bring our design to the point we stopped in Lab 3. Synthesize your design:
 
 
 ```shell
 make syn
-make sim-gl-syn
 ```
 
-Before proceeding, make sure your design is working correctly. It should meet timing at the default 1ns clock period in the setup corner with plenty of slack.
+Before proceeding, make sure your design meets timing at the default 1ns clock period.
 
 ### Floorplanning & Placement
 Floorplanning is the process of allocating area to the design and constraining how the area is utilized. Floorplanning is often the most important factor for determining a physical circuit’s performance, because intelligent floorplanning can assist the tool in minimizing the delays in the design, especially if the total area is highly constrained.
@@ -113,7 +112,7 @@ left: 10
       right: 10
       top: 10
       bottom: 10
-  - path: "gcd_coprocessor/GCDpath0"
+  - path: "gcd_coprocessor/GCDdpath0"
     type: "placement"
     x: 50
     y: 50
@@ -132,7 +131,7 @@ The `vlsi.inputs.placement_constraints` block specifies 2 floorplan constraints.
 Pin constraints are also shown here. All that we need to see is that all pins are located at the bottom boundary of the design, on Metal 5 and Metal 7 layers. Pin placement becomes very important in a hierarchical design, if modules need to abut each other.
 
 Placement is the process of placing the synthesized design (structural connection of standard cells) onto the specified floorplan. While there is placement of minor cells (such as bulk connection cells, antenna-effect prevention cells, I/O buffers...) that take place separately and in between various stages of design, “placement” usually refers to the initial placement of the standard cells.
-f
+
 After the cells are placed, they are not “locked”–they can be moved around by the tool during subsequent optimization steps. However, initial placement tries its best to place the cells optimally, obeying the floorplan constraints and using complex heuristics to minimize the parasitic delay caused by the connecting wires between cells and timing skew between synchronous elements (e.g. flip-flops, memories). Poor placement (as well as poor aspect ratio of the floorplan) can result in congestion of wires later on in the design, which may prevent successful routing.
 
 ### Power
@@ -167,7 +166,7 @@ power_utilization_M9: 1.0
 ```
 
 
-Power must be delivered to the cells from the topmost metal layers all the way down to the transistors, in a fashion that minimizes the overall resistance of the power wires without eating up all the resources that are needed for wiring the cells together. You will learn about power distribution briefly at the end of this course’s lectures, but the preferred method is to place interconnected grids of fat wires on every metal layer. There are tools to check the quality of the `power_distribution` network, which like the post-P&R simulations you did in Lab 2, calculate how the current being drawn by the circuit is transiently distributed across the power grid.
+Power must be delivered to the cells from the topmost metal layers all the way down to the transistors, in a fashion that minimizes the overall resistance of the power wires without eating up all the resources that are needed for wiring the cells together. You will learn about power distribution briefly at the end of this course’s lectures, but the preferred method is to place interconnected grids of wide wires on every metal layer. There are tools to check the quality of the `power_distribution` network, which like the post-P&R simulations you did in Lab 2, calculate how the current being drawn by the circuit is transiently distributed across the power grid.
 
 You should not need to touch this block of yaml, because the parameters are tuned for meeting design rules in this technology. However, the important parameter is `power_utilization`, which specifies that approximately 25% of the available routing space on each metal layer should be reserved for power, with the exception of Metals 8 and 9, which should have 100% coverage.
 
@@ -268,7 +267,7 @@ d) (UNGRADED thought experiment #1) Why is it harder to meet both setup and hold
 
 e) (UNGRADED thought experiment #2) Why does fixing one setup or hold error introduce one or multiple errors? Is it more likely to produce an error of the same, or different type, and why?
 
-f) (UNGRADED thought experiment #3) P&R tools have a goal to minimize power while ensur- ing that all paths have have >0ps of slack. What might a timing path histogram look like in a design that has maximized the frequency it can run at while meeting this goal? Given the histogram obtained here, does it look we can increase our performance? What might we need to improve/change?
+f) (UNGRADED thought experiment #3) P&R tools have a goal to minimize power while ensuring that all paths have have >0ps of slack. What might a timing path histogram look like in a design that has maximized the frequency it can run at while meeting this goal? Given the histogram obtained here, does it look we can increase our performance? What might we need to improve/change?
 
 ---
 
