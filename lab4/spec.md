@@ -112,7 +112,7 @@ left: 10
       right: 10
       top: 10
       bottom: 10
-  - path: "gcd_coprocessor/GCDpath0"
+  - path: "gcd_coprocessor/GCDdpath0"
     type: "placement"
     x: 50
     y: 50
