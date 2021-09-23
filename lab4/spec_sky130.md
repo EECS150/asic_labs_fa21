@@ -82,12 +82,11 @@ In this lab, you will begin to implement your GCD coprocessor in physical layout
 
 ### Setting up for P&R
 
-We will first bring our design to the point we stopped in Lab 3. Synthesize and post-synthesis simulate your design:
+We will first bring our design to the point we stopped in Lab 3. Synthesize your design:
 
 
 ```shell
 make syn
-make sim-gl-syn
 ```
 
 Before proceeding, make sure your design is working correctly. It should meet timing at the default 10ns clock period in the setup corner with plenty of slack.
