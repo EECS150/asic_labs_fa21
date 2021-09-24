@@ -16,6 +16,8 @@ College of Engineering, University of California, Berkeley
 ## Overview
 This lab consists of three parts. For the first part, you will be writing a GCD coprocessor that could be included alongside a general-purpose CPU (like your final project). You will then learn how the tools can create a floorplan, route power straps, place standard cells, perform timing optimizations, and generate a clock tree for your design. Finally, you will get a slight head start on your project by writing part of the ALU.
 
+This lab contains a series of conceptual questions labeled as *thought experiments.* These will not be graded and should not be included in your lab report. They are meant to deepen your understanding of the material, and serve as discussion points during your lab section.
+
 To begin this lab, get the project files and set up your environment by typing the following command and sourcing the `eecs151.bashrc` file, as usual:
 
 ```shell
