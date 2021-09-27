@@ -110,7 +110,7 @@ vlsi.inputs.placement_constraints:
     width: 150
     height: 150
     margins:
-left: 10
+      left: 10
       right: 10
       top: 10
       bottom: 10
