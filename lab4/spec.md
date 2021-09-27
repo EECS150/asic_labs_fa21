@@ -306,15 +306,15 @@ Now zoom in to one of the cells and click the box next to “Cell” on the righ
 ## Project Preparation
 ---
 ### Question 4: ALU
-In this question, you will be designing and testing an ALU for later use in the semester. A header file containing define statements for operations (`ALUop.vh`) is provided inside the `src` directory of this lab. This file has already been included in an ALU template given to you in the same folder (`ALU.v`), but you may need to modify the include statement to match the correct path of the header file. Compare ALUop input of your ALU to the define statements inside the header file to select the function ALU is currently running. Definition of the functions is given below:
+In this question, you will be designing and testing an ALU for later use in the semester. A header file containing define statements for operations (`ALUop.vh`) is provided inside the `src` directory of this lab. This file has already been included in an ALU template given to you in the same folder (`ALU.v`), but you may need to modify the include statement to match the correct path of the header file. Compare `ALUop` input of your ALU to the define statements inside the header file to select the function ALU is currently running. For `ADD` and `SUB`, treat the operands as unsigned integers and ignore overflow. Definition of the functions is given below:
   
 | Op Code |                         Definition                        |
 |:-------:|:---------------------------------------------------------:|
-|   ADD   |                        Add A and B                        |
-|   SUB   |                     Substrate B from A                    |
-|   AND   |                    Bitwise `and` A and B                    |
-|    OR   |                     Bitwise `or` A and B                    |
-|   XOR   |                    Bitwise `xor` A and B                    |
+|   ADD   |                         Add A and B                       |
+|   SUB   |                      Subtract B from A                    |
+|   AND   |                    Bitwise `and` A and B                  |
+|    OR   |                     Bitwise `or` A and B                  |
+|   XOR   |                    Bitwise `xor` A and B                  |
 |   SLT   |        Perform a signed comparison, Out=1 if  A < B       |
 |   SLTU  |      Perform an unsigned comparison, Out = 1 if A < B     |
 |   SLL   |   Logical shift left A by an amount indicated by B[4:0]   |
@@ -323,7 +323,7 @@ In this question, you will be designing and testing an ALU for later use in the 
 |  COPY_B |                    Output is equal to B                   |
 |   XXX   |                        Output is 0                        |
 
-Given these definitions, complete `ALU.v` and write a testbench tb `ALU.v` that checks all these oper- ations with random inputs at least a 100 times per operation and outputs a PASS/FAIL indicator. For this lab, we will only check for effort and not correctness, but you will need it to work later!
+Given these definitions, complete `ALU.v` and write a testbench tb `ALU.v` that checks all these operations with random inputs at least a 100 times per operation and outputs a PASS/FAIL indicator. For this lab, we will only check for effort and not correctness, but you will need it to work later!
 
 ---
 
