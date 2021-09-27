@@ -57,14 +57,16 @@ b.) How many cycles did your simulation take? What was the % speedup?
 
 ## Automated Flow
 
-In the last lab, we had only run PAR flow up until a point, in this lab, we will perform the full flow.
-Routing is the final major modification performed on our design. Up until routing, Innovus uses a
-quick and dirty routing engine with errors and shorts, but ignores these errors and simply tries to
-get an estimate of the distance between cells and parasitics that each route will see. Once post-CTS
-optimization is done, it switches to a different tool that performs careful routing and eliminates
-these shorts while maintaining timing performance of our design. Routing is one of the most
-computationally heavy tasks of digital IC design and can take days to complete for complicated
-designs. After routing is complete, a post-Route optimization is run to ensure no timing violations
+In the last lab, we only focused on the PAR flow through CTS. In this lab, we will go through the full flow.
+Routing is the next major flow step. Prior to the actual routing step, Innovus uses a
+basic routing engine with errors and shorts, but ignores these errors and simply tries to
+get an estimate of delays and parasitics. Once post-CTS
+optimization is done, it switches to a different tool that actually legalizes routing and tries to eliminate
+shorts while meeting timing. Routing is one of the most
+computationally heavy tasks of digital IC design and can take days to complete for complicated designs. 
+This will be reflected in the runtime in this lab.
+
+After routing is complete, a post-Route optimization is run to ensure no timing violations
 remain. Post-Route optimization typically has little freedom to move cells around, and it tries to
 meet the timing constraints mostly by tweaking the length of the routings. You may see some DRC
 (Design Rule Check) errors caused by the 7nm technology library, after routing.
@@ -87,8 +89,9 @@ Once your synthesized design passes the test, you can start the PAR flow:
 make par
 ```
 
-The PAR command will take a long time to complete, as it runs through all stages of PAR. Once it
-completes, take a look at the build directory as in the previous labs. You might see additional files
+The PAR command will take a long time to complete, as it runs through all stages of PAR. 
+Check out the iterations that Innovus runs through during optimization.  You can see some of the metrics that Innovus is using.
+Once it completes, take a look at the build directory as in the previous labs. You might see additional files
 compare to the `syn-rundir`, and that’s because the PAR flow incorporates the RC and parasitic delays, in addition to the cell delays. Open `build/par-rundir/gcd coprocessor.setup.par.spef`
 and search for the first occurrence of `D_NET`. What does it say about the first net? You may find
 [this wiki page helpful](https://en.wikipedia.org/wiki/Standard_Parasitic_Exchange_Format#Parasitics). (thought experiment #1 : get a sense of the units at the top and orders
@@ -126,7 +129,7 @@ innovus -common_ui
 ```
 
 This will open the Innovus shell. Next, type `read_db gcd_coprocessor_FINAL` to load the current design
-database from the latest PAR flow. This will help us to avoid rerunning the entire flow. To see
+database from the latest PAR flow. This will help us to avoid re-running the entire flow. To see
 all the reporting commands, type `help report*` to innovus shell and read through the options
 available to you.
 
@@ -138,6 +141,8 @@ occupy?
 b.) Submit a screenshot of your setup slack histogram. Compared with the histogram you obtained
 in Lab 4, does your new slack distribution support the observed performance improvements you
 obtained in your coprocessor?
+
+-----
 
 After you are done with the flow, it is time to simulate our newly printed post-PAR netlist. Type
 the following command:
@@ -160,13 +165,13 @@ the power estimation numbers match your expectation?
 
 ## Question 4: Trade-offs
 
-a.) Rerun the flow using your old design. You may prevent clobbering of files in `build` by setting the
+a.) Re-run the flow using your old design. You may prevent clobbering of files in `build` by setting the
 `OBJ_DIR` variable when typing make commands to something other than `build` for the old design.
 Using the area and power values from Innovus, how does the performance improvement from the
 dual-unit design compare to area occupation and power consumption increase compared to your
 old design?
 
-b.) Modify your gcd coprocessor.v to take an input parameter in terms of number of clock cycles we
+b.) Modify your `gcd_coprocessor.v` to take an input parameter in terms of number of clock cycles we
 want our design to meet (`parameter TARGET_NUMBER_OF_CYCLES`) for this given testbench. Your
 code should generate a low area, low power design if the number is greater than that your simple
 gcd coprocessor can achieve, and it should generate the dual-unit design if it is lower. Submit
