@@ -283,7 +283,7 @@ innovus -common_ui
 Now, follow `par.tcl` command-by-command, copying and pasting the commands to the Innovus shell and looking at the GUI for any changes. You may skip the `puts` commands as they just tell the tool to print out what its doing, and the `write_db` commands which write a checkpoint database between each step of the P&R flow. The steps that you will see significant changes are listed below. As you progress through the steps, feel free to zoom in to investigate what is going on with the design, look at the extra TCL files that are sourced, and cross-reference the commands with the command reference manual at `/home/ff/eecs151/labs/manuals/TCRcom.pdf`.
 
 1. After the command sourcing `floorplan.tcl`
-2. After the command sourcing power `straps.tcl`
+2. After the command sourcing `power_straps.tcl`
 3. After the command `edit pin`
 4. After the command `place_opt_design`
 
