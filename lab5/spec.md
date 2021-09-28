@@ -37,7 +37,7 @@ test has been modified to check the total number of cycles taken by the coproces
 tests. Run `make sim-rtl` to run the new testbench on the solution code. Take note of the number
 of cycles that the tests take without modification, as you will need it to calculate your speedup.
 
-Your task is to edit `gcd_coprocessor.v` to improve the perfomance below 225 cycles. We will do
+Your task is to edit `gcd_coprocessor.v` to improve the performance below 225 cycles. We will do
 this by using two instances of GCD.
 
 You will find RTL that connects the datapath and controller into one module in `gcd_unit.v`. You
@@ -71,7 +71,7 @@ remain. Post-Route optimization typically has little freedom to move cells aroun
 meet the timing constraints mostly by tweaking the length of the routings. You may see some DRC
 (Design Rule Check) errors caused by the 7nm technology library, after routing.
 
-Fist, synthesize the design:
+First, synthesize the design:
 
 ```shell
 make syn
@@ -92,9 +92,9 @@ make par
 The PAR command will take a long time to complete, as it runs through all stages of PAR. 
 Check out the iterations that Innovus runs through during optimization.  You can see some of the metrics that Innovus is using.
 Once it completes, take a look at the build directory as in the previous labs. You might see additional files
-compare to the `syn-rundir`, and that’s because the PAR flow incorporates the RC and parasitic delays, in addition to the cell delays. Open `build/par-rundir/gcd coprocessor.setup.par.spef`
+compare to the `syn-rundir`, and that’s because the PAR flow incorporates the RC and parasitic delays, in addition to the cell delays. Open `build/par-rundir/gcd_coprocessor.setup.par.spef`
 and search for the first occurrence of `D_NET`. What does it say about the first net? You may find
-[this wiki page helpful](https://en.wikipedia.org/wiki/Standard_Parasitic_Exchange_Format#Parasitics). (thought experiment #1 : get a sense of the units at the top and orders
+[this wiki page](https://en.wikipedia.org/wiki/Standard_Parasitic_Exchange_Format#Parasitics) helpful. (thought experiment #1 : get a sense of the units at the top and orders
 of magnitude of the RC parasitics in the SPEF file. If we used a 5nm technology library, do you
 expect the resistance to generally increase or decrease? How about the capacitance?)
 
@@ -166,7 +166,7 @@ the power estimation numbers match your expectation?
 ## Question 4: Trade-offs
 
 a.) Re-run the flow using your old design. You may prevent clobbering of files in `build` by setting the
-`OBJ_DIR` variable when typing make commands to something other than `build` for the old design.
+`OBJ_DIR` variable when typing `make` commands to something other than `build` for the old design.
 Using the area and power values from Innovus, how does the performance improvement from the
 dual-unit design compare to area occupation and power consumption increase compared to your
 old design?
