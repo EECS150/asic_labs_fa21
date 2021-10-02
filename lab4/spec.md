@@ -318,7 +318,7 @@ In this question, you will be designing and testing an ALU for later use in the 
 |   SLT   |        Perform a signed comparison, Out=1 if  A < B       |
 |   SLTU  |      Perform an unsigned comparison, Out = 1 if A < B     |
 |   SLL   |   Logical shift left A by an amount indicated by B[4:0]   |
-|   SLA   | Arithmetic shift right A by an amount indicated by B[4:0] |
+|   SRA   | Arithmetic shift right A by an amount indicated by B[4:0] |
 |   SRL   |   Logical shift right A by an amount indicated by B[4:0]  |
 |  COPY_B |                    Output is equal to B                   |
 |   XXX   |                        Output is 0                        |
