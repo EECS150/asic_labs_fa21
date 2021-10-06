@@ -184,7 +184,7 @@ by writing out every possible case explicitly. You can limit the number of units
 
 ## Lab Deliverables
 
-### Lab Due 11:59 PM, Monday Oct 11th, 2021
+### Lab Due 11:59 PM, Friday Oct 15th, 2021
 
 - Submit a written report with all 4 questions answered to Gradescope
 - Checkoff with an ASIC lab TA
