@@ -115,6 +115,7 @@ precise) for the clock period until you start running into setup errors.
 c.) Open the post-CTS timing report(`par-rundir/hammer_cts_debug/hammer_cts_all.tarpt`) and the post-PAR 
 timing report(`par-rundir/timingReports/gcd_coprocessor_postRoute_all.tarpt`). 
 **Find a common path (same start and end sequential elements). What differences do you notice within the paths?**
+
 ---
 
 ## Innovus Commands
@@ -142,6 +143,7 @@ available to you.
 
 **b.) Submit a screenshot of your setup slack histogram.**
 **Compared with the histogram you obtained in Lab 4, does your new slack distribution support the observed performance improvements you obtained in your coprocessor?**
+
 ---
 
 After you are done with the flow, it is time to simulate our newly printed post-PAR netlist. Type
@@ -181,6 +183,7 @@ c.) (Optional) Using a rough estimate of target number of cycles versus number o
 write a code that will generate 1-8 cores depending on the performance demand. Do NOT do this
 by writing out every possible case explicitly. You can limit the number of units to powers of two
 (1,2,4,8) if it makes your life easier.
+
 ---
 
 ## Lab Deliverables
