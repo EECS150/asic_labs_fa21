@@ -55,6 +55,7 @@ block contains the earliest data to preserve ordering.
 **a.) Submit your code (`gcd_coprocessor.v` and `gcd_arbiter.v`) with your lab assignment.**
 
 **b.) How many cycles did your simulation take? What was the % speedup?**
+
 ---
 
 ## Automated Flow
