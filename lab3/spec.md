@@ -392,10 +392,13 @@ This will run a post-synthesis simulation using annotated delays from the `gcd.m
 ---
 
 ### Question 5: Delay Questions
-**a)** Check the waveforms in DVE. 
-**Submit a screenshot and report the clk-q delay of `state[0]` in `GCDctrl0` at 17.5 ns.**
-**Which line in the sdf file specifies this delay and what is the delay?**
-**Is the delay from the waveform the same as from the sdf file? Why or why not?**
+Check the waveforms in DVE. 
+
+**a) Report the clk-q delay of `state[0]` in `GCDctrl0` at 17.5 ns and submit a screenshot of the waveforms showing how you found this delay.**
+
+**b) Which line in the sdf file specifies this delay and what is the delay?**
+
+**c) Is the delay from the waveform the same as from the sdf file? Why or why not?**
 
 ---
 
