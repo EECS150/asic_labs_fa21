@@ -89,12 +89,12 @@ the tool flow, or you if encounter some tooling issues.
 ## SRAM Modeling and Abstraction
 Open the file `src/dot_product.v`. This Verilog module implements a vector dot product of two
 vectors of unsigned integers a and b. The module first reads elements of the vectors one-by-one via
-the Read/Valid interfaces and stores them to two SRAMs, one for each vector.
+the ready/valid interfaces and stores them to two SRAMs, one for each vector.
 
 Note: You will see some `REGISTER_R_CE` blocks in `dot_product.v`. These are used by some
 iterations of this lab to remove the `reg` ambiguity that exists in Verilog. You may refer to
 `/home/ff/eecs151/verilog_lib/EECS151.v` to see their definition, but in essence they are structural descriptions of registers that are unambiguously translated to flip-flops when written in this
-fashion.
+fashion. You may use these constructs or normal verilog syntax.
 
 Let’s look at one particular SRAM module instantiation to understand its interface. The function
 of select ports are annotated here:
