@@ -426,7 +426,7 @@ why?
 
 ## Lab Deliverables
 
-### Lab Due: 11:59 PM, Friday October 15th, 2021
+### Lab Due: 11:59 PM, Friday October 22nd, 2021
 
 - Submit a written report with all 4 questions answered to Gradescope
 - Checkoff with an ASIC lab TA
