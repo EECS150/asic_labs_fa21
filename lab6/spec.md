@@ -315,6 +315,7 @@ design.yml, they are set to be ”don’t use” by PAR.
 ---
 ### Question 2: Using a different SRAM
 **a)** Modify the dot product design to use only one instantiation of a *dual-port, 5-bit address width, and 16-bit data width SRAM*. In this SRAM, you want to store vector `a` to the first 16 entries of the SRAM, and store vector `b` to the remaining entries of the SRAM. You can use the dot product code given to you as a starting point, but please implement your design in `src/dot_product_1SRAM.v`.
+**Include a screenshot of the code you added when modifying `dot_product` to `dot_product_1SRAM`.**
 
 **b)** Run PAR (remember to update your SRAM placement constraints) and find the post-PAR critical path in your design: with a step size of 0.1ns, reduce the PAR clock period until your design has setup violation. 
 **Describe that path based on your Verilog source (roughly).**
