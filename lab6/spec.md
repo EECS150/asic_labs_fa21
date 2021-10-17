@@ -329,22 +329,24 @@ The SRAMs will have 0 power due to incomplete LIBs–show where this shows up in
 
 ---
 ### Question 3: Divide Your Vector Dot Products
-a) Imagine we would like to compute the division of two dot products of vectors of unsigned integers. Open the file `src/dp_div.v`, connect two single-SRAM vector dot product modules with the divider you implemented in Lab 4 (the divider should have Ready/Valid interfaces for input and output) via FIFOs. If you implement a correct Ready/Valid mechanism for each block, connecting those blocks is simply a matter of wiring relevant signals at the interfaces. One dot product produces dividend input, and the other provides divisor input to your Divider. Refer to the following figure for the high-level overview of the design.
+a) Imagine we would like to compute the division of two dot products of vectors of unsigned integers. Open the file `src/dp_div.v`, connect two single-SRAM vector dot product modules with the divider you implemented in Lab 4 (the divider should have Ready/Valid interfaces for input and output) via FIFOs. If you implement a correct Ready/Valid mechanism for each block, connecting those blocks is simply a matter of wiring relevant signals at the interfaces. One dot product produces dividend input, and the other provides divisor input to your Divider. Then write a testbench for your new `dp_div` module based on `dot_product_tb.v`, where the test cases are simple yet non-trivial (don't worry about covering edge cases with these). Refer to the figure below for the high-level overview of the design.
 
 **What is the number of cycles it takes to run a design of 16-element vectors with 16-bit datapath (for both dot product modules and divider module)?**
 **Screenshot the floorplan, collect the power report, timing report, and area report at a clock period that your design can meet (i.e., you don’t have to find the maximum achievable frequency).**
 **Zip your code and power, timing, area reports and submit it to the separate code assignment on Gradescope instead of pasting them into your lab PDF.** 
 Start early, since the tools take a long time!
 
----
+
+To receive full credit, you should make sure that your final implementations has no latch (one way
+to do so is opening Genus log file, search for ”latch”). Also, your post PAR gate-level simulation
+should pass the test in the testbench code.
 
 <p align="center">
 <img src="./figs/dp_div.png" width="500" />
 </p>
 
-To receive full credit, you should make sure that your final implementations has no **latch** (one way
-to do so is opening Genus log file, search for ”latch”). Also, your post PAR gate-level simulation
-should pass the test in the testbench code.
+
+---
 
 ## DRC and LVS
 [DRC](https://en.wikipedia.org/wiki/Design_rule_checking) and [LVS](https://en.wikipedia.org/wiki/Layout_Versus_Schematic) are two of the most important ”signoff” checks. DRC checks that all of the geometries
