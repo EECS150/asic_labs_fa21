@@ -197,13 +197,13 @@ Hint: take some time to look at the Verilog implementation to understand what it
 **What is the SRAM model (in terms of number of Read/Write ports, address width, data/word width)?** 
 **Briefly describe the purpose the BYTEMASK. In which situation do you think it is useful?**
 
-c) (Ungraded thought experiment #1) SRAM libraries in real process technologies are much larger than the list you see in `sram_behav_models.v`. What features do you think are important for real SRAM libraries? Think in terms of number of ports, masking, improving yield, or anything else you can think of. What would these features do to the size of the SRAM macros?
+*c) (Ungraded thought experiment #1) SRAM libraries in real process technologies are much larger than the list you see in `sram_behav_models.v`. What features do you think are important for real SRAM libraries? Think in terms of number of ports, masking, improving yield, or anything else you can think of. What would these features do to the size of the SRAM macros?*
 
-d) (Ungraded thought experiment #2) SRAMs should be integrated very densely in a circuit’s layout. To build large SRAM arrays, often times many SRAM macros are tiled together, abutted on one or more sides. Knowing this, take a guess at how SRAMs are laid out.
+*d) (Ungraded thought experiment #2) SRAMs should be integrated very densely in a circuit’s layout. To build large SRAM arrays, often times many SRAM macros are tiled together, abutted on one or more sides. Knowing this, take a guess at how SRAMs are laid out.*
 
-i) In ASAP7, there are 9 metal layers, but realistically only 7 layers to route on in order to leave   the top 2 layers for robust power distribution, as you saw in Lab 4. How many layers should a well-designed SRAM macro use (i.e. block off from PAR routing), at maximum?
+*i) In ASAP7, there are 9 metal layers, but realistically only 7 layers to route on in order to leave   the top 2 layers for robust power distribution, as you saw in Lab 4. How many layers should a well-designed SRAM macro use (i.e. block off from PAR routing), at maximum?*
 
-ii) Where should the pins on SRAMs be located, if you want to maximize the ability for them to abut together?
+*ii) Where should the pins on SRAMs be located, if you want to maximize the ability for them to abut together?*
 
 ---
 
@@ -332,7 +332,7 @@ The SRAMs will have 0 power due to incomplete LIBs–show where this shows up in
 ### [Extra Credit] Question 3: Divide Your Vector Dot Products
 **Note: this question is extra credit. You will be awarded up to 15% extra credit on this lab report.**
 
-a) Imagine we would like to compute the division of two dot products of vectors of unsigned integers. Open the file `src/dp_div.v`, connect two single-SRAM vector dot product modules with the divider you implemented in Lab 4 (the divider should have Ready/Valid interfaces for input and output) via FIFOs. If you implement a correct Ready/Valid mechanism for each block, connecting those blocks is simply a matter of wiring relevant signals at the interfaces. One dot product produces dividend input, and the other provides divisor input to your Divider. Then write a testbench for your new `dp_div` module based on `dot_product_tb.v`, where the test cases are simple yet non-trivial (don't worry about covering edge cases with these). Refer to the figure below for the high-level overview of the design.
+Imagine we would like to compute the division of two dot products of vectors of unsigned integers. Open the file `src/dp_div.v`, connect two single-SRAM vector dot product modules with the divider you implemented in Lab 4 (the divider should have Ready/Valid interfaces for input and output) via FIFOs. If you implement a correct Ready/Valid mechanism for each block, connecting those blocks is simply a matter of wiring relevant signals at the interfaces. One dot product produces dividend input, and the other provides divisor input to your Divider. Then write a testbench for your new `dp_div` module based on `dot_product_tb.v`, where the test cases are simple yet non-trivial (don't worry about covering edge cases with these). Refer to the figure below for the high-level overview of the design.
 
 **What is the number of cycles it takes to run a design of 16-element vectors with 16-bit datapath (for both dot product modules and divider module)?**
 **Screenshot the floorplan, collect the power report, timing report, and area report at a clock period that your design can meet (i.e., you don’t have to find the maximum achievable frequency).**
@@ -415,17 +415,9 @@ instances of a submodule in the design.
 b) Skim through Chapter 1.2 of the DRM (`build/tech-asap7-cache/extracted/ASAP7_PDKandLIB.tar/ASAP7_PDKandLIB_v1p5/asap7PDK_r1p5.tar.bz2/asap7PDK_r1p5/docs/asap7_drm.pdf`). 
 **For the violated rule with the highest numbers of occurrences less than 1000, provide a brief description of what the rule requires based on the naming convention and descriptions in Table 1.2.1 of the DRM.**
 
-c) (Ungraded thought experiment #3) If the DRC rule decks are perfect, the way you floorplan
-your design has a large impact on whether your design can be DRC clean. What things do you
-think can cause violations? What about other things that are constrained in PAR other than the
-floorplan?
+*c) (Ungraded thought experiment #3) If the DRC rule decks are perfect, the way you floorplan your design has a large impact on whether your design can be DRC clean. What things do you think can cause violations? What about other things that are constrained in PAR other than the floorplan?*
 
-d) (Ungraded thought experiment #4) At first, it may seem odd that the netlist that the PAR tool
-thinks the layout corresponds to could be different from the netlist extracted from the actual
-layout. What reasons can you think of that could cause mismatches? Which of these causes might
-make the LVS tool to slow down dramatically as it tries to extract/compare? Would you be able
-to catch any of these discrepancies if doing a post-PAR gate-level simulation in lieu of LVS, and
-why?
+*d) (Ungraded thought experiment #4) At first, it may seem odd that the netlist that the PAR tool thinks the layout corresponds to could be different from the netlist extracted from the actual layout. What reasons can you think of that could cause mismatches? Which of these causes might make the LVS tool to slow down dramatically as it tries to extract/compare? Would you be able to catch any of these discrepancies if doing a post-PAR gate-level simulation in lieu of LVS, and why?*
 
 ---
 
