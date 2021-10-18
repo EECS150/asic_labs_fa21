@@ -1,0 +1,145 @@
+# EECS 151/251A ASIC Project Specification RISC-V Processor Design: Overview
+<p align="center">
+Prof. Bora Nikolic
+</p>
+<p align="center">
+TAs: Daniel Grubb, Nayiri Krzysztofowicz, Zhaokai Liu
+</p>
+<p align="center">
+Department of Electrical Engineering and Computer Science
+</p>
+<p align="center">
+College of Engineering, University of California, Berkeley
+</p>
+
+## 1. Introduction
+
+The primary goal of this project is to familiarize students with the methods and tools of digital design. In order to make the project both interesting and useful, we will guide you through the implementation of a CPU that is intended to be integrated on a modern SoC. Working alone or in teams of 2, you will be designing a simple 3-stage CPU that implements the RISC-V ISA, developed here at UC Berkeley. If you work in a team, you both must work on the project together (i.e. you are not allowed to divide up the work), and you will both receive the same grade.
+
+Your first and most important goal is to write a functional implementation of your processor. To better expose you to real design decisions, you will also be tasked with improving the performance of your processor. You will be required to meet a minimum performance to be specified later in the project.
+
+You will use Verilog HDL to implement this system. You will be provided with some testbenches to verify your design, but you will be responsible for creating additional testbenches to exercise your entire design. Your target implementation technology will be the ASAP7 7nm Educational PDK, a predictive model technology used for instruction. The project will give you experience designing synthesizeable RTL (Register Transfer Level) code, resolving hazards in a simple pipeline, building interfaces, and approaching system-level optimization.
+
+Your first step will be to map our high level specification to a design which can be translated into a hardware implementation. You will then generate and debug that implementation in Verilog. These steps may take significant time if you do not put effort into your system architecture before attempting implementation. After you have built a working design, you will be optimizing it for speed in the 7nm technology that we have been using this semester.
+
+
+### 1.1 RISC-V
+The final project for this class will be a VLSI implementation of a RISC-V (pronounced risk-five) CPU. RISC-V is an instruction set architecture (ISA) developed here at UC Berkeley. It was originally developed for computer architecture research and education purposes, but recently there has been a push towards commercialization and industry adoption. For the purposes of this lab, you don’t need to delve too deeply into the details of RISC-V. However, it may be good to familiarize yourself with it, as this will be at the core of your final project. Check out the official [Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf) and explore http://riscv.org for more information.
+- Read through sections 2.2 and 2.3 in the [RISC-V Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf) to understand how the different types of instructions are encoded. Most of this should be familiar as it is similar to MIPS.
+- Read through sections 2.4, 2.5, and 2.6 in the Instruction Set Manual and think about how each of the instructions will use the ALU.
+You do not need to read 2.7 or 2.8, as you will not be implementing those instructions in the project.
+
+### 1.2 Project phases
+Your project will consist of two different phases: front-end and back-end. Within each phase, you will have multiple checkpoints that will ensure you are making consistent progress. These checkpoints will contribute (although not significantly) to your final grade. You are free to make design changes after they have been checked off if they will help subsequent phases or improve QoR.
+
+In the first phase (front-end), you will design and implement a 3-stage RISC-V processor in Verilog, and run simulations to test for functionality. At this point, you will only have a functional description of your processor that is independent of technology (there are no standard cells yet). You have about 5 weeks to complete the first phase, but you are highly encouraged to try to finish each checkpoint early, as each checkpoint will be released before the due date of the ongoing one. Everything will take much longer than you expect, and finishing early gives you more time to improve your QoR (Quality of Results, e.g. clock period).
+
+In the second phase (back-end), you will implement your front-end design in the ASAP7 7nm kit using the VLSI tools you used in lab. When you have finished phase 2, you will have a design that could move onto fabrication if this were a real process. You will have about 2 weeks to complete the second phase after its release.
+### 1.3 Philosophy
+This document is meant to describe a high-level specification for the project and its associated support hardware. You can also use it to help lay out a plan for completing the project. As with any design you will encounter in the professional world, we are merely providing a framework within which your project must fit.
+
+You should consider the GSI(s) a source of direction and clarification, but it is up to you to produce a fully functional design, as well as a physical implementation. I/We will attempt to help, when possible, but ultimately the burden of designing and debugging your solution lies on you.
+
+### 1.4 General Project Tips
+Be sure to use top-down design methodologies in this project. We began by taking the problem of designing a basic computer system, modularizing it into distinct parts, and then refining those parts into manageable checkpoints. You should take this scheme one step further; we have given you each checkpoint, so break each into smaller, manageable pieces.
+
+As with many engineering disciplines, digital design has a normal development cycle. In the norm, after modularizing your design, your strategy should roughly resemble the following steps:
+
+- **Design** your modules well, make sure you understand what you want before you begin to code.
+
+- **Code** exactly what you designed; do not try to add features without redesigning.
+
+- **Simulate** thoroughly; writing a good testbench is as much a part of creating a module as actually coding it.
+- **Debug** completely; anything which can go wrong with your implementation will.
+
+Document your project thoroughly as you go. Your design review documents will help, but you should never forget to comment your Verilog and to keep your diagrams up to date. Aside from the final project report (you will need to turn in a report documenting your project), you can use your design documents to help the debugging process. Finish the required features first. Attempt extra features after everything works well.
+
+This project is divided into checkpoints. Each checkpoint will be due 1 to 2 weeks after its release, but the next checkpoint will be released early. Use this to your advantage- try to get ahead so that you have additional time to debug. Your TA will clarify the specific timeline for your semester.
+
+The most important goal is to design a functional processor- this alone is 50-60% of the final grade, and you must have it **working completely** to receive any credit for performance.
+
+---
+
+## 2 Front-end design (Phase 1)
+
+The first phase in this project is designed to guide the development of a three-stage pipelined RISC-V CPU that will be used as a base system for your back-end implementation.
+Phase 1 will last for 5 weeks and has weekly checkpoints.
+
+- Checkpoint 1: ALU design and pipeline diagram (due Friday, November 5, 2021)
+
+### 2.1 Project Setup
+The skeleton files for the project will be delivered as a git repository provided by the staff. You should clone this repository as follows. It is highly recommended to familiarize yourself with git and use it to manage your development.
+
+
+```shell
+git clone /home/ff/eecs151/labs/project_skeleton /path/to/my/project
+```
+
+To get a team repo, fill out the google form via the link on Piazza with your team information. Please do this even if you are working alone, as these git repos will be used for part of the final checkoff. Once it is setup you will be given a team number, and you will be given a repo hosted on the servers for version control for the project. You should be able to add the remote host of “geecs151:teamXX” where “XX” is the team number that you are assigned. An example working flow to be able to pull from the skeleton as well as push/pull with your team repository is shown below:
+
+
+```shell
+git clone /home/ff/eecs151/labs/project_skeleton /path/to/my/project
+git remote add myOrigin geecs151:teamXX
+```
+
+Then to pull changes from the skeleton, you would need to type:
+```shell
+git pull origin master
+```
+
+To pull changes from your team repository you would type:
+```shell
+git pull myOrigin master
+```
+And to push changes to your team repository (please do not attempt to push to the skeleton reposi- tory), you would usually want to pull first (above) and then type:
+```shell
+git push myOrigin master
+```
+
+---
+
+## 3 Grading
+
+### 3.1 EECS 151:
+|                   |           |
+|-------------------|---------|
+|  **70%**          |   Functionality at project due date: Your design will be subjected to a comprehensive test suite and
+|                   |   your score will reflect how many of the tests your implementation passes.
+|  **25%**          |   Final Report and Final Interview: If your design is not 100% functional, this is your opportunity
+|                   |   explain your bugs and recoup points.
+|  **5%**           |   Checkpoints: Each check-off is worth 1.25%. If you accomplished all of your checkpoints on time,
+|                   |   you will receive full credit in this category.
+|  **Bonus 5%**     |   Performance at project due date: You must have a fully working design to score points in
+|                   |   this section. You will receive up to 5 bonus points as your performance improves relative to your
+|                   |   peers. Performance will be calculated using the Iron Law: IPC * F
+
+### 3.2 EECS 251A:
+|                 |           |
+|-----------------|---------|
+|   **60%**       |  Functionality at project due date: Your design will be subjected to a comprehensive test suite and
+|                 |  your score will reflect how many of the tests your implementation passes.
+|   **10%**       |  Set-Associative Cache: Implementation and performance of the configurable set-associative cache.
+|   **25%**       |  Final Report and Final Interview: If your design is not 100% functional, this is your opportunity
+|                 |  explain your bugs and recoup points.
+|   **5%**        |  Checkpoints: Each check-off is worth 1.25%. If you accomplished all of your checkpoints on time,
+|                 |  you will receive full credit in this category.
+|   **Bonus 5%**  |  Performance at project due date: You must have a fully working design to score points in
+|                 |  this section. You will receive up to 5 bonus points as your performance improves relative to your
+|                 |  peers. Performance will be calculated using the Iron Law: IPC * F
+
+## Acknowledgement
+
+This project is the result of the work of many EECS151/251 GSIs over the years including:
+Written By:
+- Nathan Narevsky (2014, 2017)
+- Brian Zimmer (2014)
+Modified By:
+- John Wright (2015,2016)
+- Ali Moin (2018)
+- Arya Reais-Parsi (2019)
+- Cem Yalcin (2019)
+- Tan Nguyen (2020)
+- Harrison Liew (2020)
+- Sean Huang (2021)
+- Daniel Grubb, Nayiri Krzysztofowicz, Zhaokai Liu (2021)
