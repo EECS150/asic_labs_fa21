@@ -329,7 +329,9 @@ Remember that Latency (ns) = Number of Post-PAR simulation cycles × Lowest Post
 The SRAMs will have 0 power due to incomplete LIBs–show where this shows up in the power reports.
 
 ---
-### Question 3: Divide Your Vector Dot Products
+### [Extra Credit] Question 3: Divide Your Vector Dot Products
+**Note: this question is extra credit. You will be awarded up to 15% extra credit on this lab report.**
+
 a) Imagine we would like to compute the division of two dot products of vectors of unsigned integers. Open the file `src/dp_div.v`, connect two single-SRAM vector dot product modules with the divider you implemented in Lab 4 (the divider should have Ready/Valid interfaces for input and output) via FIFOs. If you implement a correct Ready/Valid mechanism for each block, connecting those blocks is simply a matter of wiring relevant signals at the interfaces. One dot product produces dividend input, and the other provides divisor input to your Divider. Then write a testbench for your new `dp_div` module based on `dot_product_tb.v`, where the test cases are simple yet non-trivial (don't worry about covering edge cases with these). Refer to the figure below for the high-level overview of the design.
 
 **What is the number of cycles it takes to run a design of 16-element vectors with 16-bit datapath (for both dot product modules and divider module)?**
@@ -431,7 +433,7 @@ why?
 
 ### Lab Due: 11:59 PM, Friday October 22nd, 2021
 
-- Submit a written report with all 4 questions answered to Gradescope
+- Submit a written report with all 3 questions (4 if doing extra credit) answered to Gradescope
 - Checkoff with an ASIC lab TA
 
 ## Acknowledgement
