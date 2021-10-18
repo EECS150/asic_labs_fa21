@@ -189,7 +189,7 @@ running DRC, LVS, and sending the design off to the fabrication house.
 
 ### Question 1: Understanding SRAMs
 **a)** Open the file `sram_behav_models.v` (located in HAMMER repository). 
-**What are different SRAM-sizes avaialble?** 
+**What are different SRAM-sizes available?** 
 **What is the difference between the `SRAM1RW*` and `SRAM2RW*` variants?** 
 Hint: take some time to look at the Verilog implementation to understand what it does. You will need to use this SRAM model in the final project.
 
