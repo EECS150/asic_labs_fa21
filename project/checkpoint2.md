@@ -15,7 +15,7 @@ College of Engineering, University of California, Berkeley
 ---
 ## Fully functioning core
 
-### 1 Additional Instructions
+### 1. Additional Instructions
 In order to run the testbenches, there are a few new instructions that need to be added for help in
 debugging/creating testbenches. Read through Chapter 9 in the RISC-V specification. A CSR (or
 control status register) is some state that is stored independent of the register file and the memory.
@@ -30,26 +30,26 @@ There are 2 CSR related instructions that you will need to implement:
 the addressed csr. Note that you do not need to write to rd (writing to x0 does nothing).
 
 <p align="center">
-<img src="./figs/csrw.png" />
+<img src="./figs/csrw.png" width="800" />
 </p>
 
-### 2 Details
+### 2. Details
 Your job is to implement the core of the 3-stage RISC-V CPU.
 
-### 3 File Structure
+### 3. File Structure
 Implement the datapath and control logic for your RISC-V processor in the file `Riscv151.v`. Make
 sure that the inputs and outputs remain the same, since this module connects to the memory system
 for system-level testing. If you look at `riscv_test_harness.v` you can see a testbench that
 is provided. Target this testbench in your `sim-rtl.yml` file by changing the `tb_name` key to
 `rocketTestHarness`.
 
-### 4 Running the Test
+### 4. Running the Test
 This testbench will load a program into the instruction memory, and will then run until the exit code
 register has been set. There is also a timeout to make sure that the simulation does not run forever. This
 will also tell you whether or not your testbench is passing the test. You should only be running this test
 suite after you have eliminated some of the bugs using single instruction tests described below.
 
-### 5 Running assembly tests
+### 5. Running assembly tests
 We have provided a suite of assembly tests to help you debug all of the instructions you need to estimate.
 To run all of them:
 ```
@@ -79,8 +79,8 @@ vim addi.hex
 ```
 
 
-### 6 Checkpoint 2 Deliverables
-*Checkoff due: Friday, November 19, 2021*
+### 6. Checkpoint 2 Deliverables
+*Checkoff due: Friday, November 12, 2021*
 
 Congratulations! You’ve started the design of your datapath by implementing your pipeline diagram, and written and thoroughly tested a key component in your processor and should now be wellversed in testing Verilog modules. Please answer the following questions to be checked off by a TA.
 
