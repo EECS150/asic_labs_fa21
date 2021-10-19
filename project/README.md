@@ -3,7 +3,7 @@
 
 - [Project Overview](overview.md) : Introduction, Project setup and Grading
 - [Checkpoint 1](checkpoint1.md) :  ALU design and Pipeline diagram 
-    - due Friday, November 5, 2021
+    - Due Friday, November 5, 2021
 - [Checkpoint 2](checkpoint2.md) : Fully functioning core
 - [Checkpoint 3](checkpoint3.md) : Cache
 - [Checkpoint 4](checkpoint4.md) : Synthesis, PAR & Power
