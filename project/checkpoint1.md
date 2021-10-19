@@ -34,7 +34,7 @@ Given specifications about what the ALU should do, you will create an ALU in Ver
 The encoding of each instruction is shown in the table below. There is a detailed functional description of each of the instructions in Section 2.4 of the [RISC-V Instruction Set Manual](https://riscv.org/technical/specifications/) (Volume 1, Unprivileged Spec). Pay close attention to the functional description of each instruction as there are some subtleties. 
 
 <p align="center">
-<img src="./figs/RV32I_Base_Instruction_Set.png" />
+<img src="./figs/RV32I_Base_Instruction_Set.png" width="800" />
 </p>
 
 ---
