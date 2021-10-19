@@ -24,14 +24,14 @@ The specific instructions that your ALU must support are shown in the tables bel
 ### 1. Makeing a pipeline diagram
 
 
-The first step in this project is to make a pipeline diagram of your processor, as described in lecture. You only need to make a diagram of the datapath (not the control). Each stage should be clearly separated with a vertical line, and flip-flops will form the boundary between stages. It is a good idea to name signals depend on what stage they are in (eg. s1_killf, s2_rd0). Also, it is a good idea to separately name the input/output (D/Q) of a flip flop (eg. s0_next_pc, s1_pc). Draw your diagram in a drawing program (Inkscape, Google Drawings, draw.io or any program you want), because you will need to keep it up-to-date as you build your processor. It helps to print out scratch copies while you are debugging your processor and to keep your drawings revision-controlled with git. Once you have finished your initial datapath design, you will implement the main building block in the datapath—the ALU.
+The first step in this project is to make a pipeline diagram of your processor, as described in lecture. You only need to make a diagram of the datapath (not the control). Each stage should be clearly separated with a vertical line, and flip-flops will form the boundary between stages. It is a good idea to name signals depending on what stage they are in (eg. `s1_killf`, `s2_rd0`). Also, it is a good idea to separately name the input/output (D/Q) of a flip flop (eg. `s0_next_pc`, `s1_pc`). Draw your diagram in a drawing program (Inkscape, Google Drawings, draw.io or any program you want), because you will need to keep it up-to-date as you build your processor. It helps to print out scratch copies while you are debugging your processor and to keep your drawings revision-controlled with git. Once you have finished your initial datapath design, you will implement the main building block in the datapath—the ALU.
 
 ---
 
 ### 2. ALU functional specification
 Given specifications about what the ALU should do, you will create an ALU in Verilog and write a test harness to test the ALU.
 
-The encoding of each instruction is shown in the table below. There is a detailed functional description of each of the instructions in Section 2.4 of the [Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf). Pay close attention to the functional description of each instruction as there are some subtleties. Also, note that the `LUI` instruction is somewhat different from the MIPS version of `LUI` which some of you may be used to.
+The encoding of each instruction is shown in the table below. There is a detailed functional description of each of the instructions in Section 2.4 of the [RISC-V Instruction Set Manual](https://riscv.org/technical/specifications/) (Volume 1, Unprivileged Spec). Pay close attention to the functional description of each instruction as there are some subtleties. 
 
 <p align="center">
 <img src="./figs/RV32I_Base_Instruction_Set.png" />
