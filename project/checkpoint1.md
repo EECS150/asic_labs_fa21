@@ -39,7 +39,7 @@ The encoding of each instruction is shown in the table below. There is a detaile
 
 ---
 
-### 3 Project Files
+### 3. Project Files
 We have provided a skeleton directory structure to help you get started.
 
 Inside, you should see a `src` folder, as well as a `tests` folder. The `src` folder contains all of
@@ -47,7 +47,7 @@ the verilog modules for this phase, and the `tests` folder contains some RISC-V 
 
 ---
 
-### 4 Testing the Design
+### 4. Testing the Design
 Before writing any of modules, you will first write the tests so that once you’ve written the modules you’ll be able to test them immediately. This is effectively Test-driven Development (TDD). Writing tests first is good practice- it forces you to write thorough tests, and ensures that tests will exist when you need to rapidly iterate through module design tweaks. Thorough understanding of the expected functionality is key to writing good tests (or RTL). You will be expected to write unit tests for any modules that you design and implement and write integration tests. Unit tests will verify the functionality of individual modules against your specification. Integration tests verify that all the modules work as a system once you connect them together.
 
 #### 4.1 Verilog Testbench
@@ -93,7 +93,7 @@ The syntax for a for loop can be found in ``ALUTestbench.v``. ``$readmemb`` take
 
 ```verilog
 reg [5:0] bar [0:20];
-$readmemb(\foo.input", bar);
+$readmemb("foo.input", bar);
 ```
 
 #### 4.3 Writing Test Vectors
@@ -101,7 +101,7 @@ Additionally, you will also have to generate actual test vectors to use in your 
 
 Test vectors are of the format specified above, with the 7 opcode bits occupying the left-most bits. In the tests folder, create the file testvectors.input and add test vectors for the following instructions to the end (i.e. manually type the 107 zeros and ones required for each test vector): ``SLT``, ``SLTU``, ``SRA``, and ``SRL``.
 
-In the same directory, we’ve also provided a test vector generator ``ALUTestGen.py`` written in Python, which is a popular language used for scripting. We used this generator to generate the test vectors provided to you. If you’re curious, you can read the next paragraph and poke around in the file. If not, feel free to skip ahead to the next section.
+In the same directory, we’ve also provided a test vector generator ``ALUTestGen.py`` written in Python. We used this generator to generate the test vectors provided to you. If you’re curious, you can read the next paragraph and poke around in the file. If not, feel free to skip ahead to the next section.
 
 The script ``ALUTestGen.py`` is located in ``tests``. Run it so that it generates a test vector file in the tests folder. Keep in mind that this script makes a couple assumptions that aren’t necessary and may differ from your implementation:
 
@@ -122,7 +122,7 @@ file when loading the test vectors with ``$readmemb``.
 
 ---
 
-### 5 Writing Verilog Modules
+### 5. Writing Verilog Modules
 For this exercise, we’ve provided the module interfaces for you. They are logically divided into a control (``ALUdec.v``) and a datapath (``ALU.v``). The datapath contains the functional units while control contains the necessary logic to drive the datapath. You will be responsible for implementing these two modules. Descriptions of the inputs and outputs of the modules can be found in the first few lines of each file. The ALU should take an ``ALUop`` and its two inputs ``A`` and ``B``, and provide an output dependent on the ``ALUop``. The operations that it needs to support are outlined in the Functional Specification. Don’t worry about sign extensions–they should take place outside of the ALU. The ALU decoder uses the ``opcode``, ``funct``, and ``add_rshift_type`` to determine the ``ALUop`` that the ALU should execute. The ``funct`` input corresponds to the ``funct3`` field from the ISA encoding table. The ``add_rshift_type`` input is used to distinguish between ``ADD/SUB``, ``SRA/SRL``, and ``SRAI/SRLI``; you will notice that each of these pairs has the same ``opcode`` and ``funct3``, but differ in the ``funct7 `` field.
 
 You will find the case statement useful, which has the following syntax:
@@ -151,7 +151,7 @@ case(opcode)
 
 ---
 
-### 6 Running the Simulation
+### 6. Running the Simulation
 
 Open the file ``sim-rtl.yml``, set the testbench’s name to be ALUTestbench. 
 
@@ -171,7 +171,7 @@ To clean the simulation directory from previous simulations’ files, type ``mak
 
 ---
 
-### 7 Viewing Waveforms
+### 7. Viewing Waveforms
 
 As in the previous labs, you should use DVE to view waveforms.
 1. List of the modules involved in the test bench. You can select one of these to have its signals show up in the object window.
@@ -209,8 +209,8 @@ If not, you will need to debug your module until all test from the test vector f
 
 ---
 
-###  8 Checkpoint #1: Simple test program
-*Checkoff due: Friday, November 5, 2021*
+###  8. Checkpoint #1: Simple test program
+*Checkoff due: Friday, October 29, 2021*
 
 
 Congratulations! You’ve started the design of your datapath by drawing a pipeline diagram, and written and thoroughly tested a key component in your processor. You should now be well-versed in testing Verilog modules. Please answer the following questions to be checked off by a TA:
