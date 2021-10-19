@@ -79,7 +79,7 @@ vim addi.hex
 ```
 
 
-### 6 Checkpoint #2 Deliverables
+### 6 Checkpoint 2 Deliverables
 *Checkoff due: Friday, November 19, 2021*
 
 Congratulations! You’ve started the design of your datapath by implementing your pipeline diagram, and written and thoroughly tested a key component in your processor and should now be wellversed in testing Verilog modules. Please answer the following questions to be checked off by a TA.

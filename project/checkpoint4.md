@@ -27,7 +27,7 @@ for how to do placement constraints. Based on how you implemented the caches fro
 checkpoint, you will need to modify these constraints to match the master SRAM cell used as well as
 the path. Now you should be ready to proceed to Synthesis and PAR. As in the previous labs, execute
 the following:
-```
+```shell
 export HAMMER_HOME=$PWD/hammer
 source hammer/sourceme.sh
 ```
@@ -78,7 +78,7 @@ likely need to increase the gate-level simulation clock period for the benchmark
 
 ---
 
-## 2 Beyond Checkpoint #4: CPU Optimization
+## 2 Beyond Checkpoint 4: CPU Optimization
 
 ### 2.1 Optimizing for frequency
 Beyond functionality, your final project grade will be determined by the maximum operating frequency

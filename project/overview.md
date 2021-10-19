@@ -66,8 +66,9 @@ The first phase in this project is designed to guide the development of a three-
 Phase 1 will last for 5 weeks and has weekly checkpoints.
 
 - Checkpoint 1: ALU design and pipeline diagram (due Friday, November 5, 2021)
+- Checkpoint 2: Core implementation
+- Checkpoint 3: Core + memory system implementation 
 
-### 2.1 Project Setup
 The skeleton files for the project will be delivered as a git repository provided by the staff. You should clone this repository as follows. It is highly recommended to familiarize yourself with git and use it to manage your development.
 
 
@@ -92,7 +93,7 @@ To pull changes from your team repository you would type:
 ```shell
 git pull myOrigin master
 ```
-And to push changes to your team repository (please do not attempt to push to the skeleton reposi- tory), you would usually want to pull first (above) and then type:
+And to push changes to your team repository (please do not attempt to push to the skeleton repository), you would usually want to pull first (above) and then type:
 ```shell
 git push myOrigin master
 ```

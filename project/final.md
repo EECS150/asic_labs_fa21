@@ -26,6 +26,7 @@ graded you must submit the following items:
 * `build/syn-rundir/reports/*`
 * `build/par-rundir/timingReports/*`
 * `build/par-rundir/innovus.log*`
+
 These files will be used to check processor functionality and will show us your critical path, maximum operating frequency and area. During the interview session (Tuesday, December 8, 2020), the
 professors and the GSI will be interviewing each team to gauge understanding of various concepts
 learned in the project, understand more about each team’s design process, and provide feedback. Your

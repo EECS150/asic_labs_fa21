@@ -24,7 +24,7 @@ array. Instead, caches are used to create the illusion of a large memory with lo
 Your task is to implement a (relatively) simple cache for your RISC-V processor, based on some
 predefined SRAM macros (memory arrays) and the interface specified below.
 
-### 5.1 Cache overview
+### 1 Cache overview
 When you request data at a given address, the cache will see if it is stored locally. If it is (cache hit), it
 is returned immediately. Otherwise if it is not found (cache miss), the cache fetches the bits from the
 main memory.
@@ -39,7 +39,7 @@ locations for a line to occupy (the number of ways). For this reason, a ”repla
 This is used to decide which way’s data to evict when fetching new data. For this project you may use
 any policy you wish, but pseudo-random is recommended.
 
-### 5.2 Guidelines and requirements
+### 2 Guidelines and requirements
 You have been given the interface of a cache (`Cache.v`) and your next task is to implement the cache.
 EECS151 students should build a direct-mapped cache, and EECS251 students are required to implement a cache that either:
 
@@ -82,14 +82,12 @@ Below find a description of each signal in `Cache.v`:
 | `cpu_req_rdy`          | The cache is ready for a CPU memory transaction
 | `cpu_req_addr`         | The address of the CPU memory transaction
 | `cpu_req_data`         | The write data for a CPU memory write (ignored on reads)
-| `cpu_req_write`        | The 4-bit write mask for a CPU memory transaction (each bit corresponds to the
-|                        | byte address within the word). `4’b0000` indicates a read.
+| `cpu_req_write`        | The 4-bit write mask for a CPU memory transaction (each bit corresponds to the byte address within the word). `4’b0000` indicates a read.
 | `cpu_resp_val`         | The cache has output valid data to the CPU after a memory read
 | `cpu_resp_data`        | The data requested by the CPU
 | `mem_req_val`          | The cache is requesting a memory transaction to main memory
 | `mem_req_rdy`          | Main memory is ready for the cache to provide a memory address
-| `mem_req_addr`         | The address of the main memory transaction from the cache. Note that this address
-|                        | is narrower than the CPU byte address since main memory has wider data._
+| `mem_req_addr`         | The address of the main memory transaction from the cache. Note that this address is narrower than the CPU byte address since main memory has wider data._
 | `mem_req_rw`           | 1 if the main memory transaction is a write; 0 for a read.
 | `mem_req_data_valid`   | The cache is providing write data to main memory.
 | `mem_req_data_ready`   | Main memory is ready for the cache to provide write data.
@@ -108,7 +106,7 @@ for both hits and misses. You can do it without an explicit state machine, but y
 mind you will need to write any valid data back to main memory before you start refilling the cache (you
 can use a write-back or a write-through policy). Both of these transactions will take multiple cycles.
 
-### 5.3 Changes to the flow for this checkpoint
+### 3 Changes to the flow for this checkpoint
 You should now be able to pass the `bmark` test. The test suite includes many C programs that do
 various things to test your processor and cache implementation. You can observe the number of cycles
 that each bmark test takes to run by opening `bmark_output/*.out` and taking note of the number
@@ -122,7 +120,7 @@ After completing your cache, run the tests with both the cache included and with
 simOptions variable in the `sim-rtl.yml` file. To use your cache, comment out `+define+no_cache_mem`.
 Take note of the cycle counts for both, you should see the cycle counts increase when you use the cache.
 
-### 5.4 Checkpoint #3 Deliverables
+### 4 Checkpoint 3 Deliverables
 1. Show that all of the assembly tests and final pass using the cache
 
 2. Show the block diagram of your cache
@@ -132,7 +130,6 @@ cache?
 
 4. Show your final pipeline diagram, updated to match the code
 
----
 ---
 
 
