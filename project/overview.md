@@ -104,29 +104,19 @@ git push myOrigin master
 ### EECS 151:
 |                   |           |
 |-------------------|---------|
-|  **70%**          |   Functionality at project due date: Your design will be subjected to a comprehensive test suite and
-|                   |   your score will reflect how many of the tests your implementation passes.
-|  **25%**          |   Final Report and Final Interview: If your design is not 100% functional, this is your opportunity
-|                   |   explain your bugs and recoup points.
-|  **5%**           |   Checkpoints: Each check-off is worth 1.25%. If you accomplished all of your checkpoints on time,
-|                   |   you will receive full credit in this category.
-|  **Bonus 5%**     |   Performance at project due date: You must have a fully working design to score points in
-|                   |   this section. You will receive up to 5 bonus points as your performance improves relative to your
-|                   |   peers. Performance will be calculated using the Iron Law: IPC * F
+|  **70%**          |   Functionality at project due date: Your design will be subjected to a comprehensive test suite and    your score will reflect how many of the tests your implementation passes.
+|  **25%**          |   Final Report and Final Interview: If your design is not 100% functional, this is your opportunity  explain your bugs and recoup points.
+|  **5%**           |   Checkpoints: Each check-off is worth 1.25%. If you accomplished all of your checkpoints on time, you will receive full credit in this category.
+|  **Bonus 5%**     |   Performance at project due date: You must have a fully working design to score points in this section. You will receive up to 5 bonus points as your performance improves relative to your peers. Performance will be calculated using the Iron Law: IPC * F
 
 ### EECS 251A:
 |                 |           |
 |-----------------|---------|
-|   **60%**       |  Functionality at project due date: Your design will be subjected to a comprehensive test suite and
-|                 |  your score will reflect how many of the tests your implementation passes.
+|   **60%**       |  Functionality at project due date: Your design will be subjected to a comprehensive test suite and your score will reflect how many of the tests your implementation passes.
 |   **10%**       |  Set-Associative Cache: Implementation and performance of the configurable set-associative cache.
-|   **25%**       |  Final Report and Final Interview: If your design is not 100% functional, this is your opportunity
-|                 |  explain your bugs and recoup points.
-|   **5%**        |  Checkpoints: Each check-off is worth 1.25%. If you accomplished all of your checkpoints on time,
-|                 |  you will receive full credit in this category.
-|   **Bonus 5%**  |  Performance at project due date: You must have a fully working design to score points in
-|                 |  this section. You will receive up to 5 bonus points as your performance improves relative to your
-|                 |  peers. Performance will be calculated using the Iron Law: IPC * F
+|   **25%**       |  Final Report and Final Interview: If your design is not 100% functional, this is your opportunity explain your bugs and recoup points.
+|   **5%**        |  Checkpoints: Each check-off is worth 1.25%. If you accomplished all of your checkpoints on time,  you will receive full credit in this category.
+|   **Bonus 5%**  |  Performance at project due date: You must have a fully working design to score points in this section. You will receive up to 5 bonus points as your performance improves relative to your peers. Performance will be calculated using the Iron Law: IPC * F
 
 ## Acknowledgement
 
