@@ -1,4 +1,4 @@
-# EECS 151/251A ASIC Project Specification RISC-V Processor Design: Checkpoint 4
+# EECS 151/251A ASIC Project Specification: Checkpoint 4
 <p align="center">
 Prof. Bora Nikolic
 </p>

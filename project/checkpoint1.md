@@ -1,4 +1,4 @@
-# EECS 151/251A ASIC Project Specification RISC-V Processor Design: Checkpoint 1
+# EECS 151/251A ASIC Project Specification: Checkpoint 1
 <p align="center">
 Prof. Bora Nikolic
 </p>
@@ -24,14 +24,14 @@ The specific instructions that your ALU must support are shown in the tables bel
 ### 1. Makeing a pipeline diagram
 
 
-The first step in this project is to make a pipeline diagram of your processor, as described in lecture. You only need to make a diagram of the datapath (not the control). Each stage should be clearly separated with a vertical line, and flip-flops will form the boundary between stages. It is a good idea to name signals depend on what stage they are in (eg. s1 killf, s2 rd0). Also, it is a good idea to separately name the input/output (D/Q) of a flip flop (eg. s0 next pc, s1 pc). Draw your diagram in a drawing program(Inkscape, Google Drawings, draw.io or any program you want), because you will need to keep it up-to-date as you build your processor. It helps to print out scratch copies while you are debugging your processor and to keep your drawings revision-controlled with git. Once you have finished your initial datapath design, you will implement the main building block in the datapath—the ALU.
+The first step in this project is to make a pipeline diagram of your processor, as described in lecture. You only need to make a diagram of the datapath (not the control). Each stage should be clearly separated with a vertical line, and flip-flops will form the boundary between stages. It is a good idea to name signals depend on what stage they are in (eg. s1_killf, s2_rd0). Also, it is a good idea to separately name the input/output (D/Q) of a flip flop (eg. s0_next_pc, s1_pc). Draw your diagram in a drawing program (Inkscape, Google Drawings, draw.io or any program you want), because you will need to keep it up-to-date as you build your processor. It helps to print out scratch copies while you are debugging your processor and to keep your drawings revision-controlled with git. Once you have finished your initial datapath design, you will implement the main building block in the datapath—the ALU.
 
 ---
 
 ### 2. ALU functional specification
 Given specifications about what the ALU should do, you will create an ALU in Verilog and write a test harness to test the ALU.
 
-The encoding of each instruction is shown in the table below. There is a detailed functional de- scription of each of the instructions in Section 2.4 of the [Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf). Pay close attention to the functional description of each instruction as there are some subtleties. Also, note that the LUI instruction is somewhat different from the MIPS version of LUI which some of you may be used to.
+The encoding of each instruction is shown in the table below. There is a detailed functional de- scription of each of the instructions in Section 2.4 of the [Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf). Pay close attention to the functional description of each instruction as there are some subtleties. Also, note that the `LUI` instruction is somewhat different from the MIPS version of `LUI` which some of you may be used to.
 
 <p align="center">
 <img src="./figs/RV32I_Base_Instruction_Set.png" />
@@ -42,8 +42,8 @@ The encoding of each instruction is shown in the table below. There is a detaile
 ### 3 Project Files
 We have provided a skeleton directory structure to help you get started.
 
-Inside, you should see a src folder, as well as a tests folder. The src folder contains all of
-the verilog modules for this phase, and the tests folder contains some RISC-V test binaries for your processor.
+Inside, you should see a `src` folder, as well as a `tests` folder. The `src` folder contains all of
+the verilog modules for this phase, and the `tests` folder contains some RISC-V test binaries for your processor.
 
 ---
 
@@ -67,14 +67,17 @@ One way of testing Verilog code is with testbench Verilog files. The outline of 
 - ``task checkOutput``; - this task contains Verilog code that you would otherwise have to copy paste many times. Note that it is not the same thing as a function (as Verilog also has functions).
 - ``{$random} & 31'h7FFFFFFF `` - $random generates a pseudorandom 32-bit integer. A bitwise AND will mask the result for smaller bit widths.
 
-For these two modules, the inputs and outputs that you care about are ``opcode``, ``funct``, ``add_rshift_type``, ``A``, ``B`` and ``Out``. To test your design thoroughly, you should work through every possible opcode, funct, and ``add_rshift_type`` that you care about, and verify that the correct Out is generated from the A and B that you pass in.
+For these two modules, the inputs and outputs that you care about are ``opcode``, ``funct``, ``add_rshift_type``, ``A``, ``B`` and ``Out``. To test your design thoroughly, you should work through every possible `opcode`, `funct`, and ``add_rshift_type`` that you care about, and verify that the correct Out is generated from the A and B that you pass in.
 
 The test bench generates random values for ``A`` and ``B`` and computes ``REFout = A + B``. It also contains calls to ``checkOutput`` for load and store instructions, for which the ALU should perform addition. It will be up to you to write tests for the remaining combinations of opcode, funct, and ``add_rshift_type`` to test your other instructions.
 
 Remember to restrict ``A`` and ``B`` to reasonable values (e.g. masking them, or making sure that they are not zero) if necessary to guarantee that a function is sufficiently tested. Please also write tests where the inputs and the output are hard-coded. These should be corner cases that you want to be certain are stressed during testing.
 
+---
+
 #### 4.2 Test Vector Testbench
 An alternative way of testing is to use a test vector, which is a series of bit arrays that map to the inputs and outputs of your module. The inputs can be all applied at once if you are testing a combinational logic block or applied over time for a sequential logic block (e.g. an FSM).
+
 You will write a Verilog testbench that takes the parts of the bit array that correspond to the inputs of the module, feeds those to the module, and compares the output of the module with the output bits of the bit array. The bit vector should be formatted as follows:
 ```verilog
 [106:100] = opcode
@@ -85,6 +88,7 @@ You will write a Verilog testbench that takes the parts of the bit array that co
 [31:0] = REFout
 ```
 Open up the skeleton provided to you in ``ALUTestVectorTestbench.v``. You need to complete the module by making use of ``$readmemb`` to read in the test vector file (named testvectors.input), writing some assign statements to assign the parts of the test vectors to registers, and writing a for loop to iterate over the test vectors.
+
 The syntax for a for loop can be found in ``ALUTestbench.v``. ``$readmemb`` takes as its arguments a filename and a reg vector, e.g.:
 
 ```verilog
@@ -103,21 +107,23 @@ The script ``ALUTestGen.py`` is located in ``tests``. Run it so that it generate
 
 - Jump, branch, load and store instructions will use the ALU to compute the target address. 
 
-- For all shift instructions, A is shifted by B. In other words, B is the shift amount.
+- For all shift instructions, `A` is shifted by `B`. In other words, `B` is the shift amount.
 
-- For the LUI instruction, the value to load into the register is fed in through the B input.
+- For the `LUI` instruction, the value to load into the register is fed in through the `B` input.
 
 You can either match these assumptions or modify the script to fit with your implementation. All the methods to generate test vectors are located in the two Python dictionaries ``opcodes`` and ``functs``. The lambda methods contained (separated by commas) are respectively: the function that the operation should perform, a function to restrict the ``A`` input to a particular range, and a function to restrict the ``B ``input to a particular range.
 
 **If you modify the Python script**, run the generator to make new test vectors. This will overwrite the ``testvectors.input`` file, so if you want to save your handwritten test vectors, rename the file before running the script, then append them once the file has been generated.
-% python ALUTestGen.py
+```shell
+python ALUTestGen.py
+```
 This will write the test vector into the file ``testvectors.input``. Use this file as the target test vector
 file when loading the test vectors with ``$readmemb``.
 
 ---
 
 ### 5 Writing Verilog Modules
-For this exercise, we’ve provided the module interfaces for you. They are logically divided into a control (``ALUdec.v``) and a datapath (``ALU.v``). The datapath contains the functional units while control contains the necessary logic to drive the datapath. You will be responsible for implementing these two modules. Descriptions of the inputs and outputs of the modules can be found in the first few lines of each file. The ALU should take an ``ALUop``and its two inputs ``A`` and ``B``, and provide an output dependent on the ``ALUop``. The operations that it needs to support are outlined in the Functional Specification. Don’t worry about sign extensions–they should take place outside of the ALU. The ALU decoder uses the ``opcode``, ``funct``, and ``add_rshift_type`` to determine the ``ALUop`` that the ALU should execute. The ``funct`` input corresponds to the ``funct3`` field from the ISA encoding table. The ``add_rshift_type`` input is used to distinguish between ``ADD/SUB``, ``SRA/SRL``, and ``SRAI/SRLI``; you will notice that each of these pairs has the same ``opcode`` and ``funct3``, but differ in the ``funct7 `` field.
+For this exercise, we’ve provided the module interfaces for you. They are logically divided into a control (``ALUdec.v``) and a datapath (``ALU.v``). The datapath contains the functional units while control contains the necessary logic to drive the datapath. You will be responsible for implementing these two modules. Descriptions of the inputs and outputs of the modules can be found in the first few lines of each file. The ALU should take an ``ALUop`` and its two inputs ``A`` and ``B``, and provide an output dependent on the ``ALUop``. The operations that it needs to support are outlined in the Functional Specification. Don’t worry about sign extensions–they should take place outside of the ALU. The ALU decoder uses the ``opcode``, ``funct``, and ``add_rshift_type`` to determine the ``ALUop`` that the ALU should execute. The ``funct`` input corresponds to the ``funct3`` field from the ISA encoding table. The ``add_rshift_type`` input is used to distinguish between ``ADD/SUB``, ``SRA/SRL``, and ``SRAI/SRLI``; you will notice that each of these pairs has the same ``opcode`` and ``funct3``, but differ in the ``funct7 `` field.
 
 You will find the case statement useful, which has the following syntax:
 ```verilog

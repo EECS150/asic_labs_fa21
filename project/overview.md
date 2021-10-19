@@ -101,7 +101,7 @@ git push myOrigin master
 
 ## 3 Grading
 
-### 3.1 EECS 151:
+### EECS 151:
 |                   |           |
 |-------------------|---------|
 |  **70%**          |   Functionality at project due date: Your design will be subjected to a comprehensive test suite and
@@ -114,7 +114,7 @@ git push myOrigin master
 |                   |   this section. You will receive up to 5 bonus points as your performance improves relative to your
 |                   |   peers. Performance will be calculated using the Iron Law: IPC * F
 
-### 3.2 EECS 251A:
+### EECS 251A:
 |                 |           |
 |-----------------|---------|
 |   **60%**       |  Functionality at project due date: Your design will be subjected to a comprehensive test suite and

@@ -1,4 +1,4 @@
-# EECS 151/251A ASIC Project Specification RISC-V Processor Design: Final Deliverables
+# EECS 151/251A ASIC Project Specification: Final Deliverables
 <p align="center">
 Prof. Bora Nikolic
 </p>
