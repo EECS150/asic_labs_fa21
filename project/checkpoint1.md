@@ -21,7 +21,7 @@ The specific instructions that your ALU must support are shown in the tables bel
 
 ---
 
-### 1. Makeing a pipeline diagram
+### 1. Making a pipeline diagram
 
 
 The first step in this project is to make a pipeline diagram of your processor, as described in lecture. You only need to make a diagram of the datapath (not the control). Each stage should be clearly separated with a vertical line, and flip-flops will form the boundary between stages. It is a good idea to name signals depending on what stage they are in (eg. `s1_killf`, `s2_rd0`). Also, it is a good idea to separately name the input/output (D/Q) of a flip flop (eg. `s0_next_pc`, `s1_pc`). Draw your diagram in a drawing program (Inkscape, Google Drawings, draw.io or any program you want), because you will need to keep it up-to-date as you build your processor. It helps to print out scratch copies while you are debugging your processor and to keep your drawings revision-controlled with git. Once you have finished your initial datapath design, you will implement the main building block in the datapath—the ALU.
