@@ -79,7 +79,7 @@ The most important goal is to design a functional processor- this alone is 50-60
 The first phase in this project is designed to guide the development of a three-stage pipelined RISC-V CPU that will be used as a base system for your back-end implementation.
 Phase 1 will last for 5 weeks and has weekly checkpoints.
 
-- Checkpoint 1: ALU design and pipeline diagram (due Friday, November 5, 2021)
+- Checkpoint 1: ALU design and pipeline diagram
 - Checkpoint 2: Core implementation
 - Checkpoint 3: Core + memory system implementation 
 
