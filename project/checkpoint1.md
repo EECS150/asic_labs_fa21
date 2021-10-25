@@ -197,7 +197,7 @@ Now you can examine all the other signal values at this time. Compare the ```DUT
 ```verilog
 Out = A >>> B[4:0];
 ```
-That looks like it should work, but it doesn’t! It turns out you need to tell Verilog to treat B as a signed
+That looks like it should work, but it doesn’t! It turns out you need to tell Verilog to treat A as a signed
 number for SRA to work as you wish. You change the line to say:
 ```verilog
 Out = $signed(A) >>> B[4:0];
