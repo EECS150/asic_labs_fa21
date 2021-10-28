@@ -614,7 +614,7 @@ SPEF files are generated from the P&R tool (saved for future labs). Skimming thr
 files, you can glance the words CAP and RES everywhere; these are annotations of the parasitic
 capacitances and resistances caused by physical layout and connections of logic gates. The SAIF file
 is dumped from a post-P&R gate-level simulation, and contains a somewhat cryptic annotation of
-how often nets in the design switch and requires the `sim.inputs.saif keys` in Hammer. A time
+how often nets in the design switch and requires the `sim.inputs.saif` keys in Hammer. A time
 window over which switching activity is measured is helpful for generating representative traces,
 such as for workloads that only run after a processor core has booted up.
 Now, run the power analysis (later labs will use a different make rule):
