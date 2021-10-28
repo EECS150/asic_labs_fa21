@@ -79,10 +79,28 @@ The most important goal is to design a functional processor- this alone is 50-60
 The first phase in this project is designed to guide the development of a three-stage pipelined RISC-V CPU that will be used as a base system for your back-end implementation.
 Phase 1 will last for 5 weeks and has weekly checkpoints.
 
-- Checkpoint 1: ALU design and pipeline diagram (due Friday, November 5, 2021)
+- Checkpoint 1: ALU design and pipeline diagram
 - Checkpoint 2: Core implementation
 - Checkpoint 3: Core + memory system implementation 
 
+
+### 2.1 Adding SSH Key
+First you must add an SSH key to your Github account, to allow you to push to your project repo from the instructional machines without entering your Github password each time. You may run these commands in any location on any instructional machine (the SSH key will be stored in your home directory and thus work on all machines).
+```shell
+ssh-keygen -t ed25519 -C "your_email@example.com"
+# hit Enter to each prompt (leave response blank)
+cat ~/.ssh/id_ed25519.pub
+# Then select and copy the contents of the id_ed25519.pub file
+# displayed in the terminal to your clipboard
+```
+
+In your browser, navigate to [https://github.com/settings/ssh/new](https://github.com/settings/ssh/new) (log into your Github account if needed). You should see the `SSH Keys / Add New` page. Enter the following values:
+* Title: `something descriptive (ex. eecs151)`
+* Key: `paste the contents of the id_ed25519.pub file`
+
+Then click the green `Add SSH key` button.
+
+### 2.2 Project Git Repo
 The skeleton files for the project will be delivered as a git repository provided by the staff. You should clone this repository as follows. It is highly recommended to familiarize yourself with git and use it to manage your development.
 
 
@@ -90,12 +108,14 @@ The skeleton files for the project will be delivered as a git repository provide
 git clone /home/ff/eecs151/labs/project_skeleton /path/to/my/project
 ```
 
-To get a team repo, fill out the google sheet via the link on Piazza with your team information. Please do this even if you are working alone, as these git repos will be used for part of the final checkoff. Once it is setup you will be given a team number, and you will be given a repo hosted on the servers for version control for the project. You should be able to add the remote host of “geecs151:teamXX” where “XX” is the team number that you are assigned. An example working flow to be able to pull from the skeleton as well as push/pull with your team repository is shown below:
+To get a team repo, fill out the google sheet via the link on Piazza with your team information. Please do this even if you are working alone, as these git repos will be used for version control and as part of the final checkoff. You will receive an email with an invite link to your project repo, which you should click to join before following the directions below. 
+
+An example working flow to be able to pull from the skeleton as well as push/pull with your team repository is shown below:
 
 
 ```shell
-git clone /home/ff/eecs151/labs/project_skeleton /path/to/my/project
-git remote add myOrigin geecs151:teamXX
+cd /path/to/my/project
+git remote add myOrigin git@github.com:EECS150/fa21_asic_teamXX
 ```
 
 Then to pull changes from the skeleton, you would need to type:
@@ -107,6 +127,7 @@ To pull changes from your team repository you would type:
 ```shell
 git pull myOrigin master
 ```
+
 And to push changes to your team repository (please do not attempt to push to the skeleton repository), you would usually want to pull first (above) and then type:
 ```shell
 git push myOrigin master
