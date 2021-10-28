@@ -120,23 +120,23 @@ of design intent between projects that may have differently underlying tool infr
 target different process technologies. Documentation about Hammer philosophy and usage is at
 [hammer-vlsi.readthedocs.io](http://docs.hammer-eda.org/en/latest/). 
 
-For this lab, we will be ”implementing” our designs using the [ASAP7 7nm Predictive Process Design Kit](http://asap.asu.edu/asap/). 
+For this lab, we will be ”implementing” our designs using the [Skywater 130nm Process Design Kit](https://skywater-pdk.readthedocs.io/en/latest/). 
 We have set up a bare-bones Hammer flow that you will see is largely shared between this lab and subsequent ones. 
-You will execute steps within this flow by using a common Makefile. This flow is distilled from an [ASAP7 Tutorial](https://chipyard.readthedocs.io/en/dev/VLSI/Tutorial.html)
+You will execute steps within this flow by using a common Makefile. This flow is distilled from an [Sky130 Tutorial](https://chipyard.readthedocs.io/en/dev/VLSI/Sky130-Tutorial.html)
 contained in [Chipyard](https://github.com/ucb-bar/chipyard), an open-source RISC-V SoC Design Framework also developed here at Berkeley.
 Chipyard documentation can be found [here](https://chipyard.readthedocs.io/en/latest/) if are interested in learning more.
 
 Hammer consumes serialized configuration in YAML or JSON format, which are used as
 intermediate representation (IR) languages between higher-level physical design generators and the
 underlying scripts that the ASIC design flow tools require. In this lab repository, you will see
-a set of YAML files (`inst-env.yaml`, `asap7.yml`, `design.yml`, and a few `sim-<type>.yml`) that
+a set of YAML files (`inst-env.yaml`, `sky130.yml`, `design-sky130.yml`, and a few `sim-<type>.yml`) that
 contain Hammer IR for our design implementation. Of these files, you will only interact with
 the `sim-<type>.yml` files to configure your simulation flow in this lab. The sources for this lab are
 contained in the src folder, and some special non-Verilog files will be explained later.
 
 The Hammer Python core is installed at `/home/ff/eecs151/hammer`, along with plugins for
 Cadence (Genus Synthesis, Innovus Place-and-Route, Voltus Power), Synopsys (VCS Simulator),
-and Mentor Graphics (Calibre DRC/LVS) tools. **Note: The ASAP7 PDK and the Hammer
+and Mentor Graphics (Calibre DRC/LVS) tools. **Note: The Hammer tool
 plugins are provided to us solely for educational use. They should NEVER be copied
 outside of instructional machines under any circumstances, or else we risk losing access
 in the future!!!**
@@ -385,6 +385,7 @@ more complicated so learning how to build automated testbenches will be very imp
 run this automated testbench yourself by replacing `fir_tb` in `sim-rtl.yml` with `fir_tb_file`, and
 running `make sim-rtl` again. Don't forget to change the testbench name too.
 
+---
 
 ### Question 1: Conceptually translating between waveforms, Verilog, and schematics
 
@@ -431,6 +432,7 @@ Verilog code. Hint: Use 1 flip-flop and 1 logic gate only. A is an input, X and 
 <img src="./figs/q1_c.png" width="300" />
 </p>
 
+---
 
 ### Question 2: Writing a testbench
 
@@ -439,6 +441,7 @@ including initial conditions, then simulate the block using VCS and compare to y
 answer. Submit your Verilog testbench and a screenshot of the simulation waveforms showing all
 of the input and output pins. Hint: you may need to modify the Verilog code from Question 1a.  
 
+---
 
 ## Gate-Level Simulation
 
@@ -446,7 +449,7 @@ The RTL design of the FIR filter, `fir.v`, conceptually describes hardware, but 
 implemented as-is because it is purely behavioral. In the real world, a CAD tool translates RTL
 into logic gates from a particular technology library in a process called synthesis. In Lab 3, you
 will learn how to create this file yourself, but for now we have provided the synthesized gate-level
-netlist at `src/post-syn/fir.mapped.v`.
+netlist at `src/post-syn-sky130/fir.mapped.v`.
 
 To simulate using the gate-level netlist, you simply need to make a few changes to the input
 constraints to Hammer. Take a look at `sim-gl-syn.yml`. You will notice that a few things have
@@ -459,7 +462,7 @@ work regardless of initial conditions, but we will not do in this lab due to tim
 SDF file is an output from the synthesis tool that annotates delays according to the synthesized gates.
 
 Under the hood, Hammer has already included the Verilog models of the standard cells from the
-ASAP7 PDK. You will learn more about these standard cells in the next lab, but just know that
+Sky130 PDK. You will learn more about these standard cells in the next lab, but just know that
 they are required because the gate-level has instances of the technology’s standard cells everywhere,
 and VCS must also know the Verilog definition of those cells. The extra options in the new VCS
 section of the Makefile are simply to deal with these standard cell models.
@@ -472,23 +475,23 @@ variable from the command line (later labs will use a different make rule):
 make sim-rtl SIM_RTL_CONF=sim-gl-syn.yml
 ```
 
-To understand what we will see in the waveforms, open `src/post-syn/fir.mapped.sdf`, and go
-to line 259.
+To understand what we will see in the waveforms, open `src/post-syn-sky130/fir.mapped.sdf`, and go
+to line 13.
 
 ```shell
 (CELL
-    (CELLTYPE "INVx1_ASAP7_75t_SL")
-    (INSTANCE add0.g833)
+    (CELLTYPE "sky130_fd_sc_hd__inv_2")
+    (INSTANCE add0.g816)
     (DELAY
-        (ABSOLUTE
-          (PORT A (::0.0))
-          (IOPATH A Y (::11) (::7))
-        )
+      (ABSOLUTE
+        (PORT A (::0.0))
+        (IOPATH A Y (::160) (::111))
+      )
     )
 )
 ```
 
-The above text describes the delay for a cell of type `INVx1_ASAP7_75t_SL` for the instance `add0/g833`.
+The above text describes the delay for a cell of type `sky130_fd_sc_hd__inv_2` for the instance `add0/g816`.
 The format of the delay is `minimum:typical:maximum`, which refer to different operating regions
 that will be discussed in more detail in future labs. Note that this SDF file only specifies maximum
 delays, which is generally what we want because we need to simulate the worst-case conditions
@@ -526,6 +529,8 @@ If you get stuck on anything that you are trying to do, you can look up the Syno
 Guide, which has a significant amount of information about DVE, in the `eecs151` home directory:
 `/home/ff/eecs151/labs/manuals/dve_ug.pdf`.
 
+---
+
 ### Question 3: Calculating delays from the DVE window
 
 **a.)** Calculate the delay of the first flip-flop in the chain (delay chain0) relative to the input pin `clk` at
@@ -537,6 +542,7 @@ Now that we are simulating with delay, we can see that to preserve logic functio
 toggle the `clk` into the circuit too quickly. When this happens, there is a ’setup’ violation and the
 FIR filter will not function correctly.
 
+---
 
 ### Question 4: Creating and fixing setup time violations
 
@@ -563,6 +569,8 @@ and one of them will have a signal that is incorrectly getting captured on the w
 an exaggerated case of a hold time violation, which occurs when a specific delay path is too small
 relative to another.
 
+---
+
 ### Question 5: Fixing hold times
 
 Setup times can be fixed by increasing the clock period, but hold times cannot, because the capturing
@@ -574,7 +582,7 @@ fix it.
 and why? Show what in the SDF is causing this, and make a best guess at what could cause this
 to happen.
 
-**b.)**  Modify the `src/post-syn/fir.mapped_hold.sdf` file to fix the hold time without reverting what
+**b.)**  Modify the `src/post-syn-sky130/fir.mapped_hold.sdf` file to fix the hold time without reverting what
 you found in a). **You are only allowed to change a delay value in one register**. Submit the following:
 
 i) Which delay you changed (show the original and fixed value)
@@ -588,6 +596,7 @@ iv) Since when designing in reality you can’t actually hack SDFs to fix hold, 
 inserted/removed from a gate-level implementation of this design that would accomplish your
 hold fix.
 
+---
 
 ## Power Anlaysis
 
@@ -596,7 +605,7 @@ analysis of power consumption for a given testbench (or workload, benchmark) is 
 designers must simulate. Power analysis results can influence all levels of design in the ASIC flow.
 
 Normally, the most accurate power analysis results come from simulating on a post-place-and-routed design (Labs 4 and 5). For now, we have provided the place-and-routed (P&R) outputs and
-post-P&R simulation outputs in `src/post-par-sim`.
+post-P&R simulation outputs in `src/post-par-sim-sky130`.
 
 To perform power analysis with Hammer, we must specify a few more things. Take a look at
 `sim-gl-par.yml`. In addition to the things added in `sim-gl-syn.yml`, there is a new namespace
@@ -637,6 +646,7 @@ Below that first table is a breakdown into types of cells. In our FIR, we have a
 cells (delay chain flip-flops) but many more combinational cells (adder tree), hence it is reasonable
 that our power is dominated by combinational logic.
 
+---
 
 ### Question 6: Analyzing Power Reports
 
@@ -649,6 +659,7 @@ difference?
 `build/power-rundir/staticPowerReports`. What would you estimate is the effective switching
 activity factor of the testbench we have been using?
 
+---
 
 ## Closing Thoughts
 
