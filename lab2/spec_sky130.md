@@ -449,7 +449,7 @@ The RTL design of the FIR filter, `fir.v`, conceptually describes hardware, but 
 implemented as-is because it is purely behavioral. In the real world, a CAD tool translates RTL
 into logic gates from a particular technology library in a process called synthesis. In Lab 3, you
 will learn how to create this file yourself, but for now we have provided the synthesized gate-level
-netlist at `src/post-syn-sky130/fir.mapped.v`.
+netlist at `src/post-syn/fir.mapped.v`.
 
 To simulate using the gate-level netlist, you simply need to make a few changes to the input
 constraints to Hammer. Take a look at `sim-gl-syn.yml`. You will notice that a few things have
@@ -475,7 +475,7 @@ variable from the command line (later labs will use a different make rule):
 make sim-rtl SIM_RTL_CONF=sim-gl-syn.yml
 ```
 
-To understand what we will see in the waveforms, open `src/post-syn-sky130/fir.mapped.sdf`, and go
+To understand what we will see in the waveforms, open `src/post-syn/fir.mapped.sdf`, and go
 to line 13.
 
 ```shell
@@ -582,7 +582,7 @@ fix it.
 and why? Show what in the SDF is causing this, and make a best guess at what could cause this
 to happen.
 
-**b.)**  Modify the `src/post-syn-sky130/fir.mapped_hold.sdf` file to fix the hold time without reverting what
+**b.)**  Modify the `src/post-syn/fir.mapped_hold.sdf` file to fix the hold time without reverting what
 you found in a). **You are only allowed to change a delay value in one register**. Submit the following:
 
 i) Which delay you changed (show the original and fixed value)
@@ -605,7 +605,7 @@ analysis of power consumption for a given testbench (or workload, benchmark) is 
 designers must simulate. Power analysis results can influence all levels of design in the ASIC flow.
 
 Normally, the most accurate power analysis results come from simulating on a post-place-and-routed design (Labs 4 and 5). For now, we have provided the place-and-routed (P&R) outputs and
-post-P&R simulation outputs in `src/post-par-sim-sky130`.
+post-P&R simulation outputs in `src/post-par-sim`.
 
 To perform power analysis with Hammer, we must specify a few more things. Take a look at
 `sim-gl-par.yml`. In addition to the things added in `sim-gl-syn.yml`, there is a new namespace
