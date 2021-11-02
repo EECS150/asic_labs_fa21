@@ -88,6 +88,8 @@ Congratulations! You’ve started the design of your datapath by implementing yo
 
 2. Show your final pipeline diagram, updated to match the code.
 
+3. Push your implementation and updated pipeline diagram to your repo.
+
 ---
 
 
