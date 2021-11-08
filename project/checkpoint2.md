@@ -16,6 +16,7 @@ College of Engineering, University of California, Berkeley
 ## Fully functioning core
 
 ### 1. Additional Instructions
+#### 1.1 Control and Status Register (CSR)
 In order to run the testbenches, there are a few new instructions that need to be added for help in
 debugging/creating testbenches. Read through Chapter 9 in the RISC-V specification. A CSR (or
 control status register) is some state that is stored independent of the register file and the memory.
@@ -32,6 +33,9 @@ the addressed csr. Note that you do not need to write to rd (writing to x0 does 
 <p align="center">
 <img src="./figs/csrw.png" width="800" />
 </p>
+
+#### 1.2 Misaligned Addresses
+According to the RISC-V ISA spec, reads and writes to memory addresses not aligned to a 32-bit word boundary (or 16-bit for half-word) should cause an exception. In this project, for the purpose of simplicity, ignore the misaligned bits (i.e. set them to zero). For example, for a given memory address of `32'b1011`, LW should return bytes at `0x1000` to `0x1100`, and LH should return bytes at `0x1010` to `0x1011`.
 
 ### 2. Details
 Your job is to implement the core of the 3-stage RISC-V CPU.
@@ -82,7 +86,7 @@ vim addi.hex
 ### 6. Checkpoint 2 Deliverables
 *Checkoff due: Nov 10 (Wednesday), Nov 12 (Friday), Nov 15 (Monday), 2021*
 
-Congratulations! You’ve started the design of your datapath by implementing your pipeline diagram, and written and thoroughly tested a key component in your processor and should now be wellversed in testing Verilog modules. Please answer the following questions to be checked off by a TA.
+Congratulations! You’ve started the design of your datapath by implementing your pipeline diagram, and written and thoroughly tested a key component in your processor and should now be well-versed in testing Verilog modules. Please answer the following questions to be checked off by a TA.
 
 1. Show that all of the assembly tests pass
 
