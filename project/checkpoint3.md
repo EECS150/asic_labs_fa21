@@ -116,7 +116,7 @@ To run a specific benchmark (e.g., cachetest), run
 make sim-rtl test_bmark=cachetest.out
 ```
 After completing your cache, run the tests with both the cache included and with the fake memory
-(`no_cache_mem`) included. To use no cache mem be sure to have `+define+no_cache_mem` in the
+(`no_cache_mem`) included. To use no_cache_mem be sure to have `+define+no_cache_mem` in the
 simOptions variable in the `sim-rtl.yml` file. To use your cache, comment out `+define+no_cache_mem`.
 Take note of the cycle counts for both, you should see the cycle counts increase when you use the cache.
 
