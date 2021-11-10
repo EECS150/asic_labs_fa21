@@ -34,11 +34,17 @@ the addressed csr. Note that you do not need to write to rd (writing to x0 does 
 <img src="./figs/csrw.png" width="800" />
 </p>
 
-#### 1.2 Misaligned Addresses
+### 2. Details
+Your job is to implement the core of the 3-stage RISC-V CPU. 
+
+#### 2.1 Reset
+Your CPU will have an input reset signal that the testbench toggles. Once out of reset, 
+your CPU should start at PC address `0x2000` (defined as `PC_RESET` in `src/const.vh`)
+and begin executing instructions.
+
+#### 2.2 Misaligned Addresses
 According to the RISC-V ISA spec, reads and writes to memory addresses not aligned to a 32-bit word boundary (or 16-bit for half-word) should cause an exception. In this project, for the purpose of simplicity, ignore the misaligned bits (i.e. set them to zero). For example, for a given memory address of `32'b1011`, LW should return bytes at `32'b1000` to `32'b1011`, and LH should return bytes at `32'b1010` to `32'b1011`.
 
-### 2. Details
-Your job is to implement the core of the 3-stage RISC-V CPU.
 
 ### 3. File Structure
 Implement the datapath and control logic for your RISC-V processor in the file `Riscv151.v`. Make
@@ -49,9 +55,10 @@ is provided. Target this testbench in your `sim-rtl.yml` file by changing the `t
 
 ### 4. Running the Test
 This testbench will load a program into the instruction memory, and will then run until the exit code
-register has been set. There is also a timeout to make sure that the simulation does not run forever. This
-will also tell you whether or not your testbench is passing the test. You should only be running this test
-suite after you have eliminated some of the bugs using single instruction tests described below.
+register has been set. 
+There is also a timeout to make sure that the simulation does not run forever. 
+You should only be running this test
+suite after you have eliminated some of the bugs using single instruction tests, as described below.
 
 ### 5. Running assembly tests
 We have provided a suite of assembly tests to help you debug all of the instructions you need to estimate.
