@@ -35,7 +35,7 @@ the addressed csr. Note that you do not need to write to rd (writing to x0 does 
 </p>
 
 #### 1.2 Misaligned Addresses
-According to the RISC-V ISA spec, reads and writes to memory addresses not aligned to a 32-bit word boundary (or 16-bit for half-word) should cause an exception. In this project, for the purpose of simplicity, ignore the misaligned bits (i.e. set them to zero). For example, for a given memory address of `32'b1011`, LW should return bytes at `0x1000` to `0x1100`, and LH should return bytes at `0x1010` to `0x1011`.
+According to the RISC-V ISA spec, reads and writes to memory addresses not aligned to a 32-bit word boundary (or 16-bit for half-word) should cause an exception. In this project, for the purpose of simplicity, ignore the misaligned bits (i.e. set them to zero). For example, for a given memory address of `32'b1011`, LW should return bytes at `32'b1000` to `32'b1011`, and LH should return bytes at `32'b1010` to `32'b1011`.
 
 ### 2. Details
 Your job is to implement the core of the 3-stage RISC-V CPU.
