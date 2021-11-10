@@ -43,7 +43,7 @@ your CPU should start at PC address `0x2000` (defined as `PC_RESET` in `src/cons
 and begin executing instructions.
 
 #### 2.2 Misaligned Addresses
-According to the RISC-V ISA spec, reads and writes to memory addresses not aligned to a 32-bit word boundary (or 16-bit for half-word) should cause an exception. In this project, for the purpose of simplicity, ignore the misaligned bits (i.e. set them to zero). For example, for a given memory address of `32'b1011`, LW should return bytes at `32'b1000` to `32'b1011`, and LH should return bytes at `32'b1010` to `32'b1011`.
+According to the RISC-V ISA spec, reads and writes to memory addresses not aligned to a 32-bit word boundary (or 16-bit for halfword) should cause an exception. In this project, for the purpose of simplicity, ignore the misaligned bits (i.e. set them to zero). For example, for a given memory address of `32'b1011`, LW should return bytes at `32'b1000` to `32'b1011`, and LH should return bytes at `32'b1010` to `32'b1011`.
 
 
 ### 3. File Structure
