@@ -7,6 +7,7 @@
 - [Checkpoint 2](checkpoint2.md) : Fully functioning core
     - Nov 10 (Wednesday), Nov 12 (Friday), Nov 15 (Monday), 2021
 - [Checkpoint 3](checkpoint3.md) : Cache
+    - Nov 17 (Wednesday), Nov 19 (Friday), Nov 22 (Monday), 2021
 - [Checkpoint 4](checkpoint4.md) : Synthesis, PAR & Power
 
 # Resources:
