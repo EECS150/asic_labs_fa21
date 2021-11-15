@@ -16,7 +16,7 @@ College of Engineering, University of California, Berkeley
 
 ## Final Project Deliverables
 
-By now you should have designed a fully-functional processor from scratch that could be tapedout in silicon. Your design should pass all assembly tests at your reported maximum frequency. Your
+By now you should have designed a fully-functional processor from scratch! Your design should pass all assembly tests at your reported maximum frequency. Your
 design should also pass all of the benchmark tests in at your reported maximum frequency, and you
 should report the cycle count for each of those tests. By the due date (Friday, December 11, 2020), each
 team needs to push their final commits to their team’s git repository. Only the final commit before the
