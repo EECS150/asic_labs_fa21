@@ -27,12 +27,12 @@ graded you must submit the following items:
 * `build/par-rundir/timingReports/*`
 * `build/par-rundir/innovus.log*`
 
-These files will be used to check processor functionality and will show us your critical path, maximum operating frequency and area. During the interview session (Tuesday, December 8, 2020), the
+These files will be used to check processor functionality and will show us your critical path, maximum operating frequency and area. During the interview session (Tuesday, December 7, 2021), the
 professors and the GSI will be interviewing each team to gauge understanding of various concepts
 learned in the project, understand more about each team’s design process, and provide feedback. Your
-final report does not need to be long, but needs to answer the following questions:
+final report needs to answer the following questions:
 
-1. Show the final pipeline diagram
+1. Show the final pipeline diagram, and explain the functionality of different submodules in your design, how control signals are generated, memory structure, etc.
 
 2. What is the post-synthesis critical path length? What sections of the processor does the critical
 path pass through? Why is this the critical path?
@@ -50,7 +50,9 @@ critical path, why?
 7. What is the number of cycles that your design takes to run the benchmarks? What changes/optimizations
 have you done to try and optimize for these tests?
 
-8. Is there anything you would like to tell the staff before we grade your project?
+8. Explain any other optimizations you made for your design.
+
+9. Is there anything you would like to tell the staff before we grade your project?
 
 
 If you worked with a partner you do not need separate reports. If you are having issues with your
