@@ -17,12 +17,10 @@ College of Engineering, University of California, Berkeley
 ## 1 Synthesis, PAR, & Power
 
 ### 1.1 Performing Synthesis and PAR
-Start this checkpoint by backing up your design, and pulling the update from `origin`.
+Make sure your design is backed up at this point.
 
 The setup for Synthesis, and PAR is the similar to what we have used in the labs during the class,
-with some formatting differences. The synthesis-only constraints have been moved out of `design.yml`
-into `syn.yml`. Similarly, PAR constraints are now in `par.yml`. This is to avoid having the Makefile
-re-synthesize if you are just modifying PAR-only constraints. In `par.yml`, there is now extra guidance 
+with some formatting differences.  In `par.yml`, there is extra guidance 
 for how to do placement constraints. Based on how you implemented the caches from the previous
 checkpoint, you will need to modify these constraints to match the master SRAM cell used as well as
 the path. Now you should be ready to proceed to Synthesis and PAR. As in the previous labs, execute
