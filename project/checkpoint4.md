@@ -92,10 +92,9 @@ cases, timing can only be improved by tweaking settings in `syn.yml` and `par.ym
 Be sure to backup (meaning check in or branch) your working design before attempting to move
 logic, because functionality is worth much more of your grade than maximum frequency.
 
-You are allowed to add additional pipeline stages, however this is highly discouraged because you
-can easily introduce more hazards. In a real processor design, extra stages will cause more NOPs in
-your pipeline, so even though frequency can be increased, total execution time could increase. Your
-final performance metric is not only based on the clock speed at which your design will run, so keep
+You are allowed to add additional pipeline stages, but remember that you will need to deal with the additional hazards that accompany them.
+Be careful that adding additional stages does not increase the overall execution.
+Your final performance metric is not only based on the clock speed at which your design will run, so keep
 that in mind before heavily modifying your design.
 
 Note for bonus grading: due to the SRAM timing issue described above, the maximum frequency
