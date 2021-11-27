@@ -9,6 +9,7 @@
 - [Checkpoint 3](checkpoint3.md) : Cache
     - Nov 17 (Wednesday), Nov 19 (Friday), Nov 22 (Monday), 2021
 - [Checkpoint 4](checkpoint4.md) : Synthesis, PAR & Power
-
+    - Included in final checkoff
+- **Final Checkoff: Dec 7, 2021**
 # Resources:
 [RISC-V Instruction Set Manual](https://riscv.org/technical/specifications/) (Volume 1, Unprivileged Spec)
