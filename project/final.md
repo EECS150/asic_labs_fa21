@@ -18,7 +18,7 @@ College of Engineering, University of California, Berkeley
 
 By now you should have designed a fully-functional processor from scratch! Your design should pass all assembly tests at your reported maximum frequency. Your
 design should also pass all of the benchmark tests in at your reported maximum frequency, and you
-should report the cycle count for each of those tests. By the due date (Friday, December 11, 2020), each
+should report the cycle count for each of those tests. By the due date (Sunday, December 12, 2021), each
 team needs to push their final commits to their team’s git repository. Only the final commit before the
 due date will be graded, so be very, very careful that you have submitted everything required. To be
 graded you must submit the following items:
