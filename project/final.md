@@ -51,7 +51,7 @@ critical path, why?
 have you done to try and optimize for these tests?
 
 8. What is the post-place-and-route runtime (in seconds) of each benchmark? 
-   *Use the number of cycles from RTL simulation, and minimum clock period to meet timing for place-and-route (design doesn't have to past post-PAR simulations with this clock period).*
+   *Use the number of cycles from RTL simulation, and minimum clock period to meet timing for place-and-route (design doesn't have to pass post-PAR simulations with this clock period).*
 
 9. Explain any other optimizations you made for your design.
 
