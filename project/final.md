@@ -37,7 +37,7 @@ final report needs to answer the following questions:
 2. What is the post-synthesis critical path length? What sections of the processor does the critical
 path pass through? Why is this the critical path?
 
-3. Show a screenshot of the final floorplan
+3. Show a screenshot of the final floorplan. Also include a screenshot of the clock tree debugger results.
 
 4. What is the post-place-and-route critical path length? What sections of the processor does the
 critical path pass through? Why is this the critical path? If it is different from the post-synthesis
