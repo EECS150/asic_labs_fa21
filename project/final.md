@@ -40,7 +40,7 @@ path pass through? Why is this the critical path?
 3. Show a screenshot of the final floorplan
 
 4. What is the post-place-and-route critical path length? What sections of the processor does the
-critical path pass through? Why is this the critical path? If it is different than the post-synthesis
+critical path pass through? Why is this the critical path? If it is different from the post-synthesis
 critical path, why?
 
 5. What is the area utilization of the final design?
@@ -50,9 +50,12 @@ critical path, why?
 7. What is the number of cycles that your design takes to run the benchmarks? What changes/optimizations
 have you done to try and optimize for these tests?
 
-8. Explain any other optimizations you made for your design.
+8. What is the post-place-and-route runtime (in seconds) of each benchmark? 
+   *Use the number of cycles from RTL simulation, and minimum clock period to meet timing for place-and-route (design doesn't have to past post-PAR simulations with this clock period).*
 
-9. Is there anything you would like to tell the staff before we grade your project?
+9. Explain any other optimizations you made for your design.
+
+10. Is there anything you would like to tell the staff before we grade your project?
 
 
 If you worked with a partner you do not need separate reports. If you are having issues with your
