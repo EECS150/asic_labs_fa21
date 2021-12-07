@@ -37,13 +37,13 @@ final report needs to answer the following questions:
 2. What is the post-synthesis critical path length? What sections of the processor does the critical
 path pass through? Why is this the critical path?
 
-3. Show a screenshot of the final floorplan. Also include a screenshot of the clock tree debugger results.
+3. Show a screenshot of the final floorplan. Also include a screenshot of the clock tree debugger results.  Discuss your floorplanning strategy and the quality of your clock tree results.
 
 4. What is the post-place-and-route critical path length? What sections of the processor does the
 critical path pass through? Why is this the critical path? If it is different from the post-synthesis
 critical path, why?
 
-5. What is the area utilization of the final design?
+5. What is the area utilization of the final design? Also include the total core area you used in PnR and the density.
 
 6. What is the Innovus-estimated power consumption of the final design?
 
