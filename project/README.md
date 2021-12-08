@@ -12,6 +12,6 @@
     - Included in final checkoff
 - [Final Deliverables](final.md): 
     - Checkoff: Dec 7, 2021
-    - Report: Dec 12, 2021
+    - Report: Dec 9, 2021
 # Resources:
 [RISC-V Instruction Set Manual](https://riscv.org/technical/specifications/) (Volume 1, Unprivileged Spec)
